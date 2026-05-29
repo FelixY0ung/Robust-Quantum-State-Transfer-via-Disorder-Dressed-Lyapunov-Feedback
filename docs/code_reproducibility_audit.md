@@ -1,0 +1,90 @@
+# Code Reproducibility and Physical-Consistency Audit
+
+Date: 2026-05-28
+
+## Scope
+
+Audited the simulation code used by `manuscript/cac2026_paper.tex`, especially:
+
+- `code/horizon_lyapunov.py`
+- `code/multilevel_horizon.py`
+- `code/robustness_scan.py`
+- `code/polished_openloop.py`
+- `code/plot_experiments.py`
+- `code/ensemble_lyapunov.py`
+- `code/tracking_simulation.py`
+- `code/stationarity_analysis.py`
+
+## Checks Performed
+
+1. Syntax/reproducibility checks
+   - Ran `python3 -m py_compile` on all core scripts.
+   - Re-ran `code/horizon_lyapunov.py` and `code/multilevel_horizon.py` after changing their default held-out seeds to `range(10, 60)`.
+   - Confirmed output sizes:
+     - `results/horizon_lyapunov_results.csv`: 400 rows, strengths `0, 0.02, 0.05, 0.08`, seeds `10..59`.
+     - `results/multilevel_horizon_results.csv`: 200 rows, strengths `0, 0.03, 0.05, 0.08`, seeds `10..59`.
+     - `results/robustness_scan_results.csv`: 800 rows, 2 tasks, 2 pulse types,
+       strengths `0, 0.02, 0.05, 0.08`, seeds `10..59`.
+     - `results/polished_openloop_results.csv`: 200 rows, 2 tasks, strengths
+       `0.05, 0.08`, seeds `10..59`.
+     - `results/ensemble_results.csv`: 100 rows, Z/H tasks, seeds `10..59`.
+     - `results/ensemble_lyapunov_results.csv`: 100 rows, Z/H tasks, seeds
+       `10..59`.
+
+2. Train/test separation
+   - Two-level horizon training uses seeds `0..7`, test uses `10..59`.
+   - Three-level horizon training uses seeds `0..3`, test uses `10..59`.
+   - Open-loop robustness scan uses training seeds `0..3` and test seeds `10..59`.
+   - Polished terminal open-loop uses training seeds `0..7` at `delta = 0.08`
+     and test seeds `10..59`.
+   - Standalone open-loop and one-step ensemble Lyapunov diagnostics now use
+     test seeds `10..59`.
+   - No overlap was found in the key reported training/test split.
+
+3. Physical state checks
+   - Checked representative two-level and three-level evolutions for trace preservation and Hermiticity.
+   - Two-level representative minimum density-matrix eigenvalue at `delta = 0.08`: `2.14e-4`.
+   - Three-level representative minimum density-matrix eigenvalue at `delta = 0.08`: `-2.64e-16`, consistent with floating-point roundoff.
+   - Final fidelities are in the physical range `[0, 1]` within numerical tolerance.
+
+4. Manuscript consistency
+   - `results/horizon_lyapunov_summary.md`, `results/multilevel_horizon_summary.md`, `results/extended_heldout_summary.md`, and `manuscript/cac2026_paper.tex` now use the same 50-seed horizon statistics.
+   - `results/robustness_scan_summary.md` and the open-loop tables in `manuscript/cac2026_paper.tex` now use the regenerated 50-seed open-loop statistics.
+   - `results/polished_openloop_summary.md` is cited as a terminal-optimization
+     ceiling and not as a Lyapunov feedback result.
+   - `results/figures/*.pdf` and `results/figures/*.png` are generated from
+     current CSV outputs by `code/plot_experiments.py`.
+   - Old 10-seed horizon and open-loop statistics were replaced in the core summary files.
+
+## Findings
+
+### No hard physical impossibility found
+
+The main two-level and three-level horizon simulations use Hermitian Hamiltonians, unitary or RK4 approximations to closed-system dynamics, trace-one density matrices, fixed random seeds, and disjoint train/test disorder samples. The reported state-transfer fidelities are therefore numerically reproducible within the stated simplified model.
+
+### Important modeling limitations
+
+These limitations are scientifically acceptable only because the manuscript now states conservative claims:
+
+- The static disorder model is a normalized random Hamiltonian perturbation, not a calibrated device-specific noise model.
+- The disorder-dressed master-equation form in the theory section is a design/diagnostic model, while the key horizon simulations evaluate static Hamiltonian disorder realizations in the interaction frame.
+- The beam-horizon controller is an offline receding-horizon-style candidate search over known training disorder samples; it is not a hardware-real-time feedback controller with measurement backaction.
+- The work reports state-transfer fidelity, not process fidelity for complete quantum gates.
+- The open-loop baseline is compact and reproducible, but not a full GRAPE/Krotov reimplementation.
+
+## Changes Made During Audit
+
+- Updated `code/horizon_lyapunov.py` default `test_seeds` from `range(10, 20)` to `range(10, 60)`.
+- Updated `code/multilevel_horizon.py` default `test_seeds` from `range(10, 20)` to `range(10, 60)`.
+- Updated `code/robustness_scan.py` to evaluate test seeds `10..59`.
+- Re-ran the robustness scan so its CSV and summary outputs match the 50-seed statistics used in the manuscript.
+- Updated `code/ensemble_openloop.py` and `code/ensemble_lyapunov.py` to
+  evaluate test seeds `10..59`, then regenerated `results/ensemble_summary.md`
+  and `results/ensemble_lyapunov_summary.md`.
+- Added `code/polished_openloop.py`, regenerated near-unit-fidelity terminal
+  baseline results, and added `code/plot_experiments.py` for reproducible
+  experiment figures.
+
+## Judgment
+
+The code is rigorous and reproducible for a compact CAC-style numerical control paper, provided the manuscript keeps its current conservative positioning. It should not be presented as a hardware-validated robust quantum gate controller or as a full optimal-control benchmark against GRAPE/Krotov. Under the current state-transfer and diagnostic framing, no code-level issue was found that invalidates the main conclusions.
