@@ -34,12 +34,13 @@ python3 code/horizon_lyapunov.py
 python3 code/horizon_ablation.py
 python3 code/open_system_noise.py
 python3 code/gate_fidelity_probe.py
+python3 code/gate_process_baseline.py
 python3 code/multilevel_horizon.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
 
-The longer scripts are the open-loop optimization and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, horizon-ablation, open-system stress-test, and gate-fidelity diagnostic results.
+The longer scripts are the open-loop optimization, terminal process-fidelity baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, horizon-ablation, open-system stress-test, gate-fidelity diagnostic, and terminal process-baseline results.
 
 ## Main Outputs
 
@@ -47,6 +48,7 @@ The longer scripts are the open-loop optimization and horizon-search experiments
 - `results/horizon_ablation_summary.md`
 - `results/open_system_noise_summary.md`
 - `results/gate_fidelity_probe_summary.md`
+- `results/gate_process_baseline_summary.md`
 - `results/multilevel_horizon_summary.md`
 - `results/robustness_scan_summary.md`
 - `results/polished_openloop_summary.md`
