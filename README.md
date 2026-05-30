@@ -31,20 +31,21 @@ python3 code/robustness_scan.py
 python3 code/ensemble_openloop.py
 python3 code/ensemble_lyapunov.py
 python3 code/horizon_lyapunov.py
+python3 code/horizon_ablation.py
 python3 code/multilevel_horizon.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
 
-The longer scripts are the open-loop optimization and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level and three-level robustness results.
+The longer scripts are the open-loop optimization and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, and horizon-ablation robustness results.
 
 ## Main Outputs
 
 - `results/horizon_lyapunov_summary.md`
+- `results/horizon_ablation_summary.md`
 - `results/multilevel_horizon_summary.md`
 - `results/robustness_scan_summary.md`
 - `results/polished_openloop_summary.md`
 - `results/figures/`
 
 See `docs/code_reproducibility_audit.md` for the train/test split, physical-consistency checks, and modeling scope.
-
