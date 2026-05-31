@@ -1,0 +1,26 @@
+# Seeded Open-Leakage Continuation Sweep
+
+No-reference continuation horizons initialized from a stronger target/leakage seed and trained through the five-level Lindblad leakage model.
+
+| controller | label | noise_case | n | final_fidelity_mean | final_fidelity_min | final_fidelity_ci95 | final_leakage_mean | max_leakage_mean | final_purity_mean | pulse_energy_mean | segments | training_seconds | stage_description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| seed_continuation_path_seed | path seed | combined | 50 | 0.82642 | 0.521083 | 0.0251353 | 0.0423641 | 0.0466763 | 0.964078 | 0.00138437 | 120 | 66.67 |  |
+| seed_continuation_path_seed | path seed | deph_0.001 | 50 | 0.832238 | 0.521722 | 0.025606 | 0.0426705 | 0.0470868 | 0.981711 | 0.00138437 | 120 | 66.67 |  |
+| seed_continuation_path_seed | path seed | relax_0.0005 | 50 | 0.831909 | 0.520429 | 0.0256722 | 0.0418744 | 0.0464294 | 0.981852 | 0.00138437 | 120 | 66.67 |  |
+| seed_continuation_path_seed | path seed | static_only | 50 | 0.837761 | 0.521005 | 0.0261519 | 0.0421673 | 0.0468438 | 1 | 0.00138437 | 120 | 66.67 |  |
+| seed_target10_leak15 | target-1.0 leakage-1.5 seed | combined | 50 | 0.897659 | 0.726939 | 0.0172714 | 0.00336531 | 0.0401413 | 0.951328 | 0.00190076 | 120 | 79.05 | a=1,lw=1.5,r=0.04,w=0.25 |
+| seed_target10_leak15 | target-1.0 leakage-1.5 seed | deph_0.001 | 50 | 0.914738 | 0.742804 | 0.0173731 | 0.00345315 | 0.0403497 | 0.983707 | 0.00190076 | 120 | 79.05 | a=1,lw=1.5,r=0.04,w=0.25 |
+| seed_target10_leak15 | target-1.0 leakage-1.5 seed | relax_0.0005 | 50 | 0.903224 | 0.731228 | 0.0176079 | 0.00276208 | 0.0398871 | 0.96695 | 0.00190076 | 120 | 79.05 | a=1,lw=1.5,r=0.04,w=0.25 |
+| seed_target10_leak15 | target-1.0 leakage-1.5 seed | static_only | 50 | 0.920415 | 0.747197 | 0.0177113 | 0.00282374 | 0.040093 | 1 | 0.00190076 | 120 | 79.05 | a=1,lw=1.5,r=0.04,w=0.25 |
+| seed_target10_leak15_target08_leak08 | target-1.0 seed, target 0.8 then leak 0.8 | combined | 50 | 0.92785 | 0.8059 | 0.0107067 | 0.00318655 | 0.0706276 | 0.947707 | 0.00318258 | 120 | 105 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=0.8,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak08 | target-1.0 seed, target 0.8 then leak 0.8 | deph_0.001 | 50 | 0.94746 | 0.824613 | 0.0109259 | 0.0032608 | 0.0708435 | 0.985974 | 0.00318258 | 120 | 105 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=0.8,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak08 | target-1.0 seed, target 0.8 then leak 0.8 | relax_0.0005 | 50 | 0.933016 | 0.809753 | 0.0108692 | 0.00224759 | 0.070328 | 0.960974 | 0.00318258 | 120 | 105 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=0.8,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak08 | target-1.0 seed, target 0.8 then leak 0.8 | static_only | 50 | 0.952766 | 0.828592 | 0.011084 | 0.00227684 | 0.0705419 | 0.999997 | 0.00318258 | 120 | 105 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=0.8,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak10 | target-1.0 seed, target 0.8 then leak 1.0 | combined | 50 | 0.923733 | 0.789903 | 0.0113411 | 0.00408372 | 0.0663132 | 0.948078 | 0.00310535 | 120 | 104.3 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak10 | target-1.0 seed, target 0.8 then leak 1.0 | deph_0.001 | 50 | 0.942995 | 0.803701 | 0.0115664 | 0.00418252 | 0.0665125 | 0.985388 | 0.00310535 | 120 | 104.3 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak10 | target-1.0 seed, target 0.8 then leak 1.0 | relax_0.0005 | 50 | 0.92905 | 0.79419 | 0.0115114 | 0.00322712 | 0.0660929 | 0.961952 | 0.00310535 | 120 | 104.3 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak10 | target-1.0 seed, target 0.8 then leak 1.0 | static_only | 50 | 0.948446 | 0.808053 | 0.0117327 | 0.00328471 | 0.0662909 | 0.999997 | 0.00310535 | 120 | 104.3 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak12 | target-1.0 seed, target 0.8 then leak 1.2 | combined | 50 | 0.919112 | 0.759288 | 0.0122716 | 0.00450217 | 0.0639912 | 0.948346 | 0.00301331 | 120 | 103.9 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1.2,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak12 | target-1.0 seed, target 0.8 then leak 1.2 | deph_0.001 | 50 | 0.938116 | 0.772418 | 0.0125079 | 0.00460946 | 0.0641834 | 0.984772 | 0.00301331 | 120 | 103.9 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1.2,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak12 | target-1.0 seed, target 0.8 then leak 1.2 | relax_0.0005 | 50 | 0.924534 | 0.763023 | 0.012452 | 0.00370925 | 0.0638946 | 0.962851 | 0.00301331 | 120 | 103.9 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1.2,r=0.015,w=0.25 |
+| seed_target10_leak15_target08_leak12 | target-1.0 seed, target 0.8 then leak 1.2 | static_only | 50 | 0.943667 | 0.776204 | 0.0126853 | 0.00377821 | 0.0640859 | 0.999998 | 0.00301331 | 120 | 103.9 | a=1,lw=1.5,r=0.04,w=0.25; a=1,lw=0.8,r=0.02,w=0.25; a=1,lw=1.2,r=0.015,w=0.25 |

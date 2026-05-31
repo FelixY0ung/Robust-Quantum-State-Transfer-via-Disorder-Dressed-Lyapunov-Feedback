@@ -86,6 +86,11 @@
       "sha256": "f1abc2fd7be6f87d22871b50666f67f0dc137166530884ffbb3663e53d3ca2e1"
     },
     {
+      "bytes": 10381,
+      "path": "code/open_leakage_seed_continuation_sweep.py",
+      "sha256": "b5b399b2c4abd063f5a2afed83a2dd0b2b6c7dd63602855f3eaa6c80e78ae13c"
+    },
+    {
       "bytes": 23776,
       "path": "code/open_system_adjoint_horizon.py",
       "sha256": "862a612c255d93ec41676ea09c8f1019f088b8119086a90e201729c5c5c3adcc"
@@ -604,6 +609,16 @@
       "sha256": "1da9f8092a3b244ecd8f7ff36a05eaf2014fba205fabb4200d0379a7a60769cd"
     },
     {
+      "bytes": 20599,
+      "path": "results/figures/open_leakage_seed_continuation_sweep.pdf",
+      "sha256": "702011c90cf97f83be5f5bcadf8be2420caa7029055e2c77295809dee2d275fe"
+    },
+    {
+      "bytes": 79849,
+      "path": "results/figures/open_leakage_seed_continuation_sweep.png",
+      "sha256": "cbd722ed85d90dab09dc8d153b72fef888d32632dfe161bb4815d99fa6d786f3"
+    },
+    {
       "bytes": 14905,
       "path": "results/figures/open_system_adjoint_horizon.pdf",
       "sha256": "6fba7c36caae7641be2abd90c187aeade50a35dbc38ad2aa759984317d89121c"
@@ -1023,6 +1038,39 @@
       "bytes": 4592,
       "path": "results/open_leakage_pareto_refinement_summary.md",
       "sha256": "b28b3c2eceebe29f0d8af7f6ddb989a086a86cf40fa1962fb101e123bee055de"
+    },
+    {
+      "bytes": 343921,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "continuation_label",
+        "stage_description"
+      ],
+      "path": "results/open_leakage_seed_continuation_sweep_results.csv",
+      "row_count": 1000,
+      "sha256": "4777ae29959154dfa6f2c8bd5b21fff729f2deef9ea9bb289f7c81783843e2da"
+    },
+    {
+      "bytes": 5259,
+      "path": "results/open_leakage_seed_continuation_sweep_summary.md",
+      "sha256": "c431d4292770aaa59a184c7688a83bb87ca83529e9edb6dc6034f78069720d56"
     },
     {
       "bytes": 183560,
