@@ -6,6 +6,8 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | summary | Z | beam horizon transfer | final_fidelity | 50 | 0.997581558 | 0.00037 |  |  |  |
 | summary | H | beam horizon transfer | final_fidelity | 50 | 0.998155764 | 0.000405 |  |  |  |
+| summary | Z | dCRAB transfer ceiling | final_fidelity | 50 | 0.999635386 | 0.000108 |  |  |  |
+| summary | H | dCRAB transfer ceiling | final_fidelity | 50 | 0.999577856 | 0.000116 |  |  |  |
 | summary | Z | polished transfer ceiling | final_fidelity | 50 | 0.99996295 | 1.44e-05 |  |  |  |
 | summary | H | polished transfer ceiling | final_fidelity | 50 | 0.99998439 | 5.92e-06 |  |  |  |
 | summary | Z | process horizon gate | average_gate_fidelity | 50 | 0.926604095 | 0.0169 |  |  |  |
@@ -20,6 +22,10 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | H | open noise combined | final_fidelity | 50 | 0.956625219 | 0.00034 |  |  |  |
 | paired | Z | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0402918502 | 0.00928 | 1.2 |
 | paired | H | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0421727374 | 0.00977 | 1.2 |
+| paired | Z | dCRAB ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00205382791 | 0.000431 | 1.32 |
+| paired | H | dCRAB ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00142209189 | 0.000466 | 0.846 |
+| paired | Z | polished ceiling minus dCRAB ceiling | final_fidelity | 50 |  |  | 0.000327564561 | 0.000102 | 0.891 |
+| paired | H | polished ceiling minus dCRAB ceiling | final_fidelity | 50 |  |  | 0.000406533891 | 0.000116 | 0.968 |
 | paired | Z | polished ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00238139247 | 0.000375 | 1.76 |
 | paired | H | polished ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00182862578 | 0.000407 | 1.24 |
 | paired | Z | GRAPE process gate minus process horizon | average_gate_fidelity | 50 |  |  | 0.0681282649 | 0.0163 | 1.16 |
