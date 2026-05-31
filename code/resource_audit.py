@@ -104,6 +104,7 @@ def rows() -> list[dict[str, str]]:
     process = load("process_horizon_results.csv")
     process_adj = load("process_adjoint_horizon_results.csv")
     open_noise = load("open_system_noise_results.csv")
+    standalone_open = load("open_system_standalone_adjoint_results.csv")
     open_adj = load("open_system_adjoint_horizon_results.csv")
     leakage = load("transmon_leakage_results.csv")
     standalone_leakage = load("transmon_standalone_adjoint_results.csv")
@@ -237,6 +238,23 @@ def rows() -> list[dict[str, str]]:
         ),
         "100 seg; closed-system beam pulse; evaluated under Lindblad noise",
         "stress test without dissipative training",
+    )
+    add(
+        "open-system combined noise",
+        "standalone Lindblad adjoint",
+        "final state fidelity at delta=0.08",
+        pair_summary(
+            standalone_open,
+            lambda df, task: df[
+                (df["task"] == task)
+                & (df["controller"] == "standalone_open_adjoint")
+                & (df["eval_noise_case"] == "combined")
+            ],
+            "final_fidelity",
+            seconds_columns=("reference_seconds", "horizon_seconds"),
+        ),
+        "60 seg; 3 train seeds; q=4; target-only adjoint horizon",
+        "GRAPE-free dissipative adjoint diagnostic",
     )
     add(
         "open-system combined noise",

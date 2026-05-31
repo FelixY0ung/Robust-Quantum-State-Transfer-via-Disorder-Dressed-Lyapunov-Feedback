@@ -41,6 +41,7 @@ python3 code/open_system_noise.py
 python3 code/open_system_horizon_training.py
 python3 code/open_system_grape_baseline.py
 python3 code/open_system_adjoint_horizon.py
+python3 code/open_system_standalone_adjoint_horizon.py
 python3 code/gate_fidelity_probe.py
 python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
@@ -96,6 +97,8 @@ The open-system GRAPE baseline is a terminal open-loop comparator trained throug
 
 The adjoint open-system horizon diagnostic carries most of the open-system GRAPE performance into a reference-assisted receding-horizon form with exact Frechet derivatives. Under the combined-noise held-out test at `delta = 0.08`, it reaches mean fidelity `0.974684` for Z and `0.977779` for H. It remains reference-assisted and should not be read as an independent open-system Lyapunov proof.
 
+The standalone open-system adjoint horizon diagnostic uses the compact finite-candidate Lindblad horizon pulse only as a trust-region initializer, sets the reference-tracking weight to zero, and optimizes the direct target score through the Lindblad model. Under combined noise at `delta = 0.08`, it reaches mean fidelity `0.948934` for Z and `0.943610` for H, only slightly above the finite-candidate seed. This records a GRAPE-free dissipative adjoint diagnostic and a remaining optimizer gap.
+
 The resource audit aggregates representative held-out performance, pulse energy, segment counts, training sample counts, horizon parameters, and logged design seconds where available. It is included to make the journal comparisons transparent; it is not a universal runtime benchmark because the earliest finite-candidate runs did not write wall-clock timing fields.
 
 ## Main Outputs
@@ -111,6 +114,7 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/open_system_training_summary.md`
 - `results/open_system_grape_summary.md`
 - `results/open_system_adjoint_horizon_summary.md`
+- `results/open_system_standalone_adjoint_summary.md`
 - `results/gate_fidelity_probe_summary.md`
 - `results/gate_process_baseline_summary.md`
 - `results/ensemble_grape_baseline_summary.md`
