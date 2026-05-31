@@ -20,6 +20,7 @@ Audited the simulation code used by the journal manuscript, especially:
 - `code/open_system_grape_baseline.py`
 - `code/open_system_adjoint_horizon.py`
 - `code/slew_constrained_horizon.py`
+- `code/bandwidth_filter_audit.py`
 - `code/transmon_leakage_horizon.py`
 - `code/transmon_open_system_leakage.py`
 - `code/transmon_open_leakage_adjoint_horizon.py`
@@ -65,6 +66,8 @@ Audited the simulation code used by the journal manuscript, especially:
        2 controllers, 4 evaluation noise cases, seeds `10..59`.
      - `results/slew_constrained_horizon_results.csv`: 300 rows, 2 tasks,
        3 slew weights, strength `0.08`, seeds `10..59`.
+     - `results/bandwidth_filter_audit_results.csv`: 800 rows, 2 tasks,
+       2 base slew weights, 4 filters, strength `0.08`, seeds `10..59`.
      - `results/transmon_leakage_results.csv`: 1000 rows, 5 controllers,
        strengths `0, 0.01, 0.02, 0.03`, seeds `10..59`.
      - `results/transmon_open_system_leakage_results.csv`: 600 rows, 3
@@ -332,6 +335,9 @@ These limitations are scientifically acceptable only because the manuscript now 
   smoothness audit with quadratic first-difference penalties, and recorded the
   result as a physical-realism diagnostic rather than a hardware bandwidth
   model.
+- Added `code/bandwidth_filter_audit.py`, generated post-design low-pass filter
+  robustness rows, and recorded the result as bandwidth-aware evidence rather
+  than a calibrated hardware transfer-function study.
 
 ## Judgment
 

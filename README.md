@@ -34,6 +34,7 @@ python3 code/crab_baseline.py
 python3 code/dcrab_baseline.py
 python3 code/horizon_lyapunov.py
 python3 code/slew_constrained_horizon.py
+python3 code/bandwidth_filter_audit.py
 python3 code/shifted_fallback_horizon.py
 python3 code/shifted_fallback_margin_audit.py
 python3 code/state_adjoint_horizon.py
@@ -74,7 +75,7 @@ python3 code/process_adjoint_horizon.py --gradient-check
 python3 code/transmon_open_leakage_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, standalone open-leakage adjoint diagnostic, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, standalone open-leakage adjoint, CRAB/dCRAB, slew-constrained, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, bandwidth filter audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, standalone open-leakage adjoint diagnostic, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, standalone open-leakage adjoint, CRAB/dCRAB, slew-constrained, bandwidth-filter, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
@@ -108,12 +109,15 @@ The standalone open-system adjoint horizon diagnostic uses the compact finite-ca
 
 The slew-constrained horizon audit adds a quadratic step-to-step control penalty to the compact two-level beam search. With `nu = 0.005` at `delta = 0.08`, it reaches held-out mean fidelity `0.995054` for Z and `0.995260` for H while reducing pulse energy to `0.8083/0.4542` and high-frequency fraction to `0.0409/0.0632`. This is a smoothness diagnostic rather than a calibrated hardware bandwidth model.
 
+The bandwidth filter audit post-filters the compact beam pulses with deterministic low-pass FIR filters. The unpenalized pulse is filter-sensitive: `boxcar3` lowers Z/H mean fidelity to `0.960064/0.958034`. The `nu = 0.005` pulse is more tolerant: under the same `boxcar3` filter it retains `0.994356/0.995036` mean fidelity with energy `0.7052/0.3982`. Stronger filters are included to show the remaining boundary.
+
 The resource audit aggregates representative held-out performance, pulse energy, segment counts, training sample counts, horizon parameters, and logged design seconds where available. It is included to make the journal comparisons transparent; it is not a universal runtime benchmark because the earliest finite-candidate runs did not write wall-clock timing fields.
 
 ## Main Outputs
 
 - `results/horizon_lyapunov_summary.md`
 - `results/slew_constrained_horizon_summary.md`
+- `results/bandwidth_filter_audit_summary.md`
 - `results/crab_baseline_summary.md`
 - `results/dcrab_baseline_summary.md`
 - `results/shifted_fallback_horizon_summary.md`

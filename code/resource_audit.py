@@ -124,6 +124,7 @@ def open_leakage_summary(
 def rows() -> list[dict[str, str]]:
     horizon = load("horizon_lyapunov_results.csv")
     slew = load("slew_constrained_horizon_results.csv")
+    bandwidth = load("bandwidth_filter_audit_results.csv")
     dcrab = load("dcrab_baseline_results.csv")
     grape = load("ensemble_grape_baseline_results.csv")
     process = load("process_horizon_results.csv")
@@ -190,6 +191,23 @@ def rows() -> list[dict[str, str]]:
         ),
         "60 seg; 16 train samples; q=4; B=6/8; slew weight=0.005",
         "physical-smoothness diagnostic",
+    )
+    add(
+        "two-level transfer",
+        "filtered slew beam",
+        "final state fidelity at delta=0.08",
+        pair_summary(
+            bandwidth,
+            lambda df, task: df[
+                (df["task"] == task)
+                & (df["base_slew_weight"].astype(float) == 0.005)
+                & (df["filter"] == "boxcar3")
+            ],
+            "final_fidelity",
+            seconds_columns=("design_seconds",),
+        ),
+        "60 seg; 16 train samples; q=4; B=6/8; slew weight=0.005; boxcar3 filter",
+        "low-pass post-filter diagnostic",
     )
     add(
         "two-level transfer",
