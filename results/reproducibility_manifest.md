@@ -26,9 +26,9 @@ Result artifacts hashed: 145
 | `results/krotov_baseline_results.csv` | 200 | `9b7d767adac4f193247a0f21c63d74576dfadf8afc4eb9e3db2f0e341ee86c5c` |
 | `results/multiaxis_results.csv` | 18 | `1ee44e4dbe10fdd4e7560d40d767dcd0496492d747ea32212bf903af17191ddd` |
 | `results/multilevel_horizon_results.csv` | 200 | `e8d4c5c0dd9a9d7d01cef211192a81a8b4b6ad8e43055d35255cb5bd6491691c` |
-| `results/open_leakage_continuation_sweep_results.csv` | 1800 | `5abc2c08c3ceab3a446b655fa4902be78b6b8956877fc989e702fae81f7c795f` |
+| `results/open_leakage_continuation_sweep_results.csv` | 2200 | `89efbaf8d8a62439b6e67e20f9eb5de20ce46240015e97e738591c846f4203b7` |
 | `results/open_leakage_integrated_sweep_results.csv` | 1800 | `496f6201ae9a119b17b4343a0ab571c51e7635a3fbe565c283e1f84391221e4c` |
-| `results/open_leakage_pareto_audit_results.csv` | 14 | `dba404557ebfb49a47f35cdd9ca0287c1f0cbf51b766d1d7ee55487d997a897c` |
+| `results/open_leakage_pareto_audit_results.csv` | 14 | `bcce65b05fd01db6651aa30c227bd84f2173dd0046114e54cd2dc273fe301e79` |
 | `results/open_leakage_pareto_refinement_results.csv` | 1000 | `b4a34e7dd21776ab6d61f8fec9dec545670fdbf873fbfa0d9c419949b3854ebb` |
 | `results/open_system_adjoint_horizon_results.csv` | 800 | `2604cd6d174db21eae366ae9af8b0bc741c07e73ffef88a87d273923eb6f915f` |
 | `results/open_system_grape_results.csv` | 400 | `7e2e7d0857a05c19127902881a32ad65f905dde4edfc545126a6c34c2a9e424d` |
@@ -40,7 +40,7 @@ Result artifacts hashed: 145
 | `results/process_horizon_results.csv` | 100 | `b990d30aad4958a26f8ed86306d07de26f822cb5dde13b38764386dd71d83821` |
 | `results/process_seeded_horizon_results.csv` | 200 | `955d2cc499542bc8df7711b87ee47b06821977eafec3b20d19a996cccde6a226` |
 | `results/process_standalone_adjoint_results.csv` | 200 | `24221a064d55a3a240b95a2b30355c20d6036bb161a69e433e040c1e4343b57e` |
-| `results/resource_audit_results.csv` | 27 | `f02196c80e19949b99e0135642cd8170af3ad2e2bec46aa23bd8b950a9cb74a2` |
+| `results/resource_audit_results.csv` | 27 | `febfd9d7607d20d46bd6046efa80dd5cbfd25955d49cb9f3a800febf5444c07c` |
 | `results/robustness_scan_results.csv` | 800 | `b87a332356df691d4f2a345ef776944ae95bf2d8c2e9de2180c6a275dd8db6c4` |
 | `results/shifted_fallback_horizon_results.csv` | 400 | `39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13` |
 | `results/shifted_fallback_margin_audit_results.csv` | 200 | `5246a47293881337a43f89cad9e0ecaf519b7f7d516d32271ef3a7cf21143c76` |

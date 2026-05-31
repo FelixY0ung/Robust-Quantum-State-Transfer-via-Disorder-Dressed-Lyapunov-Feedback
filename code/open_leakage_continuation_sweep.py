@@ -69,6 +69,24 @@ VARIANTS = (
         ),
     ),
     ContinuationVariant(
+        "continuation_target08_leak08_repolish12",
+        "low-leak seed, target 0.8, leak 0.8, repolish 1.2",
+        (
+            StageSpec(1.0, 0.8, 0.02, 6),
+            StageSpec(1.0, 0.8, 0.015, 6),
+            StageSpec(1.0, 1.2, 0.01, 6),
+        ),
+    ),
+    ContinuationVariant(
+        "continuation_target08_leak08_repolish15",
+        "low-leak seed, target 0.8, leak 0.8, repolish 1.5",
+        (
+            StageSpec(1.0, 0.8, 0.02, 6),
+            StageSpec(1.0, 0.8, 0.015, 6),
+            StageSpec(1.0, 1.5, 0.01, 6),
+        ),
+    ),
+    ContinuationVariant(
         "continuation_target08_leak10",
         "low-leak seed, target 0.8 then leak 1.0",
         (

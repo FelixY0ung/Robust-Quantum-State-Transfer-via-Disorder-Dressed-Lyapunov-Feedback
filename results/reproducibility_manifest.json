@@ -66,9 +66,9 @@
       "sha256": "bc5c9182d58bd1dfc06d68c48c54e6e31dfdd8ca0fb642d67740bc9cda7eb377"
     },
     {
-      "bytes": 14822,
+      "bytes": 15406,
       "path": "code/open_leakage_continuation_sweep.py",
-      "sha256": "31c8b9c596a60cc381ce56a5a8c9508da3b7a67afd3f4122d813fe6dffca68ea"
+      "sha256": "2681e541cd7e0ceb3843137703695d2d7799d9f9fb673ab2965642da33f60b11"
     },
     {
       "bytes": 14467,
@@ -564,14 +564,14 @@
       "sha256": "46b3c12e5d50031fdcbfc3c576e19bbfa5308a0e32262683355bce5b7d1f2f9c"
     },
     {
-      "bytes": 19984,
+      "bytes": 20139,
       "path": "results/figures/open_leakage_continuation_sweep.pdf",
-      "sha256": "c0f1d5eb06e220f9b84c1f70a933d47a01eae302d1f6692f5902765dfec7ae12"
+      "sha256": "6b2930c3d01265d0a2baae3764c11da09c180317c6de26195ff6d68c31c12eb9"
     },
     {
-      "bytes": 84417,
+      "bytes": 90665,
       "path": "results/figures/open_leakage_continuation_sweep.png",
-      "sha256": "1e5a5f5555e8b76861a444c7929506b555b3c67094bab9af91d805526655c905"
+      "sha256": "4bec70853c912740c899ba0e5b90269138c540282bbe7b8af7da862cb33aa165"
     },
     {
       "bytes": 19730,
@@ -586,7 +586,7 @@
     {
       "bytes": 20767,
       "path": "results/figures/open_leakage_pareto_audit.pdf",
-      "sha256": "8084e995dd77750e507881bd61cb84045e440b9977771c3aca616cb30ee1d68d"
+      "sha256": "26a174988e34d2b673d69bbca4b8a8197736dee1cfc92891a0bdccf8abb1c4d0"
     },
     {
       "bytes": 125383,
@@ -892,7 +892,7 @@
       "sha256": "06281a11785871552266b0d1e35ca0c13b2f12a2bbfda03864ebdf8fbf48b55f"
     },
     {
-      "bytes": 650686,
+      "bytes": 823554,
       "columns": [
         "system",
         "controller",
@@ -916,13 +916,13 @@
         "stage_description"
       ],
       "path": "results/open_leakage_continuation_sweep_results.csv",
-      "row_count": 1800,
-      "sha256": "5abc2c08c3ceab3a446b655fa4902be78b6b8956877fc989e702fae81f7c795f"
+      "row_count": 2200,
+      "sha256": "89efbaf8d8a62439b6e67e20f9eb5de20ce46240015e97e738591c846f4203b7"
     },
     {
-      "bytes": 9533,
+      "bytes": 12091,
       "path": "results/open_leakage_continuation_sweep_summary.md",
-      "sha256": "1af46636e7f257d3d40b274974587774040fc080571e8d35c514597f221884b0"
+      "sha256": "eb41b99d20413e255ebb978badea67263ad548757660eeeb8e13d393c0e02d03"
     },
     {
       "bytes": 555375,
@@ -980,7 +980,7 @@
       ],
       "path": "results/open_leakage_pareto_audit_results.csv",
       "row_count": 14,
-      "sha256": "dba404557ebfb49a47f35cdd9ca0287c1f0cbf51b766d1d7ee55487d997a897c"
+      "sha256": "bcce65b05fd01db6651aa30c227bd84f2173dd0046114e54cd2dc273fe301e79"
     },
     {
       "bytes": 1864,
@@ -1324,12 +1324,12 @@
       ],
       "path": "results/resource_audit_results.csv",
       "row_count": 27,
-      "sha256": "f02196c80e19949b99e0135642cd8170af3ad2e2bec46aa23bd8b950a9cb74a2"
+      "sha256": "febfd9d7607d20d46bd6046efa80dd5cbfd25955d49cb9f3a800febf5444c07c"
     },
     {
       "bytes": 7694,
       "path": "results/resource_audit_summary.md",
-      "sha256": "516e3b0e1f495688e85ed3d2c2e35fa7424516ea89e808eb79251a4d0872ac26"
+      "sha256": "6b941cbd2453a4e4bf529bd20dfaaf54155a106da6237cc89357b05308758a34"
     },
     {
       "bytes": 93156,
