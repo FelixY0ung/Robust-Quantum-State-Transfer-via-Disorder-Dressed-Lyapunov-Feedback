@@ -1,0 +1,7 @@
+controller,label,family,role,n,mean_fidelity,worst_fidelity,ci95_fidelity,mean_max_leakage,mean_final_leakage,pulse_energy,training_seconds,pareto_status
+open_leakage_path_seed,Path horizon,GRAPE-free horizon,dominated seed,50,0.826420,0.521083,0.025390,0.046676,0.042364,0.001384,66.8,dominated by Direct adjoint; Target-biased direct
+standalone_open_leakage_adjoint,Direct adjoint,GRAPE-free horizon,low-leakage point,50,0.840595,0.551524,0.028964,0.017652,0.015942,0.0009931,77.5,Pareto
+target_biased_open_leakage_adjoint,Target-biased direct,GRAPE-free horizon,no-reference tradeoff,50,0.910936,0.706954,0.014403,0.042021,0.006825,0.001745,75.4,Pareto
+two_stage_target_biased_open_leakage_adjoint,Two-stage direct,GRAPE-free horizon,best no-reference worst seed,50,0.919179,0.784895,0.012391,0.065347,0.002991,0.002444,89.9,dominated by Reference-assisted horizon; Leakage-GRAPE
+adjoint_horizon,Reference-assisted horizon,reference-assisted horizon,reference-assisted Pareto point,50,0.932452,0.787640,0.010369,0.053824,0.015825,0.00202,19.9,Pareto
+leakage_penalized_grape,Leakage-GRAPE,terminal optimizer,terminal ceiling,50,0.952952,0.830203,0.009170,0.054893,0.002367,0.002661,16.1,Pareto
