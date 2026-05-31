@@ -34,6 +34,7 @@ python3 code/horizon_lyapunov.py
 python3 code/horizon_ablation.py
 python3 code/open_system_noise.py
 python3 code/open_system_horizon_training.py
+python3 code/open_system_grape_baseline.py
 python3 code/gate_fidelity_probe.py
 python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
@@ -45,17 +46,20 @@ python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
 
-The leakage benchmark also has a quick derivative check:
+The leakage and open-system GRAPE benchmarks also have quick derivative checks:
 
 ```bash
 python3 code/transmon_leakage_horizon.py --gradient-check
+python3 code/open_system_grape_baseline.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, open-system horizon-training diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, horizon-ablation, open-system stress-test, open-system training diagnostic, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, horizon-ablation, open-system stress-test, open-system training diagnostic, open-system GRAPE, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
 The open-system horizon-training diagnostic compares the existing closed-system-trained horizon pulses with compact Lindblad-trained finite-candidate horizon pulses. Under combined dephasing and relaxation at `delta = 0.08`, the compact open-trained pulses reach mean fidelity `0.948556` for Z and `0.942853` for H, below the closed-trained horizon's `0.957140` and `0.956625`, but with lower pulse energy. This diagnostic is included as a limitation rather than an improvement claim.
+
+The open-system GRAPE baseline is a terminal open-loop comparator trained through the combined Lindblad model, not a Lyapunov feedback law. Under the same combined-noise held-out test, it reaches mean fidelity `0.977461` for Z and `0.978929` for H, showing that the remaining open-system gap is mainly an optimizer/method gap for this two-level state-transfer task.
 
 ## Main Outputs
 
@@ -63,6 +67,7 @@ The open-system horizon-training diagnostic compares the existing closed-system-
 - `results/horizon_ablation_summary.md`
 - `results/open_system_noise_summary.md`
 - `results/open_system_training_summary.md`
+- `results/open_system_grape_summary.md`
 - `results/gate_fidelity_probe_summary.md`
 - `results/gate_process_baseline_summary.md`
 - `results/ensemble_grape_baseline_summary.md`
