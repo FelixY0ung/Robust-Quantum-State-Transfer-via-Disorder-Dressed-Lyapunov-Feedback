@@ -14,6 +14,7 @@ motion that would populate the weakly detuned leakage levels.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import time
 from dataclasses import dataclass
@@ -468,29 +469,83 @@ def state_fidelity_and_gradient(
     return fidelity(rhos[-1], p.target), grad.reshape(-1)
 
 
+def state_cost_and_gradient(
+    controls_flat: np.ndarray,
+    segments: int,
+    strength: float,
+    disorder: np.ndarray,
+    leakage_weight: float,
+) -> tuple[float, np.ndarray]:
+    p = problem()
+    unitaries, frechet_dirs, generators = segment_data(
+        controls_flat, segments, strength, disorder
+    )
+    n_controls = len(p.controls)
+    leakage_observable = np.eye(p.h0.shape[0], dtype=complex) - p.computational_projector
+
+    rhos = [p.initial.copy()]
+    for propagator in unitaries:
+        rhos.append(propagator @ rhos[-1] @ dagger(propagator))
+
+    final_infidelity = 1.0 - fidelity(rhos[-1], p.target)
+    leakage_values = [float(np.real(np.trace(leakage_observable @ rho))) for rho in rhos[1:]]
+    state_weight = leakage_weight / float(segments)
+    objective = final_infidelity + leakage_weight * float(np.mean(leakage_values))
+
+    lambdas: list[np.ndarray] = [np.zeros_like(p.target) for _ in range(segments + 1)]
+    lambdas[-1] = -p.target + state_weight * leakage_observable
+    for index in reversed(range(1, segments)):
+        lambdas[index] = (
+            state_weight * leakage_observable
+            + dagger(unitaries[index]) @ lambdas[index + 1] @ unitaries[index]
+        )
+
+    grad = np.zeros((segments, n_controls), dtype=float)
+    for index in range(segments):
+        for control_index in range(n_controls):
+            d_unitary = expm_frechet(
+                generators[index],
+                frechet_dirs[index][control_index],
+                compute_expm=False,
+            )
+            value = np.trace(
+                lambdas[index + 1] @ d_unitary @ rhos[index] @ dagger(unitaries[index])
+            )
+            grad[index, control_index] = 2.0 * float(np.real(value))
+
+    return objective, grad.reshape(-1)
+
+
 def grape_objective_and_gradient(
     controls_flat: np.ndarray,
     segments: int,
     scenarios: tuple[tuple[float, np.ndarray], ...],
     worst_weight: float,
     energy_weight: float,
+    leakage_weight: float = 0.0,
 ) -> tuple[float, np.ndarray]:
-    fidelities = []
-    fidelity_grads = []
+    metrics = []
+    metric_grads = []
     for strength, disorder in scenarios:
-        fid, grad_fid = state_fidelity_and_gradient(
-            controls_flat, segments, strength, disorder
-        )
-        fidelities.append(fid)
-        fidelity_grads.append(grad_fid)
+        if leakage_weight == 0.0:
+            fid, grad_fid = state_fidelity_and_gradient(
+                controls_flat, segments, strength, disorder
+            )
+            metrics.append(1.0 - fid)
+            metric_grads.append(-grad_fid)
+        else:
+            metric, grad_metric = state_cost_and_gradient(
+                controls_flat, segments, strength, disorder, leakage_weight
+            )
+            metrics.append(metric)
+            metric_grads.append(grad_metric)
 
-    fids = np.array(fidelities, dtype=float)
-    grads = np.vstack(fidelity_grads)
-    infids = 1.0 - fids
-    worst_index = int(np.argmax(infids))
+    metric_values = np.array(metrics, dtype=float)
+    grads = np.vstack(metric_grads)
+    worst_index = int(np.argmax(metric_values))
 
-    objective = float(np.mean(infids) + worst_weight * infids[worst_index])
-    grad = -np.mean(grads, axis=0) - worst_weight * grads[worst_index]
+    objective = float(np.mean(metric_values) + worst_weight * metric_values[worst_index])
+    grad = np.mean(grads, axis=0) + worst_weight * grads[worst_index]
     energy = float(np.mean(np.square(controls_flat)))
     objective += energy_weight * energy
     grad += energy_weight * (2.0 / controls_flat.size) * controls_flat
@@ -506,6 +561,7 @@ def optimize_grape_pulse(
     umax: float = 0.12,
     worst_weight: float = 0.25,
     energy_weight: float = 1e-5,
+    leakage_weight: float = 0.0,
 ) -> tuple[np.ndarray, float, int, bool, float]:
     p = problem()
     scenarios = tuple(
@@ -527,7 +583,7 @@ def optimize_grape_pulse(
         x0 = base + rng.normal(scale=0.005, size=base.size)
         result = minimize(
             lambda x: grape_objective_and_gradient(
-                x, segments, scenarios, worst_weight, energy_weight
+                x, segments, scenarios, worst_weight, energy_weight, leakage_weight
             ),
             x0,
             method="L-BFGS-B",
@@ -596,7 +652,65 @@ def plot_summary(summary: list[dict[str, str]]) -> None:
     plt.close(fig)
 
 
+def gradient_check() -> None:
+    rng = np.random.default_rng(123)
+    segments = 5
+    p = problem()
+    controls = rng.normal(scale=0.01, size=segments * len(p.controls))
+    scenarios = ((0.01, random_disorder(0, p.h0.shape[0])),)
+    for leakage_weight in (0.0, 0.8):
+        value, grad = grape_objective_and_gradient(
+            controls,
+            segments,
+            scenarios,
+            worst_weight=0.25,
+            energy_weight=1e-5,
+            leakage_weight=leakage_weight,
+        )
+        direction = rng.normal(size=controls.size)
+        direction /= np.linalg.norm(direction)
+        eps = 1e-6
+        plus = grape_objective_and_gradient(
+            controls + eps * direction,
+            segments,
+            scenarios,
+            worst_weight=0.25,
+            energy_weight=1e-5,
+            leakage_weight=leakage_weight,
+        )[0]
+        minus = grape_objective_and_gradient(
+            controls - eps * direction,
+            segments,
+            scenarios,
+            worst_weight=0.25,
+            energy_weight=1e-5,
+            leakage_weight=leakage_weight,
+        )[0]
+        finite_difference = (plus - minus) / (2.0 * eps)
+        analytic = float(np.dot(grad, direction))
+        print(
+            f"leakage_weight={leakage_weight:.1f}: value={value:.8g}, "
+            f"finite_diff={finite_difference:.8g}, analytic={analytic:.8g}, "
+            f"error={abs(finite_difference - analytic):.3g}"
+        )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--gradient-check",
+        action="store_true",
+        help="Run directional derivative checks for the GRAPE objectives and exit.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
+    if args.gradient_check:
+        gradient_check()
+        return
+
     rows: list[dict[str, float | int | str]] = []
     start = time.perf_counter()
     horizon_pulse = design_pulse()
@@ -624,6 +738,26 @@ def main() -> None:
                 training_objective=grape_objective,
                 optimizer_iterations=grape_iters,
                 optimizer_success=grape_success,
+            )
+        )
+
+    (
+        leakage_grape_pulse,
+        leakage_grape_objective,
+        leakage_grape_iters,
+        leakage_grape_success,
+        leakage_grape_seconds,
+    ) = optimize_grape_pulse(leakage_weight=0.8)
+    for strength in EVAL_STRENGTHS:
+        rows.extend(
+            evaluate_pulse(
+                leakage_grape_pulse,
+                strength,
+                controller="leakage_penalized_grape",
+                training_seconds=leakage_grape_seconds,
+                training_objective=leakage_grape_objective,
+                optimizer_iterations=leakage_grape_iters,
+                optimizer_success=leakage_grape_success,
             )
         )
     write_outputs(rows)

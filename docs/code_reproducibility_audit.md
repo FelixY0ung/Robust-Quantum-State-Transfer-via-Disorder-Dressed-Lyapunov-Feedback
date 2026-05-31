@@ -33,8 +33,11 @@ Audited the simulation code used by `manuscript/cac2026_paper.tex`, especially:
      - `results/ensemble_results.csv`: 100 rows, Z/H tasks, seeds `10..59`.
      - `results/ensemble_lyapunov_results.csv`: 100 rows, Z/H tasks, seeds
        `10..59`.
-     - `results/transmon_leakage_results.csv`: 400 rows, 2 controllers,
+     - `results/transmon_leakage_results.csv`: 600 rows, 3 controllers,
        strengths `0, 0.01, 0.02, 0.03`, seeds `10..59`.
+   - Ran `python3 code/transmon_leakage_horizon.py --gradient-check`; directional
+     derivative errors were about `1e-9` for both the terminal and leakage-
+     penalized GRAPE objectives.
 
 2. Train/test separation
    - Two-level horizon training uses seeds `0..7`, test uses `10..59`.
@@ -46,7 +49,8 @@ Audited the simulation code used by `manuscript/cac2026_paper.tex`, especially:
      test seeds `10..59`.
    - No overlap was found in the key reported training/test split.
    - Five-level leakage path-horizon training uses seeds `0..5`; the terminal
-     GRAPE comparator uses training seeds `0..3`; both use test seeds `10..59`.
+     GRAPE and leakage-penalized GRAPE comparators use training seeds `0..3`;
+     all three use test seeds `10..59`.
 
 3. Physical state checks
    - Checked representative two-level and three-level evolutions for trace preservation and Hermiticity.
@@ -84,8 +88,10 @@ These limitations are scientifically acceptable only because the manuscript now 
 - The work reports state-transfer fidelity, not process fidelity for complete quantum gates.
 - The open-loop baseline is compact and reproducible, but not a full GRAPE/Krotov reimplementation.
 - The five-level leakage benchmark shows a remaining method gap: terminal GRAPE
-  outperforms the finite-candidate path-horizon controller on final fidelity,
-  while the path-horizon controller has lower transient leakage.
+  outperforms the finite-candidate path-horizon controller on final fidelity.
+  Leakage-penalized GRAPE nearly preserves terminal-GRAPE fidelity while
+  reducing transient leakage, indicating that the next horizon controller should
+  incorporate explicit leakage shaping and gradient information.
 
 ## Changes Made During Audit
 
@@ -100,8 +106,8 @@ These limitations are scientifically acceptable only because the manuscript now 
   baseline results, and added `code/plot_experiments.py` for reproducible
   experiment figures.
 - Added `code/transmon_leakage_horizon.py`, regenerated five-level leakage CSV,
-  summary, and figure outputs, and documented the result as a journal-extension
-  benchmark and limitation.
+  summary, and figure outputs, and extended the benchmark with leakage-penalized
+  GRAPE as a gradient/leakage-shaping comparator.
 
 ## Judgment
 

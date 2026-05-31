@@ -44,7 +44,15 @@ python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
 
+The leakage benchmark also has a quick derivative check:
+
+```bash
+python3 code/transmon_leakage_horizon.py --gradient-check
+```
+
 The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, horizon-ablation, open-system stress-test, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
+
+The five-level weakly anharmonic leakage benchmark compares path-horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
 ## Main Outputs
 
