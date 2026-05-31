@@ -1,0 +1,23 @@
+kind,task,comparison,metric,n,mean,ci95_halfwidth,paired_delta,paired_delta_ci95,paired_effect_dz
+summary,Z,beam horizon transfer,final_fidelity,50,0.997581558,0.00037,,,
+summary,H,beam horizon transfer,final_fidelity,50,0.998155764,0.000405,,,
+summary,Z,polished transfer ceiling,final_fidelity,50,0.99996295,1.44e-05,,,
+summary,H,polished transfer ceiling,final_fidelity,50,0.99998439,5.92e-06,,,
+summary,Z,process horizon gate,average_gate_fidelity,50,0.926604095,0.0169,,,
+summary,H,process horizon gate,average_gate_fidelity,50,0.925944246,0.0173,,,
+summary,Z,GRAPE process gate,average_gate_fidelity,50,0.99473236,0.00113,,,
+summary,H,GRAPE process gate,average_gate_fidelity,50,0.999742127,4.9e-05,,,
+summary,Z,GRAPE state gate,average_gate_fidelity,50,0.570795647,0.0444,,,
+summary,H,GRAPE state gate,average_gate_fidelity,50,0.545252071,0.0423,,,
+summary,Z,transfer horizon gate,average_gate_fidelity,50,0.377711277,0.00426,,,
+summary,H,transfer horizon gate,average_gate_fidelity,50,0.906708784,0.00568,,,
+summary,Z,open noise combined,final_fidelity,50,0.957140406,0.000329,,,
+summary,H,open noise combined,final_fidelity,50,0.956625219,0.00034,,,
+paired,Z,beam horizon minus one-step horizon,final_fidelity,50,,,0.0402918502,0.00928,1.2
+paired,H,beam horizon minus one-step horizon,final_fidelity,50,,,0.0421727374,0.00977,1.2
+paired,Z,polished ceiling minus beam horizon,final_fidelity,50,,,0.00238139247,0.000375,1.76
+paired,H,polished ceiling minus beam horizon,final_fidelity,50,,,0.00182862578,0.000407,1.24
+paired,Z,GRAPE process gate minus process horizon,average_gate_fidelity,50,,,0.0681282649,0.0163,1.16
+paired,H,GRAPE process gate minus process horizon,average_gate_fidelity,50,,,0.0737978811,0.0173,1.18
+paired,Z,process horizon gate minus transfer horizon gate,average_gate_fidelity,50,,,0.548892818,0.018,8.44
+paired,H,process horizon gate minus transfer horizon gate,average_gate_fidelity,50,,,0.0192354616,0.0188,0.284

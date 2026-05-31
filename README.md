@@ -37,12 +37,13 @@ python3 code/gate_fidelity_probe.py
 python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
 python3 code/process_horizon.py
+python3 code/statistical_audit.py
 python3 code/multilevel_horizon.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
 
-The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, horizon-ablation, open-system stress-test, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, and process-horizon results.
+The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, horizon-ablation, open-system stress-test, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
 
 ## Main Outputs
 
@@ -53,6 +54,7 @@ The longer scripts are the open-loop optimization, terminal process-fidelity bas
 - `results/gate_process_baseline_summary.md`
 - `results/ensemble_grape_baseline_summary.md`
 - `results/process_horizon_summary.md`
+- `results/statistical_audit_summary.md`
 - `results/multilevel_horizon_summary.md`
 - `results/robustness_scan_summary.md`
 - `results/polished_openloop_summary.md`
