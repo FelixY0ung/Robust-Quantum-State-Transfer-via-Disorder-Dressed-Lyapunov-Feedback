@@ -415,6 +415,14 @@ def rows() -> list[dict[str, str]]:
     )
     add(
         "five-level leakage + Lindblad",
+        "target-biased open-leakage adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(standalone_open_leakage, "target_biased_open_leakage_adjoint"),
+        "120 seg; 4 train seeds; q=5; terminal-target-biased direct Lindblad leakage-adjoint horizon",
+        "GRAPE-free terminal-biased combined-noise horizon diagnostic",
+    )
+    add(
+        "five-level leakage + Lindblad",
         "adjoint leakage horizon",
         "combined-noise final fidelity at delta=0.03",
         open_leakage_summary(open_leakage, "adjoint_horizon"),

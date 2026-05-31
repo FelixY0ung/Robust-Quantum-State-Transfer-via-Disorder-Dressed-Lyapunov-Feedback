@@ -6,8 +6,9 @@ next journal-level step: it starts from the finite-candidate path horizon and
 then optimizes each short receding horizon directly through the five-level
 Lindblad model with an explicit running leakage penalty.
 
-The diagnostic remains local and nonconvex.  It does not use a terminal GRAPE
-reference pulse, and it does not claim global optimality or convergence.
+The diagnostic remains local and nonconvex. It includes a conservative path
+score and a terminal-target-biased score, but neither uses a terminal GRAPE
+reference pulse or claims global optimality or convergence.
 """
 
 from __future__ import annotations
@@ -44,6 +45,7 @@ TRAIN_NOISE = NoiseCase("combined", gamma_phi=0.001, gamma_relax=0.0005)
 PLOT_CONTROLLERS = (
     ("open_leakage_path_seed", "Path horizon"),
     ("standalone_open_leakage_adjoint", "Direct adjoint"),
+    ("target_biased_open_leakage_adjoint", "Target-biased"),
     ("adjoint_horizon", "Ref.-adjoint"),
     ("leakage_penalized_grape", "Leakage-GRAPE"),
 )
@@ -64,6 +66,19 @@ class OpenLeakageAdjointConfig:
     leakage_weight: float = 0.8
     energy_weight: float = 1e-5
     trust_weight: float = 1e-3
+    terminal_target_weight: float = 0.0
+
+
+def horizon_score_observable(
+    progress: float,
+    target: np.ndarray,
+    dim: int,
+    config: OpenLeakageAdjointConfig,
+) -> np.ndarray:
+    """Blend the conservative path projector with the terminal target."""
+    path = path_projector(progress, dim)
+    weight = min(1.0, max(0.0, config.terminal_target_weight))
+    return (1.0 - weight) * path + weight * target
 
 
 def precompute_caches(
@@ -143,9 +158,11 @@ def horizon_objective_and_gradient(
     n_controls = len(p.controls)
     horizon_steps = controls_flat.size // n_controls
     controls = np.reshape(controls_flat, (horizon_steps, n_controls))
-    score_target = path_projector(
+    score_target = horizon_score_observable(
         min(config.segments, start_index + horizon_steps) / float(config.segments),
+        p.target,
         p.h0.shape[0],
+        config,
     )
     target_row = vec(score_target.T)
     leakage_observable = np.eye(p.h0.shape[0], dtype=complex) - p.computational_projector
@@ -335,7 +352,12 @@ def plot_combined_results(rows: list[dict[str, float | int | str]]) -> None:
     selected_rows.extend(
         row
         for row in rows
-        if str(row["controller"]) in {"open_leakage_path_seed", "standalone_open_leakage_adjoint"}
+        if str(row["controller"])
+        in {
+            "open_leakage_path_seed",
+            "standalone_open_leakage_adjoint",
+            "target_biased_open_leakage_adjoint",
+        }
     )
     selected_rows.extend(
         row
@@ -460,12 +482,14 @@ def config_from_args(args: argparse.Namespace) -> OpenLeakageAdjointConfig:
             train_seeds=(0, 1),
             eval_seeds=tuple(range(10, 15)),
             trust_radius=0.025,
+            terminal_target_weight=args.terminal_target_weight,
         )
     return OpenLeakageAdjointConfig(
         segments=args.segments,
         horizon_steps=args.horizon_steps,
         horizon_maxiter=args.horizon_maxiter,
         trust_radius=args.trust_radius,
+        terminal_target_weight=args.terminal_target_weight,
     )
 
 
@@ -502,9 +526,25 @@ def run(config: OpenLeakageAdjointConfig, quick: bool) -> None:
     )
 
     print("polishing direct Lindblad leakage-aware horizon", flush=True)
+    direct_config = OpenLeakageAdjointConfig(
+        segments=config.segments,
+        horizon_steps=config.horizon_steps,
+        horizon_maxiter=config.horizon_maxiter,
+        train_strength=config.train_strength,
+        train_seeds=config.train_seeds,
+        eval_strength=config.eval_strength,
+        eval_seeds=config.eval_seeds,
+        umax=config.umax,
+        trust_radius=config.trust_radius,
+        worst_weight=config.worst_weight,
+        leakage_weight=config.leakage_weight,
+        energy_weight=config.energy_weight,
+        trust_weight=config.trust_weight,
+        terminal_target_weight=0.0,
+    )
     pulse, objective, iterations, success, horizon_seconds = design_open_leakage_adjoint_horizon(
         path_pulse,
-        config,
+        direct_config,
     )
     rows.extend(
         evaluate_pulse(
@@ -518,6 +558,24 @@ def run(config: OpenLeakageAdjointConfig, quick: bool) -> None:
             test_seeds=range(min(config.eval_seeds), max(config.eval_seeds) + 1),
         )
     )
+
+    if config.terminal_target_weight > 0.0:
+        print("polishing target-biased Lindblad leakage-aware horizon", flush=True)
+        pulse, objective, iterations, success, horizon_seconds = (
+            design_open_leakage_adjoint_horizon(path_pulse, config)
+        )
+        rows.extend(
+            evaluate_pulse(
+                pulse,
+                "target_biased_open_leakage_adjoint",
+                path_seconds + horizon_seconds,
+                objective,
+                iterations,
+                success,
+                disorder_strength=config.eval_strength,
+                test_seeds=range(min(config.eval_seeds), max(config.eval_seeds) + 1),
+            )
+        )
 
     write_outputs(rows)
     print(f"wrote {len(rows)} rows to {result_path('transmon_open_leakage_adjoint_results.csv')}")
@@ -533,6 +591,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--horizon-steps", type=int, default=5)
     parser.add_argument("--horizon-maxiter", type=int, default=4)
     parser.add_argument("--trust-radius", type=float, default=0.025)
+    parser.add_argument("--terminal-target-weight", type=float, default=0.8)
     return parser.parse_args()
 
 
