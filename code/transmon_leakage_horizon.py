@@ -176,6 +176,31 @@ def candidate_controls(amplitudes: tuple[float, ...]) -> tuple[np.ndarray, ...]:
     return tuple(controls)
 
 
+def local_seeded_controls(
+    center: np.ndarray,
+    radii: tuple[float, ...] = (0.0, 0.01, 0.02, 0.04),
+    umax: float = 0.12,
+) -> tuple[np.ndarray, ...]:
+    directions = (
+        np.array([0.0, 0.0]),
+        np.array([1.0, 0.0]),
+        np.array([-1.0, 0.0]),
+        np.array([0.0, 1.0]),
+        np.array([0.0, -1.0]),
+        np.array([1.0, 1.0]) / np.sqrt(2.0),
+        np.array([1.0, -1.0]) / np.sqrt(2.0),
+        np.array([-1.0, 1.0]) / np.sqrt(2.0),
+        np.array([-1.0, -1.0]) / np.sqrt(2.0),
+    )
+    controls: list[np.ndarray] = []
+    for radius in radii:
+        for direction in directions:
+            candidate = np.clip(center + radius * direction, -umax, umax)
+            if not any(np.linalg.norm(candidate - existing) < 1e-12 for existing in controls):
+                controls.append(candidate)
+    return tuple(controls)
+
+
 def scenario_cost(
     p: Problem,
     rhos: tuple[np.ndarray, ...],
@@ -290,6 +315,122 @@ def design_pulse(
             index,
             dt,
             candidates,
+            horizon_steps,
+            beam_width,
+            worst_weight,
+            leakage_weight,
+            energy_weight,
+        )
+        pulse.append(control)
+        rhos = step_precomputed(
+            rhos,
+            strengths,
+            controls_cache[index],
+            disorder_cache[index],
+            dt,
+            control,
+        )
+    return np.vstack(pulse)
+
+
+def select_gradient_seeded_control(
+    p: Problem,
+    rhos: tuple[np.ndarray, ...],
+    strengths: tuple[float, ...],
+    controls_cache: tuple[tuple[np.ndarray, ...], ...],
+    disorder_cache: tuple[tuple[np.ndarray, ...], ...],
+    path_targets: tuple[np.ndarray, ...],
+    reference_pulse: np.ndarray,
+    start_index: int,
+    dt: float,
+    horizon_steps: int,
+    beam_width: int,
+    worst_weight: float,
+    leakage_weight: float,
+    energy_weight: float,
+) -> np.ndarray:
+    beams: list[tuple[tuple[np.ndarray, ...], tuple[np.ndarray, ...], float]] = [
+        ((), rhos, 0.0)
+    ]
+    for depth in range(horizon_steps):
+        cache_index = min(start_index + depth, len(controls_cache) - 1)
+        ref_index = min(cache_index, len(reference_pulse) - 1)
+        controls_i = controls_cache[cache_index]
+        disorders_i = disorder_cache[cache_index]
+        candidates = local_seeded_controls(reference_pulse[ref_index])
+        expanded = []
+        for sequence, states, energy_sum in beams:
+            for candidate in candidates:
+                next_states = step_precomputed(
+                    states, strengths, controls_i, disorders_i, dt, candidate
+                )
+                next_energy = energy_sum + float(np.dot(candidate, candidate))
+                cost = scenario_cost(
+                    p,
+                    next_states,
+                    path_targets[cache_index + 1],
+                    next_energy / float(depth + 1),
+                    worst_weight,
+                    leakage_weight,
+                    energy_weight,
+                )
+                expanded.append((cost, sequence + (candidate,), next_states, next_energy))
+        expanded.sort(key=lambda item: item[0])
+        beams = [
+            (sequence, states, energy_sum)
+            for _, sequence, states, energy_sum in expanded[:beam_width]
+        ]
+    return beams[0][0][0]
+
+
+def design_gradient_seeded_horizon(
+    reference_pulse: np.ndarray,
+    train_strengths: tuple[float, ...] = (0.01, 0.02, 0.03),
+    train_seeds: tuple[int, ...] = (0, 1, 2, 3),
+    horizon_steps: int = 5,
+    beam_width: int = 6,
+    worst_weight: float = 0.25,
+    leakage_weight: float = 0.8,
+    energy_weight: float = 1e-5,
+) -> np.ndarray:
+    p = problem()
+    segments = len(reference_pulse)
+    t_eval = np.linspace(0.0, p.t_final, segments + 1)
+    dt = float(t_eval[1] - t_eval[0])
+    scenarios = tuple(
+        (strength, random_disorder(seed, p.h0.shape[0]))
+        for strength in train_strengths
+        for seed in train_seeds
+    )
+    strengths = tuple(strength for strength, _ in scenarios)
+    rhos = tuple(p.initial.copy() for _ in scenarios)
+    cache_times = tuple(
+        float(t_eval[min(j, segments)]) for j in range(segments + horizon_steps)
+    )
+    path_targets = tuple(
+        path_projector(min(j, segments) / float(segments), p.h0.shape[0])
+        for j in range(segments + horizon_steps + 1)
+    )
+    controls_cache = tuple(
+        tuple(interaction_frame_operator(p, hc, t) for hc in p.controls)
+        for t in cache_times
+    )
+    disorder_cache = tuple(
+        tuple(interaction_frame_operator(p, disorder, t) for _, disorder in scenarios)
+        for t in cache_times
+    )
+    pulse = []
+    for index in range(segments):
+        control = select_gradient_seeded_control(
+            p,
+            rhos,
+            strengths,
+            controls_cache,
+            disorder_cache,
+            path_targets,
+            reference_pulse,
+            index,
+            dt,
             horizon_steps,
             beam_width,
             worst_weight,
@@ -758,6 +899,35 @@ def main() -> None:
                 training_objective=leakage_grape_objective,
                 optimizer_iterations=leakage_grape_iters,
                 optimizer_success=leakage_grape_success,
+            )
+        )
+
+    (
+        seeded_reference_pulse,
+        seeded_reference_objective,
+        seeded_reference_iters,
+        seeded_reference_success,
+        seeded_reference_seconds,
+    ) = optimize_grape_pulse(
+        maxiter=45,
+        train_strengths=(0.01, 0.02, 0.03),
+        train_seeds=(0, 1, 2, 3),
+        restart_seeds=(3,),
+        leakage_weight=0.8,
+    )
+    start = time.perf_counter()
+    seeded_horizon_pulse = design_gradient_seeded_horizon(seeded_reference_pulse)
+    seeded_horizon_seconds = seeded_reference_seconds + time.perf_counter() - start
+    for strength in EVAL_STRENGTHS:
+        rows.extend(
+            evaluate_pulse(
+                seeded_horizon_pulse,
+                strength,
+                controller="gradient_seeded_horizon",
+                training_seconds=seeded_horizon_seconds,
+                training_objective=seeded_reference_objective,
+                optimizer_iterations=seeded_reference_iters,
+                optimizer_success=seeded_reference_success,
             )
         )
     write_outputs(rows)
