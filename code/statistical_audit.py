@@ -120,6 +120,25 @@ def open_adjoint_series(task: str, controller: str, noise_case: str = "combined"
     ].copy()
 
 
+def standalone_open_series(task: str, controller: str, noise_case: str = "combined") -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_system_standalone_adjoint_results.csv"))
+    return df[
+        (df["task"] == task)
+        & (df["controller"] == controller)
+        & (df["eval_noise_case"] == noise_case)
+    ].copy()
+
+
+def standalone_leakage_series(controller: str, strength: float = 0.03) -> pd.DataFrame:
+    df = pd.read_csv(result_path("transmon_standalone_adjoint_results.csv"))
+    return df[(df["controller"] == controller) & (df["eval_strength"] == strength)].copy()
+
+
+def leakage_series(controller: str, strength: float = 0.03) -> pd.DataFrame:
+    df = pd.read_csv(result_path("transmon_leakage_results.csv"))
+    return df[(df["controller"] == controller) & (df["eval_strength"] == strength)].copy()
+
+
 def summary_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
 
@@ -146,10 +165,20 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "transfer horizon gate", gate_probe_series("H"), "average_gate_fidelity"),
         ("Z", "open noise combined", open_noise_series("Z", "combined"), "final_fidelity"),
         ("H", "open noise combined", open_noise_series("H", "combined"), "final_fidelity"),
+        ("Z", "standalone Lindblad seed combined", standalone_open_series("Z", "standalone_open_seed"), "final_fidelity"),
+        ("H", "standalone Lindblad seed combined", standalone_open_series("H", "standalone_open_seed"), "final_fidelity"),
+        ("Z", "standalone Lindblad adjoint combined", standalone_open_series("Z", "standalone_open_adjoint"), "final_fidelity"),
+        ("H", "standalone Lindblad adjoint combined", standalone_open_series("H", "standalone_open_adjoint"), "final_fidelity"),
         ("Z", "adjoint Lindblad horizon combined", open_adjoint_series("Z", "adjoint_open_horizon"), "final_fidelity"),
         ("H", "adjoint Lindblad horizon combined", open_adjoint_series("H", "adjoint_open_horizon"), "final_fidelity"),
         ("Z", "open-system GRAPE combined", open_adjoint_series("Z", "open_grape_reference"), "final_fidelity"),
         ("H", "open-system GRAPE combined", open_adjoint_series("H", "open_grape_reference"), "final_fidelity"),
+        ("L", "leakage path seed fidelity", standalone_leakage_series("standalone_path_seed"), "final_fidelity"),
+        ("L", "standalone leakage adjoint fidelity", standalone_leakage_series("standalone_adjoint_horizon"), "final_fidelity"),
+        ("L", "leakage-GRAPE fidelity", leakage_series("leakage_penalized_grape"), "final_fidelity"),
+        ("L", "leakage path seed max leakage", standalone_leakage_series("standalone_path_seed"), "max_leakage"),
+        ("L", "standalone leakage adjoint max leakage", standalone_leakage_series("standalone_adjoint_horizon"), "max_leakage"),
+        ("L", "leakage-GRAPE max leakage", leakage_series("leakage_penalized_grape"), "max_leakage"),
     ]
 
     for task, label, frame, metric in series_specs:
@@ -235,10 +264,52 @@ def summary_rows() -> list[dict[str, str]]:
             "final_fidelity",
         ),
         (
+            "Z",
+            "standalone Lindblad adjoint minus finite Lindblad seed",
+            standalone_open_series("Z", "standalone_open_adjoint"),
+            standalone_open_series("Z", "standalone_open_seed"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "standalone Lindblad adjoint minus finite Lindblad seed",
+            standalone_open_series("H", "standalone_open_adjoint"),
+            standalone_open_series("H", "standalone_open_seed"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "closed horizon minus standalone Lindblad adjoint",
+            open_noise_series("Z", "combined"),
+            standalone_open_series("Z", "standalone_open_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "closed horizon minus standalone Lindblad adjoint",
+            open_noise_series("H", "combined"),
+            standalone_open_series("H", "standalone_open_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "adjoint Lindblad horizon minus standalone Lindblad adjoint",
+            open_adjoint_series("Z", "adjoint_open_horizon"),
+            standalone_open_series("Z", "standalone_open_adjoint"),
+            "final_fidelity",
+        ),
+        (
             "H",
             "adjoint Lindblad horizon minus closed horizon",
             open_adjoint_series("H", "adjoint_open_horizon"),
             open_noise_series("H", "combined"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "adjoint Lindblad horizon minus standalone Lindblad adjoint",
+            open_adjoint_series("H", "adjoint_open_horizon"),
+            standalone_open_series("H", "standalone_open_adjoint"),
             "final_fidelity",
         ),
         (
@@ -352,6 +423,34 @@ def summary_rows() -> list[dict[str, str]]:
             process_horizon_series("H"),
             gate_probe_series("H"),
             "average_gate_fidelity",
+        ),
+        (
+            "L",
+            "standalone leakage adjoint minus path seed",
+            standalone_leakage_series("standalone_adjoint_horizon"),
+            standalone_leakage_series("standalone_path_seed"),
+            "final_fidelity",
+        ),
+        (
+            "L",
+            "leakage-GRAPE minus standalone leakage adjoint",
+            leakage_series("leakage_penalized_grape"),
+            standalone_leakage_series("standalone_adjoint_horizon"),
+            "final_fidelity",
+        ),
+        (
+            "L",
+            "path seed max leakage minus standalone leakage adjoint",
+            standalone_leakage_series("standalone_path_seed"),
+            standalone_leakage_series("standalone_adjoint_horizon"),
+            "max_leakage",
+        ),
+        (
+            "L",
+            "leakage-GRAPE max leakage minus standalone leakage adjoint",
+            leakage_series("leakage_penalized_grape"),
+            standalone_leakage_series("standalone_adjoint_horizon"),
+            "max_leakage",
         ),
     ]
 

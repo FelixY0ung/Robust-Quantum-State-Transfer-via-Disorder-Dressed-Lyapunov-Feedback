@@ -21,10 +21,20 @@ summary,Z,transfer horizon gate,average_gate_fidelity,50,0.377711277,0.00426,,,
 summary,H,transfer horizon gate,average_gate_fidelity,50,0.906708784,0.00568,,,
 summary,Z,open noise combined,final_fidelity,50,0.957140406,0.000329,,,
 summary,H,open noise combined,final_fidelity,50,0.956625219,0.00034,,,
+summary,Z,standalone Lindblad seed combined,final_fidelity,50,0.948556211,0.000325,,,
+summary,H,standalone Lindblad seed combined,final_fidelity,50,0.94285266,0.00378,,,
+summary,Z,standalone Lindblad adjoint combined,final_fidelity,50,0.948933959,0.00049,,,
+summary,H,standalone Lindblad adjoint combined,final_fidelity,50,0.943610037,0.00361,,,
 summary,Z,adjoint Lindblad horizon combined,final_fidelity,50,0.974683969,0.00063,,,
 summary,H,adjoint Lindblad horizon combined,final_fidelity,50,0.977779184,0.000645,,,
 summary,Z,open-system GRAPE combined,final_fidelity,50,0.97746055,0.000551,,,
 summary,H,open-system GRAPE combined,final_fidelity,50,0.978929484,0.000435,,,
+summary,L,leakage path seed fidelity,final_fidelity,50,0.837761152,0.0264,,,
+summary,L,standalone leakage adjoint fidelity,final_fidelity,50,0.846605872,0.0311,,,
+summary,L,leakage-GRAPE fidelity,final_fidelity,50,0.969446711,0.00942,,,
+summary,L,leakage path seed max leakage,max_leakage,50,0.0468435426,0.00266,,,
+summary,L,standalone leakage adjoint max leakage,max_leakage,50,0.0146423576,0.000871,,,
+summary,L,leakage-GRAPE max leakage,max_leakage,50,0.0539387677,0.00274,,,
 paired,Z,beam horizon minus one-step horizon,final_fidelity,50,,,0.0402918502,0.00928,1.2
 paired,H,beam horizon minus one-step horizon,final_fidelity,50,,,0.0421727374,0.00977,1.2
 paired,Z,dCRAB ceiling minus beam horizon,final_fidelity,50,,,0.00205382791,0.000431,1.32
@@ -34,7 +44,13 @@ paired,H,polished ceiling minus dCRAB ceiling,final_fidelity,50,,,0.000406533891
 paired,Z,polished ceiling minus beam horizon,final_fidelity,50,,,0.00238139247,0.000375,1.76
 paired,H,polished ceiling minus beam horizon,final_fidelity,50,,,0.00182862578,0.000407,1.24
 paired,Z,adjoint Lindblad horizon minus closed horizon,final_fidelity,50,,,0.0175435631,0.000732,6.64
+paired,Z,standalone Lindblad adjoint minus finite Lindblad seed,final_fidelity,50,,,0.000377747949,0.000281,0.372
+paired,H,standalone Lindblad adjoint minus finite Lindblad seed,final_fidelity,50,,,0.00075737681,0.000661,0.318
+paired,Z,closed horizon minus standalone Lindblad adjoint,final_fidelity,50,,,0.00820644731,0.000618,3.68
+paired,H,closed horizon minus standalone Lindblad adjoint,final_fidelity,50,,,0.0130151814,0.00375,0.962
+paired,Z,adjoint Lindblad horizon minus standalone Lindblad adjoint,final_fidelity,50,,,0.0257500104,0.00083,8.6
 paired,H,adjoint Lindblad horizon minus closed horizon,final_fidelity,50,,,0.0211539652,0.000816,7.19
+paired,H,adjoint Lindblad horizon minus standalone Lindblad adjoint,final_fidelity,50,,,0.0341691466,0.00321,2.95
 paired,Z,open-system GRAPE minus closed horizon,final_fidelity,50,,,0.0203201437,0.000674,8.35
 paired,H,open-system GRAPE minus closed horizon,final_fidelity,50,,,0.0223042654,0.000664,9.31
 paired,Z,open-system GRAPE minus adjoint Lindblad horizon,final_fidelity,50,,,0.00277658065,0.000122,6.33
@@ -51,3 +67,7 @@ paired,Z,GRAPE process gate minus process horizon,average_gate_fidelity,50,,,0.0
 paired,H,GRAPE process gate minus process horizon,average_gate_fidelity,50,,,0.0737978811,0.0173,1.18
 paired,Z,process horizon gate minus transfer horizon gate,average_gate_fidelity,50,,,0.548892818,0.018,8.44
 paired,H,process horizon gate minus transfer horizon gate,average_gate_fidelity,50,,,0.0192354616,0.0188,0.284
+paired,L,standalone leakage adjoint minus path seed,final_fidelity,50,,,0.00884471999,0.0322,0.0762
+paired,L,leakage-GRAPE minus standalone leakage adjoint,final_fidelity,50,,,0.12284084,0.0278,1.22
+paired,L,path seed max leakage minus standalone leakage adjoint,max_leakage,50,,,0.032201185,0.00213,4.19
+paired,L,leakage-GRAPE max leakage minus standalone leakage adjoint,max_leakage,50,,,0.0392964101,0.00259,4.21
