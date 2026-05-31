@@ -1,0 +1,636 @@
+"""Weakly anharmonic five-level leakage benchmark.
+
+This script adds a more physical finite-dimensional stress test for the
+beam-horizon idea.  The model is a rotating-frame weakly anharmonic oscillator
+with five levels, nearest-neighbor quadrature controls weighted by oscillator
+matrix elements, static Hermitian disorder, and an explicit leakage metric
+outside the computational subspace ``{|0>, |1>}``.
+
+The task is robust ``|0> -> |1>`` transfer.  Unlike the two-level examples, the
+benchmark scores a slow reference path inside the computational subspace during
+the horizon rollout.  This avoids rewarding unrealistically fast intermediate
+motion that would populate the weakly detuned leakage levels.
+"""
+
+from __future__ import annotations
+
+import csv
+import time
+from dataclasses import dataclass
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.linalg import expm, expm_frechet
+from scipy.optimize import minimize
+
+from paths import figure_path, result_path
+
+
+TAIL_FRACTION = 0.2
+EVAL_STRENGTHS = (0.0, 0.01, 0.02, 0.03)
+
+
+def dagger(a: np.ndarray) -> np.ndarray:
+    return np.conjugate(a.T)
+
+
+def ket(index: int, dim: int) -> np.ndarray:
+    v = np.zeros((dim, 1), dtype=complex)
+    v[index, 0] = 1.0
+    return v
+
+
+def projector(v: np.ndarray) -> np.ndarray:
+    return v @ dagger(v)
+
+
+def hermitize_trace_one(rho: np.ndarray) -> np.ndarray:
+    rho = 0.5 * (rho + dagger(rho))
+    return rho / np.trace(rho)
+
+
+def fidelity(rho: np.ndarray, target: np.ndarray) -> float:
+    return float(np.real(np.trace(target @ rho)))
+
+
+def unitary(h: np.ndarray, t: float) -> np.ndarray:
+    vals, vecs = np.linalg.eigh(h)
+    return vecs @ np.diag(np.exp(-1.0j * vals * t)) @ dagger(vecs)
+
+
+@dataclass(frozen=True)
+class Problem:
+    name: str
+    h0: np.ndarray
+    controls: tuple[np.ndarray, ...]
+    initial: np.ndarray
+    target: np.ndarray
+    computational_projector: np.ndarray
+    t_final: float
+
+
+def oscillator_quadratures(dim: int) -> tuple[np.ndarray, np.ndarray]:
+    a = np.zeros((dim, dim), dtype=complex)
+    for n in range(1, dim):
+        a[n - 1, n] = np.sqrt(float(n))
+    adag = dagger(a)
+    x = a + adag
+    y = -1.0j * (a - adag)
+    return x, y
+
+
+def problem(dim: int = 5, anharmonicity: float = 0.28, t_final: float = 60.0) -> Problem:
+    # Rotating frame at the 0-1 transition of a weakly anharmonic oscillator.
+    levels = np.arange(dim, dtype=float)
+    h0 = np.diag(-0.5 * anharmonicity * levels * (levels - 1.0)).astype(complex)
+    x, y = oscillator_quadratures(dim)
+    comp = projector(ket(0, dim)) + projector(ket(1, dim))
+    return Problem(
+        name="five_level_weak_anharmonic",
+        h0=h0,
+        controls=(x, y),
+        initial=projector(ket(0, dim)),
+        target=projector(ket(1, dim)),
+        computational_projector=comp,
+        t_final=t_final,
+    )
+
+
+def path_projector(progress: float, dim: int) -> np.ndarray:
+    """Reference projector for a slow resonant transfer in the 0-1 subspace."""
+    clipped = min(1.0, max(0.0, progress))
+    theta = 0.5 * np.pi * clipped
+    v = np.zeros((dim, 1), dtype=complex)
+    v[0, 0] = np.cos(theta)
+    v[1, 0] = -1.0j * np.sin(theta)
+    return projector(v)
+
+
+def random_disorder(seed: int, dim: int = 5) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    diagonal = np.diag(rng.normal(size=dim)).astype(complex)
+    raw = rng.normal(scale=0.35, size=(dim, dim)) + 1.0j * rng.normal(
+        scale=0.35, size=(dim, dim)
+    )
+    hermitian = 0.5 * (raw + dagger(raw))
+    h = diagonal + hermitian
+    h = h - (np.trace(h) / dim) * np.eye(dim)
+    norm = np.linalg.norm(h, ord="fro")
+    return h / norm if norm > 0 else h
+
+
+def interaction_frame_operator(p: Problem, operator: np.ndarray, t: float) -> np.ndarray:
+    u0 = unitary(p.h0, t)
+    return dagger(u0) @ operator @ u0
+
+
+def leakage(rho: np.ndarray, p: Problem) -> float:
+    return float(max(0.0, 1.0 - np.real(np.trace(p.computational_projector @ rho))))
+
+
+def rk_step(
+    rho: np.ndarray,
+    dt: float,
+    controls_i: tuple[np.ndarray, ...],
+    disorder_i: np.ndarray,
+    strength: float,
+    control: np.ndarray,
+) -> np.ndarray:
+    h = strength * disorder_i
+    for coeff, hc_i in zip(control, controls_i):
+        h = h + coeff * hc_i
+    u = unitary(h, dt)
+    return hermitize_trace_one(u @ rho @ dagger(u))
+
+
+def step_precomputed(
+    rhos: tuple[np.ndarray, ...],
+    strengths: tuple[float, ...],
+    controls_i: tuple[np.ndarray, ...],
+    disorders_i: tuple[np.ndarray, ...],
+    dt: float,
+    control: np.ndarray,
+) -> tuple[np.ndarray, ...]:
+    return tuple(
+        rk_step(rho, dt, controls_i, disorder_i, strength, control)
+        for rho, strength, disorder_i in zip(rhos, strengths, disorders_i)
+    )
+
+
+def candidate_controls(amplitudes: tuple[float, ...]) -> tuple[np.ndarray, ...]:
+    controls = [np.array([0.0, 0.0])]
+    for amp in amplitudes:
+        controls.extend(
+            [
+                np.array([amp, 0.0]),
+                np.array([-amp, 0.0]),
+                np.array([0.0, amp]),
+                np.array([0.0, -amp]),
+                np.array([amp, amp]) / np.sqrt(2.0),
+                np.array([amp, -amp]) / np.sqrt(2.0),
+                np.array([-amp, amp]) / np.sqrt(2.0),
+                np.array([-amp, -amp]) / np.sqrt(2.0),
+            ]
+        )
+    return tuple(controls)
+
+
+def scenario_cost(
+    p: Problem,
+    rhos: tuple[np.ndarray, ...],
+    score_target: np.ndarray,
+    energy_mean: float,
+    worst_weight: float,
+    leakage_weight: float,
+    energy_weight: float,
+) -> float:
+    infids = np.array([1.0 - fidelity(rho, score_target) for rho in rhos])
+    leaks = np.array([leakage(rho, p) for rho in rhos])
+    return float(
+        np.mean(infids)
+        + worst_weight * np.max(infids)
+        + leakage_weight * np.mean(leaks)
+        + energy_weight * energy_mean
+    )
+
+
+def select_control_beam(
+    p: Problem,
+    rhos: tuple[np.ndarray, ...],
+    strengths: tuple[float, ...],
+    controls_cache: tuple[tuple[np.ndarray, ...], ...],
+    disorder_cache: tuple[tuple[np.ndarray, ...], ...],
+    path_targets: tuple[np.ndarray, ...],
+    start_index: int,
+    dt: float,
+    candidates: tuple[np.ndarray, ...],
+    horizon_steps: int,
+    beam_width: int,
+    worst_weight: float,
+    leakage_weight: float,
+    energy_weight: float,
+) -> np.ndarray:
+    beams: list[tuple[tuple[np.ndarray, ...], tuple[np.ndarray, ...], float]] = [
+        ((), rhos, 0.0)
+    ]
+    for depth in range(horizon_steps):
+        cache_index = min(start_index + depth, len(controls_cache) - 1)
+        controls_i = controls_cache[cache_index]
+        disorders_i = disorder_cache[cache_index]
+        expanded = []
+        for sequence, states, energy_sum in beams:
+            for candidate in candidates:
+                next_states = step_precomputed(
+                    states, strengths, controls_i, disorders_i, dt, candidate
+                )
+                next_energy = energy_sum + float(np.dot(candidate, candidate))
+                cost = scenario_cost(
+                    p,
+                    next_states,
+                    path_targets[cache_index + 1],
+                    next_energy / float(depth + 1),
+                    worst_weight,
+                    leakage_weight,
+                    energy_weight,
+                )
+                expanded.append((cost, sequence + (candidate,), next_states, next_energy))
+        expanded.sort(key=lambda item: item[0])
+        beams = [
+            (sequence, states, energy_sum)
+            for _, sequence, states, energy_sum in expanded[:beam_width]
+        ]
+    return beams[0][0][0]
+
+
+def design_pulse(
+    train_strengths: tuple[float, ...] = (0.03, 0.05),
+    train_seeds: tuple[int, ...] = (0, 1, 2, 3, 4, 5),
+    segments: int = 120,
+    horizon_steps: int = 5,
+    beam_width: int = 6,
+    amplitudes: tuple[float, ...] = (0.015, 0.025, 0.04, 0.06, 0.08),
+    worst_weight: float = 0.25,
+    leakage_weight: float = 0.5,
+    energy_weight: float = 1e-4,
+) -> np.ndarray:
+    p = problem()
+    t_eval = np.linspace(0.0, p.t_final, segments + 1)
+    dt = float(t_eval[1] - t_eval[0])
+    scenarios = tuple(
+        (strength, random_disorder(seed, p.h0.shape[0]))
+        for strength in train_strengths
+        for seed in train_seeds
+    )
+    strengths = tuple(strength for strength, _ in scenarios)
+    rhos = tuple(p.initial.copy() for _ in scenarios)
+    candidates = candidate_controls(amplitudes)
+    cache_times = tuple(float(t_eval[min(j, segments)]) for j in range(segments + horizon_steps))
+    path_targets = tuple(
+        path_projector(min(j, segments) / float(segments), p.h0.shape[0])
+        for j in range(segments + horizon_steps + 1)
+    )
+    controls_cache = tuple(
+        tuple(interaction_frame_operator(p, hc, t) for hc in p.controls)
+        for t in cache_times
+    )
+    disorder_cache = tuple(
+        tuple(interaction_frame_operator(p, disorder, t) for _, disorder in scenarios)
+        for t in cache_times
+    )
+    pulse = []
+    for index in range(segments):
+        control = select_control_beam(
+            p,
+            rhos,
+            strengths,
+            controls_cache,
+            disorder_cache,
+            path_targets,
+            index,
+            dt,
+            candidates,
+            horizon_steps,
+            beam_width,
+            worst_weight,
+            leakage_weight,
+            energy_weight,
+        )
+        pulse.append(control)
+        rhos = step_precomputed(
+            rhos,
+            strengths,
+            controls_cache[index],
+            disorder_cache[index],
+            dt,
+            control,
+        )
+    return np.vstack(pulse)
+
+
+def evaluate_pulse(
+    pulse: np.ndarray,
+    disorder_strength: float,
+    controller: str,
+    training_seconds: float,
+    training_objective: float | None = None,
+    optimizer_iterations: int | None = None,
+    optimizer_success: bool | None = None,
+    test_seeds: range = range(10, 60),
+) -> list[dict[str, float | int | str]]:
+    p = problem()
+    t_eval = np.linspace(0.0, p.t_final, len(pulse) + 1)
+    dt = float(t_eval[1] - t_eval[0])
+    controls_cache = tuple(
+        tuple(interaction_frame_operator(p, hc, float(t)) for hc in p.controls)
+        for t in t_eval[:-1]
+    )
+    rows = []
+    for seed in test_seeds:
+        disorder = random_disorder(seed, p.h0.shape[0])
+        rho = p.initial.copy()
+        fids = []
+        leaks = []
+        for j, t in enumerate(t_eval):
+            rho = hermitize_trace_one(rho)
+            fids.append(fidelity(rho, p.target))
+            leaks.append(leakage(rho, p))
+            if j < len(pulse):
+                disorder_i = interaction_frame_operator(p, disorder, float(t))
+                rho = rk_step(
+                    rho,
+                    dt,
+                    controls_cache[j],
+                    disorder_i,
+                    disorder_strength,
+                    pulse[j],
+                )
+        inf = np.maximum(0.0, 1.0 - np.array(fids))
+        tail = inf[int((1.0 - TAIL_FRACTION) * len(inf)) :]
+        rows.append(
+            {
+                "system": p.name,
+                "controller": controller,
+                "eval_strength": disorder_strength,
+                "seed": seed,
+                "final_fidelity": float(fids[-1]),
+                "final_leakage": float(leaks[-1]),
+                "max_leakage": float(np.max(leaks)),
+                "tail_infidelity_mean": float(np.mean(tail)),
+                "pulse_energy": float(np.mean(np.sum(pulse * pulse, axis=1))),
+                "segments": len(pulse),
+                "training_seconds": training_seconds,
+                "training_objective": "" if training_objective is None else training_objective,
+                "optimizer_iterations": "" if optimizer_iterations is None else optimizer_iterations,
+                "optimizer_success": "" if optimizer_success is None else str(optimizer_success),
+            }
+        )
+    return rows
+
+
+def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
+    groups: dict[tuple[str, float], list[dict[str, float | int | str]]] = {}
+    for row in rows:
+        groups.setdefault((str(row["controller"]), float(row["eval_strength"])), []).append(row)
+
+    summary: list[dict[str, str]] = []
+    for (controller, strength), items in sorted(groups.items()):
+        fids = np.array([float(row["final_fidelity"]) for row in items])
+        final_leaks = np.array([float(row["final_leakage"]) for row in items])
+        max_leaks = np.array([float(row["max_leakage"]) for row in items])
+        ci95 = 1.96 * float(np.std(fids)) / np.sqrt(len(fids))
+        summary.append(
+            {
+                "system": str(items[0]["system"]),
+                "controller": controller,
+                "eval_strength": f"{strength:.4g}",
+                "n": str(len(items)),
+                "final_fidelity_mean": f"{np.mean(fids):.6g}",
+                "final_fidelity_min": f"{np.min(fids):.6g}",
+                "final_fidelity_std": f"{np.std(fids):.6g}",
+                "final_fidelity_ci95": f"{ci95:.6g}",
+                "final_leakage_mean": f"{np.mean(final_leaks):.6g}",
+                "max_leakage_mean": f"{np.mean(max_leaks):.6g}",
+                "max_leakage_max": f"{np.max(max_leaks):.6g}",
+                "tail_infidelity_mean": f"{np.mean([float(row['tail_infidelity_mean']) for row in items]):.6g}",
+                "pulse_energy_mean": f"{np.mean([float(row['pulse_energy']) for row in items]):.6g}",
+                "segments": str(items[0]["segments"]),
+                "training_seconds": f"{float(items[0]['training_seconds']):.3f}",
+                "training_objective": str(items[0]["training_objective"]),
+                "optimizer_iterations": str(items[0]["optimizer_iterations"]),
+                "optimizer_success": str(items[0]["optimizer_success"]),
+            }
+        )
+    return summary
+
+
+def segment_data(
+    controls_flat: np.ndarray,
+    segments: int,
+    strength: float,
+    disorder: np.ndarray,
+) -> tuple[list[np.ndarray], list[list[np.ndarray]], list[np.ndarray]]:
+    p = problem()
+    controls = np.reshape(controls_flat, (segments, len(p.controls)))
+    t_eval = np.linspace(0.0, p.t_final, segments + 1)
+    dt = float(t_eval[1] - t_eval[0])
+    unitaries: list[np.ndarray] = []
+    frechet_dirs: list[list[np.ndarray]] = []
+    generators: list[np.ndarray] = []
+
+    for index, coeffs in enumerate(controls):
+        t = float(t_eval[index])
+        control_ops = tuple(interaction_frame_operator(p, hc, t) for hc in p.controls)
+        h = strength * interaction_frame_operator(p, disorder, t)
+        for coeff, hc_i in zip(coeffs, control_ops):
+            h = h + coeff * hc_i
+        generator = -1.0j * h * dt
+        unitaries.append(expm(generator))
+        frechet_dirs.append([-1.0j * hc_i * dt for hc_i in control_ops])
+        generators.append(generator)
+
+    return unitaries, frechet_dirs, generators
+
+
+def state_fidelity_and_gradient(
+    controls_flat: np.ndarray,
+    segments: int,
+    strength: float,
+    disorder: np.ndarray,
+) -> tuple[float, np.ndarray]:
+    p = problem()
+    unitaries, frechet_dirs, generators = segment_data(
+        controls_flat, segments, strength, disorder
+    )
+    n_controls = len(p.controls)
+
+    rhos = [p.initial.copy()]
+    for propagator in unitaries:
+        rhos.append(propagator @ rhos[-1] @ dagger(propagator))
+
+    lambdas: list[np.ndarray] = [np.zeros_like(p.target) for _ in range(segments + 1)]
+    lambdas[-1] = p.target
+    for index in reversed(range(segments)):
+        lambdas[index] = dagger(unitaries[index]) @ lambdas[index + 1] @ unitaries[index]
+
+    grad = np.zeros((segments, n_controls), dtype=float)
+    for index in range(segments):
+        for control_index in range(n_controls):
+            d_unitary = expm_frechet(
+                generators[index],
+                frechet_dirs[index][control_index],
+                compute_expm=False,
+            )
+            value = np.trace(
+                lambdas[index + 1] @ d_unitary @ rhos[index] @ dagger(unitaries[index])
+            )
+            grad[index, control_index] = 2.0 * float(np.real(value))
+
+    return fidelity(rhos[-1], p.target), grad.reshape(-1)
+
+
+def grape_objective_and_gradient(
+    controls_flat: np.ndarray,
+    segments: int,
+    scenarios: tuple[tuple[float, np.ndarray], ...],
+    worst_weight: float,
+    energy_weight: float,
+) -> tuple[float, np.ndarray]:
+    fidelities = []
+    fidelity_grads = []
+    for strength, disorder in scenarios:
+        fid, grad_fid = state_fidelity_and_gradient(
+            controls_flat, segments, strength, disorder
+        )
+        fidelities.append(fid)
+        fidelity_grads.append(grad_fid)
+
+    fids = np.array(fidelities, dtype=float)
+    grads = np.vstack(fidelity_grads)
+    infids = 1.0 - fids
+    worst_index = int(np.argmax(infids))
+
+    objective = float(np.mean(infids) + worst_weight * infids[worst_index])
+    grad = -np.mean(grads, axis=0) - worst_weight * grads[worst_index]
+    energy = float(np.mean(np.square(controls_flat)))
+    objective += energy_weight * energy
+    grad += energy_weight * (2.0 / controls_flat.size) * controls_flat
+    return objective, grad
+
+
+def optimize_grape_pulse(
+    segments: int = 80,
+    maxiter: int = 40,
+    train_strengths: tuple[float, ...] = (0.01, 0.02),
+    train_seeds: tuple[int, ...] = (0, 1, 2, 3),
+    restart_seeds: tuple[int, ...] = (3, 17),
+    umax: float = 0.12,
+    worst_weight: float = 0.25,
+    energy_weight: float = 1e-5,
+) -> tuple[np.ndarray, float, int, bool, float]:
+    p = problem()
+    scenarios = tuple(
+        (strength, random_disorder(seed, p.h0.shape[0]))
+        for strength in train_strengths
+        for seed in train_seeds
+    )
+    base = np.tile(
+        np.array([np.pi / (2.0 * p.t_final), 0.0]), (segments, 1)
+    ).reshape(-1)
+    best_x: np.ndarray | None = None
+    best_fun = float("inf")
+    best_iterations = 0
+    best_success = False
+    start = time.perf_counter()
+
+    for restart_seed in restart_seeds:
+        rng = np.random.default_rng(restart_seed)
+        x0 = base + rng.normal(scale=0.005, size=base.size)
+        result = minimize(
+            lambda x: grape_objective_and_gradient(
+                x, segments, scenarios, worst_weight, energy_weight
+            ),
+            x0,
+            method="L-BFGS-B",
+            jac=True,
+            bounds=[(-umax, umax)] * x0.size,
+            options={"maxiter": maxiter, "ftol": 1e-10, "gtol": 1e-7},
+        )
+        if float(result.fun) < best_fun:
+            best_x = np.asarray(result.x)
+            best_fun = float(result.fun)
+            best_iterations = int(result.nit)
+            best_success = bool(result.success)
+
+    if best_x is None:
+        raise RuntimeError("no transmon GRAPE restart completed")
+    return (
+        np.reshape(best_x, (segments, len(p.controls))),
+        best_fun,
+        best_iterations,
+        best_success,
+        time.perf_counter() - start,
+    )
+
+
+def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
+    with result_path("transmon_leakage_results.csv").open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+
+    summary = summarize(rows)
+    headers = list(summary[0].keys())
+    with result_path("transmon_leakage_summary.md").open("w", encoding="utf-8") as f:
+        f.write("# Transmon-Like Leakage Horizon Summary\n\n")
+        f.write("| " + " | ".join(headers) + " |\n")
+        f.write("| " + " | ".join(["---"] * len(headers)) + " |\n")
+        for row in summary:
+            f.write("| " + " | ".join(row[h] for h in headers) + " |\n")
+
+    plot_summary(summary)
+
+
+def plot_summary(summary: list[dict[str, str]]) -> None:
+    controllers = sorted({row["controller"] for row in summary})
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.8, 2.8), sharex=True)
+    for controller in controllers:
+        rows = [row for row in summary if row["controller"] == controller]
+        strengths = np.array([float(row["eval_strength"]) for row in rows])
+        fids = np.array([float(row["final_fidelity_mean"]) for row in rows])
+        fid_ci = np.array([float(row["final_fidelity_ci95"]) for row in rows])
+        leaks = np.array([float(row["max_leakage_mean"]) for row in rows])
+        ax1.errorbar(strengths, fids, yerr=fid_ci, marker="o", capsize=3, label=controller)
+        ax2.plot(strengths, leaks, marker="s", label=controller)
+    ax1.set_xlabel("Disorder strength")
+    ax1.set_ylabel("Held-out final fidelity")
+    ax1.set_ylim(0.80, 1.002)
+    ax1.grid(True, alpha=0.25)
+    ax2.set_xlabel("Disorder strength")
+    ax2.set_ylabel("Mean max leakage")
+    ax2.set_ylim(0.0, 0.16)
+    ax2.grid(True, alpha=0.25)
+    ax1.legend(frameon=False, fontsize=8)
+    fig.tight_layout()
+    fig.savefig(figure_path("transmon_leakage.pdf"))
+    fig.savefig(figure_path("transmon_leakage.png"), dpi=220)
+    plt.close(fig)
+
+
+def main() -> None:
+    rows: list[dict[str, float | int | str]] = []
+    start = time.perf_counter()
+    horizon_pulse = design_pulse()
+    horizon_seconds = time.perf_counter() - start
+    for strength in EVAL_STRENGTHS:
+        rows.extend(
+            evaluate_pulse(
+                horizon_pulse,
+                strength,
+                controller="path_horizon",
+                training_seconds=horizon_seconds,
+            )
+        )
+
+    grape_pulse, grape_objective, grape_iters, grape_success, grape_seconds = (
+        optimize_grape_pulse()
+    )
+    for strength in EVAL_STRENGTHS:
+        rows.extend(
+            evaluate_pulse(
+                grape_pulse,
+                strength,
+                controller="terminal_grape",
+                training_seconds=grape_seconds,
+                training_objective=grape_objective,
+                optimizer_iterations=grape_iters,
+                optimizer_success=grape_success,
+            )
+        )
+    write_outputs(rows)
+    print(f"wrote {len(rows)} rows to {result_path('transmon_leakage_results.csv')}")
+    print(f"wrote summary to {result_path('transmon_leakage_summary.md')}")
+    print(f"wrote figure to {figure_path('transmon_leakage.pdf')}")
+
+
+if __name__ == "__main__":
+    main()
