@@ -36,9 +36,11 @@ summary,L,leakage path seed max leakage,max_leakage,50,0.0468435426,0.00266,,,
 summary,L,standalone leakage adjoint max leakage,max_leakage,50,0.0146423576,0.000871,,,
 summary,L,leakage-GRAPE max leakage,max_leakage,50,0.0539387677,0.00274,,,
 summary,OL,open leakage path combined fidelity,final_fidelity,50,0.826420064,0.0254,,,
+summary,OL,standalone open leakage adjoint combined fidelity,final_fidelity,50,0.840595369,0.029,,,
 summary,OL,open leakage adjoint combined fidelity,final_fidelity,50,0.932451986,0.0104,,,
 summary,OL,open leakage-GRAPE combined fidelity,final_fidelity,50,0.95295242,0.00917,,,
 summary,OL,open leakage path combined max leakage,max_leakage,50,0.0466762953,0.0026,,,
+summary,OL,standalone open leakage adjoint combined max leakage,max_leakage,50,0.0176521996,0.000984,,,
 summary,OL,open leakage adjoint combined max leakage,max_leakage,50,0.053823841,0.00274,,,
 summary,OL,open leakage-GRAPE combined max leakage,max_leakage,50,0.0548929297,0.00272,,,
 paired,Z,beam horizon minus one-step horizon,final_fidelity,50,,,0.0402918502,0.00928,1.2
@@ -78,6 +80,11 @@ paired,L,leakage-GRAPE minus standalone leakage adjoint,final_fidelity,50,,,0.12
 paired,L,path seed max leakage minus standalone leakage adjoint,max_leakage,50,,,0.032201185,0.00213,4.19
 paired,L,leakage-GRAPE max leakage minus standalone leakage adjoint,max_leakage,50,,,0.0392964101,0.00259,4.21
 paired,OL,open leakage adjoint minus path horizon,final_fidelity,50,,,0.106031923,0.02,1.47
+paired,OL,standalone open leakage adjoint minus path seed,final_fidelity,50,,,0.014175305,0.0278,0.141
+paired,OL,reference-assisted open leakage adjoint minus standalone open leakage adjoint,final_fidelity,50,,,0.0918566178,0.0251,1.02
 paired,OL,open leakage-GRAPE minus adjoint horizon,final_fidelity,50,,,0.0205004332,0.00712,0.798
+paired,OL,open leakage-GRAPE minus standalone open leakage adjoint,final_fidelity,50,,,0.112357051,0.0261,1.19
 paired,OL,open leakage path max leakage minus adjoint horizon,max_leakage,50,,,-0.00714754568,0.0038,-0.521
+paired,OL,open leakage path seed max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0290240958,0.00199,4.04
+paired,OL,reference-assisted open leakage adjoint max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0361716414,0.00259,3.87
 paired,OL,open leakage-GRAPE max leakage minus adjoint horizon,max_leakage,50,,,0.00106908866,0.00267,0.111

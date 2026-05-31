@@ -133,6 +133,7 @@ def rows() -> list[dict[str, str]]:
     leakage = load("transmon_leakage_results.csv")
     standalone_leakage = load("transmon_standalone_adjoint_results.csv")
     open_leakage = load("transmon_open_system_leakage_results.csv")
+    standalone_open_leakage = load("transmon_open_leakage_adjoint_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -355,6 +356,14 @@ def rows() -> list[dict[str, str]]:
         open_leakage_summary(open_leakage, "path_horizon"),
         "120 seg; gamma_phi=0.001; gamma_relax=0.0005; evaluated under five-level Lindblad noise",
         "combined physical stress test",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "standalone open-leakage adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(standalone_open_leakage, "standalone_open_leakage_adjoint"),
+        "120 seg; 4 train seeds; q=5; direct Lindblad leakage-adjoint horizon",
+        "GRAPE-free direct combined-noise horizon diagnostic",
     )
     add(
         "five-level leakage + Lindblad",

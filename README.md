@@ -55,6 +55,7 @@ python3 code/multilevel_horizon.py
 python3 code/transmon_leakage_horizon.py
 python3 code/transmon_standalone_adjoint_horizon.py
 python3 code/transmon_open_system_leakage.py
+python3 code/transmon_open_leakage_adjoint_horizon.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
@@ -68,9 +69,10 @@ python3 code/open_system_adjoint_horizon.py --gradient-check
 python3 code/state_adjoint_horizon.py --gradient-check
 python3 code/process_standalone_adjoint_horizon.py --gradient-check
 python3 code/process_adjoint_horizon.py --gradient-check
+python3 code/transmon_open_leakage_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, CRAB/dCRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, standalone open-leakage adjoint diagnostic, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, standalone open-leakage adjoint, CRAB/dCRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
@@ -131,6 +133,7 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/transmon_leakage_summary.md`
 - `results/transmon_standalone_adjoint_summary.md`
 - `results/transmon_open_system_leakage_summary.md`
+- `results/transmon_open_leakage_adjoint_summary.md`
 - `results/robustness_scan_summary.md`
 - `results/polished_openloop_summary.md`
 - `results/figures/`

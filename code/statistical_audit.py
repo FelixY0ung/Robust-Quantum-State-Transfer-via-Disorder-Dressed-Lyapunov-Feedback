@@ -152,6 +152,19 @@ def open_leakage_series(
     ].copy()
 
 
+def standalone_open_leakage_series(
+    controller: str,
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("transmon_open_leakage_adjoint_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
 def summary_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
 
@@ -193,9 +206,11 @@ def summary_rows() -> list[dict[str, str]]:
         ("L", "standalone leakage adjoint max leakage", standalone_leakage_series("standalone_adjoint_horizon"), "max_leakage"),
         ("L", "leakage-GRAPE max leakage", leakage_series("leakage_penalized_grape"), "max_leakage"),
         ("OL", "open leakage path combined fidelity", open_leakage_series("path_horizon"), "final_fidelity"),
+        ("OL", "standalone open leakage adjoint combined fidelity", standalone_open_leakage_series("standalone_open_leakage_adjoint"), "final_fidelity"),
         ("OL", "open leakage adjoint combined fidelity", open_leakage_series("adjoint_horizon"), "final_fidelity"),
         ("OL", "open leakage-GRAPE combined fidelity", open_leakage_series("leakage_penalized_grape"), "final_fidelity"),
         ("OL", "open leakage path combined max leakage", open_leakage_series("path_horizon"), "max_leakage"),
+        ("OL", "standalone open leakage adjoint combined max leakage", standalone_open_leakage_series("standalone_open_leakage_adjoint"), "max_leakage"),
         ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
         ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
     ]
@@ -480,6 +495,20 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "standalone open leakage adjoint minus path seed",
+            standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            standalone_open_leakage_series("open_leakage_path_seed"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "reference-assisted open leakage adjoint minus standalone open leakage adjoint",
+            open_leakage_series("adjoint_horizon"),
+            standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "open leakage-GRAPE minus adjoint horizon",
             open_leakage_series("leakage_penalized_grape"),
             open_leakage_series("adjoint_horizon"),
@@ -487,9 +516,30 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "open leakage-GRAPE minus standalone open leakage adjoint",
+            open_leakage_series("leakage_penalized_grape"),
+            standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "open leakage path max leakage minus adjoint horizon",
             open_leakage_series("path_horizon"),
             open_leakage_series("adjoint_horizon"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "open leakage path seed max leakage minus standalone open leakage adjoint",
+            standalone_open_leakage_series("open_leakage_path_seed"),
+            standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "reference-assisted open leakage adjoint max leakage minus standalone open leakage adjoint",
+            open_leakage_series("adjoint_horizon"),
+            standalone_open_leakage_series("standalone_open_leakage_adjoint"),
             "max_leakage",
         ),
         (
