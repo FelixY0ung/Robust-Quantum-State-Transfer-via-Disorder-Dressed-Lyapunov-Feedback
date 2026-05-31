@@ -31,6 +31,11 @@
       "sha256": "275fcd2308710c6f09766c822bbd6d3bd871324c94a09fd1f698a7c040c9f724"
     },
     {
+      "bytes": 10351,
+      "path": "code/finite_net_scalar_audit.py",
+      "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
+    },
+    {
       "bytes": 6405,
       "path": "code/gate_fidelity_probe.py",
       "sha256": "cee608d5cac79e47c58f17888b2ce1a785faaaf8baac318986395fd9198ed420"
@@ -519,6 +524,16 @@
       "sha256": "f1c0d1ab07a55b5ae847470e5d0b33a7c1b70e0370aafdc01cb23476d528a423"
     },
     {
+      "bytes": 21174,
+      "path": "results/figures/finite_net_scalar_audit.pdf",
+      "sha256": "086d37df76b53fe3d91052c7b5e0de48c736e3eb0e19d6bb1fe3295c13591916"
+    },
+    {
+      "bytes": 113963,
+      "path": "results/figures/finite_net_scalar_audit.png",
+      "sha256": "41d926f8ea7241b1a4cd00a68ad247e001370cfb068f70c91320ecdbfa585af2"
+    },
+    {
       "bytes": 14945,
       "path": "results/figures/gate_fidelity_probe.pdf",
       "sha256": "59e1d7189e78a5924f7173e24daf12afee7b85d80600fc9abf1164a93e225762"
@@ -757,6 +772,28 @@
       "bytes": 91487,
       "path": "results/figures/transmon_open_system_leakage.png",
       "sha256": "85d4a4e144f2f5b9f090615914d1fe0dbceebe29789011a95aa75c3af57f6b28"
+    },
+    {
+      "bytes": 38720,
+      "columns": [
+        "task",
+        "method",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "design_seconds",
+        "resource_profile"
+      ],
+      "path": "results/finite_net_scalar_audit_results.csv",
+      "row_count": 250,
+      "sha256": "c33de9516284767629bcabc9922b74474655ef5bf4e2911ad23363d61e9d0118"
+    },
+    {
+      "bytes": 1844,
+      "path": "results/finite_net_scalar_audit_summary.md",
+      "sha256": "277fc2bf21257ddfe553cafbf389034766bb8cfa4c8aeb46b1e6ceb91417161c"
     },
     {
       "bytes": 5682,
