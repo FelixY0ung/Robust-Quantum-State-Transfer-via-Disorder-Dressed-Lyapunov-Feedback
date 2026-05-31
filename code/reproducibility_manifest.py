@@ -11,7 +11,6 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -33,20 +32,6 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
-
-
-def git_commit() -> str:
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "HEAD"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-    except Exception:
-        return ""
-    return result.stdout.strip()
 
 
 def csv_metadata(path: Path) -> dict[str, Any]:
@@ -90,7 +75,6 @@ def manifest() -> dict[str, Any]:
     return {
         "schema": "disorder-dressed-reproducibility-manifest-v1",
         "repository_root": ".",
-        "git_commit": git_commit(),
         "code_files": [file_record(path) for path in code_files],
         "result_files": [file_record(path) for path in result_files],
     }
@@ -106,8 +90,6 @@ def write_markdown(data: dict[str, Any]) -> None:
     with path.open("w", encoding="utf-8") as f:
         f.write("# Reproducibility Manifest\n\n")
         f.write(f"Schema: `{data['schema']}`\n\n")
-        if data["git_commit"]:
-            f.write(f"Git commit: `{data['git_commit']}`\n\n")
         f.write(f"Code files hashed: {len(data['code_files'])}\n\n")
         f.write(f"Result artifacts hashed: {len(data['result_files'])}\n\n")
         f.write("## CSV Row Counts\n\n")

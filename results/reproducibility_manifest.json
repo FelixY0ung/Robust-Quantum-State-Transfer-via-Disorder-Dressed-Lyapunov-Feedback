@@ -136,9 +136,9 @@
       "sha256": "068633f0b4febee9983c4d12b85bebdefed49e48d5bf10cda79d3c3a465a57f3"
     },
     {
-      "bytes": 3998,
+      "bytes": 3554,
       "path": "code/reproducibility_manifest.py",
-      "sha256": "2530952dfe52aaad13a689078f1c293b84c986e1600330ead04690db714a4fc9"
+      "sha256": "f630b7517fca5cb64cb3342ae459187c80711086d96ffb8c532a3c78504b9606"
     },
     {
       "bytes": 11878,
@@ -216,7 +216,6 @@
       "sha256": "94642bfe165870efaa8ef2683d11703c28f6f10d23c0c1b00ee3c2aef9ac9754"
     }
   ],
-  "git_commit": "3bf6a181b4ea969bceca94a749624ae9b3c60b8c",
   "repository_root": ".",
   "result_files": [
     {

@@ -2,8 +2,6 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Git commit: `3bf6a181b4ea969bceca94a749624ae9b3c60b8c`
-
 Code files hashed: 43
 
 Result artifacts hashed: 137
