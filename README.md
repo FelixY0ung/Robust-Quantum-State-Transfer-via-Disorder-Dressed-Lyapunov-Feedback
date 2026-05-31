@@ -7,7 +7,8 @@ Reproducible code and generated numerical results for the disorder-dressed Lyapu
 - `code/`: simulation, control, robustness-scan, and plotting scripts.
 - `results/`: CSV outputs, Markdown summaries, and generated paper figures.
 - `docs/`: reproducibility and physical-consistency audit notes.
-- `requirements.txt`: Python dependencies used by the scripts.
+- `requirements.txt`: Python dependencies used by the core scripts.
+- `requirements-krotov.txt`: optional dependencies for the Krotov-package comparator.
 
 ## Environment
 
@@ -17,6 +18,14 @@ The scripts are plain Python and were run with Python 3.10+.
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+The optional Krotov-package comparator uses the external `krotov`/QuTiP 4 stack, which is best isolated in a Python 3.9/3.10 environment:
+
+```bash
+python3 -m venv .venv-krotov
+source .venv-krotov/bin/activate
+pip install -r requirements-krotov.txt
 ```
 
 ## Reproducing The Reported Results
@@ -50,6 +59,7 @@ python3 code/open_system_standalone_adjoint_horizon.py
 python3 code/gate_fidelity_probe.py
 python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
+python3 code/krotov_baseline.py
 python3 code/process_horizon.py
 python3 code/process_standalone_adjoint_horizon.py
 python3 code/process_seeded_horizon.py
@@ -78,7 +88,7 @@ python3 code/process_adjoint_horizon.py --gradient-check
 python3 code/transmon_open_leakage_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, strong-disorder extrapolation audit, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, bandwidth filter audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, direct and target-biased open-leakage adjoint diagnostics, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, strong-disorder extrapolation, three-level, five-level leakage, five-level leakage-plus-Lindblad, direct/target-biased open-leakage adjoint, CRAB/dCRAB, slew-constrained, bandwidth-filter, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, Krotov-package comparator, CRAB and dCRAB reduced-basis baselines, strong-disorder extrapolation audit, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, bandwidth filter audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, direct and target-biased open-leakage adjoint diagnostics, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, strong-disorder extrapolation, three-level, five-level leakage, five-level leakage-plus-Lindblad, direct/target-biased open-leakage adjoint, Krotov-package, CRAB/dCRAB, slew-constrained, bandwidth-filter, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
@@ -87,6 +97,8 @@ The direct leakage-adjoint horizon diagnostic uses the finite path-horizon pulse
 The five-level leakage-plus-Lindblad stress test evaluates the path horizon, conservative direct open-leakage adjoint, target-biased direct open-leakage adjoint, reference-assisted adjoint horizon, and leakage-penalized GRAPE pulse under weak dephasing and relaxation with `gamma_phi = 0.001` and `gamma_relax = 0.0005`. At `delta = 0.03` under combined noise, the path seed reaches mean final fidelity `0.826420`, the conservative direct adjoint reaches `0.840595` with mean maximum leakage `0.017652`, and the target-biased direct adjoint reaches `0.910936` with mean maximum leakage `0.042021`. The reference-assisted adjoint horizon reaches `0.932452`, while leakage-penalized GRAPE reaches `0.952952`. This is a stress test and direct-horizon diagnostic; the highest-fidelity rows still show the remaining terminal-optimization ceiling.
 
 The reduced-basis CRAB baseline is an independent derivative-free terminal-control comparator. With three randomized Fourier modes per control and differential-evolution training at `delta = 0.08`, it reaches held-out mean fidelity `0.999240` for Z and `0.997811` for H at `delta = 0.08`.
+
+The optional Krotov-package ensemble comparator uses the same two-level Hamiltonian resources, a drift-rotated terminal target equivalent to the interaction-frame state-transfer objective, 40 control segments, 60 Krotov iterations, and eight training disorder seeds at `delta = 0.08`. On the standard 50 held-out seeds, it reaches mean fidelity `0.958963` for Z and `0.987255` for H at `delta = 0.08`, with worst held-out fidelities `0.945603/0.978499`. This is a direct prior-family comparator, not the strongest terminal ceiling.
 
 The dCRAB-style reduced-basis baseline refreshes the randomized Fourier basis over three sequential terminal-optimization rounds and accepts only corrections that improve the robust training score. At `delta = 0.08`, it reaches held-out mean fidelity `0.999635` for Z and `0.999578` for H, with worst held-out fidelities above `0.9983`.
 
@@ -142,6 +154,7 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/gate_fidelity_probe_summary.md`
 - `results/gate_process_baseline_summary.md`
 - `results/ensemble_grape_baseline_summary.md`
+- `results/krotov_baseline_summary.md`
 - `results/process_horizon_summary.md`
 - `results/process_standalone_adjoint_summary.md`
 - `results/process_seeded_horizon_summary.md`

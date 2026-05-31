@@ -125,6 +125,7 @@ def rows() -> list[dict[str, str]]:
     horizon = load("horizon_lyapunov_results.csv")
     slew = load("slew_constrained_horizon_results.csv")
     bandwidth = load("bandwidth_filter_audit_results.csv")
+    krotov = load("krotov_baseline_results.csv")
     dcrab = load("dcrab_baseline_results.csv")
     dcrab_train8 = load("dcrab_train8_baseline_results.csv")
     grape = load("ensemble_grape_baseline_results.csv")
@@ -209,6 +210,19 @@ def rows() -> list[dict[str, str]]:
         ),
         "60 seg; 16 train samples; q=4; B=6/8; slew weight=0.005; boxcar3 filter",
         "low-pass post-filter diagnostic",
+    )
+    add(
+        "two-level transfer",
+        "ensemble Krotov",
+        "final state fidelity at delta=0.08",
+        pair_summary(
+            krotov,
+            lambda df, task: df[(df["task"] == task) & (df["eval_strength"] == 0.08)],
+            "state_transfer_fidelity",
+            seconds_columns=("optimization_seconds",),
+        ),
+        "40 seg; 8 train seeds; 60 Krotov iter.; mean state-transfer functional",
+        "Krotov-family terminal comparator",
     )
     add(
         "two-level transfer",

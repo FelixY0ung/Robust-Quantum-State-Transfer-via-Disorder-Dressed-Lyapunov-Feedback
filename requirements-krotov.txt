@@ -1,0 +1,6 @@
+# Optional dependencies for code/krotov_baseline.py.
+# krotov 1.3 targets the QuTiP 4.x API; use a separate Python 3.9/3.10 env.
+numpy<2
+scipy<1.13
+qutip==4.7.6
+krotov==1.3.0

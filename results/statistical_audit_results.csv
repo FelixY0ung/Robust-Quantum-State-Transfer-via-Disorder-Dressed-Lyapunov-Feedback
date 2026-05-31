@@ -1,6 +1,8 @@
 kind,task,comparison,metric,n,mean,ci95_halfwidth,paired_delta,paired_delta_ci95,paired_effect_dz
 summary,Z,beam horizon transfer,final_fidelity,50,0.997581558,0.00037,,,
 summary,H,beam horizon transfer,final_fidelity,50,0.998155764,0.000405,,,
+summary,Z,Krotov-package transfer comparator,state_transfer_fidelity,50,0.958962557,0.00134,,,
+summary,H,Krotov-package transfer comparator,state_transfer_fidelity,50,0.987255342,0.00148,,,
 summary,Z,dCRAB transfer ceiling,final_fidelity,50,0.999635386,0.000108,,,
 summary,H,dCRAB transfer ceiling,final_fidelity,50,0.999577856,0.000116,,,
 summary,Z,dCRAB train-8 transfer ceiling,final_fidelity,50,0.999713008,7.78e-05,,,
