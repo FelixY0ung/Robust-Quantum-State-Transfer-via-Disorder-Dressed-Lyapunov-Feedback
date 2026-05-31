@@ -5,6 +5,7 @@ This audit aggregates representative held-out performance and resource metadata 
 | regime | method | metric | heldout_n | heldout_mean | worst_or_leakage | pulse_energy | resource_profile | logged_design_seconds | role |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | two-level transfer | beam-horizon Lyapunov | final state fidelity at delta=0.08 | 50/50 | 0.997582/0.998156 | 0.993966/0.994749 | 4.923/5.608 | 100 seg; 16 train samples; q=6; B=6/8; finite grid |  | proposed interpretable horizon controller |
+| two-level transfer | slew-constrained beam | final state fidelity at delta=0.08 | 50/50 | 0.995054/0.995260 | 0.991829/0.989820 | 0.8083/0.4542 | 60 seg; 16 train samples; q=4; B=6/8; slew weight=0.005 | 36.6/48.2 | physical-smoothness diagnostic |
 | two-level transfer | dCRAB terminal | final state fidelity at delta=0.08 | 50/50 | 0.999635/0.999578 | 0.998336/0.998374 | 8.652/5.14 | 40 seg; 4 train seeds; 3 Fourier modes; 3 basis refreshes | 38.8/48.1 | derivative-free terminal ceiling |
 | two-level transfer | ensemble GRAPE state | final state fidelity at delta=0.08 | 50/50 | 0.999342/0.996571 | 0.996798/0.990732 | 0.4393/0.06404 | 60 seg; 16 train samples; exact Frechet gradients | 99.7/55.8 | gradient terminal comparator |
 | process fidelity | finite process horizon | average gate fidelity at delta=0.08 | 50/50 | 0.926604/0.925944 | 0.773161/0.754446 | 1.702/1.575 | 100 seg; 8 train seeds; q=6; B=8; finite grid |  | direct process-horizon diagnostic |
