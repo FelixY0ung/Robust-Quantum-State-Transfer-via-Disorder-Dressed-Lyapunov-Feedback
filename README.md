@@ -43,6 +43,7 @@ python3 code/gate_fidelity_probe.py
 python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
 python3 code/process_horizon.py
+python3 code/process_standalone_adjoint_horizon.py
 python3 code/process_seeded_horizon.py
 python3 code/process_adjoint_horizon.py
 python3 code/statistical_audit.py
@@ -59,10 +60,11 @@ python3 code/transmon_leakage_horizon.py --gradient-check
 python3 code/open_system_grape_baseline.py --gradient-check
 python3 code/open_system_adjoint_horizon.py --gradient-check
 python3 code/state_adjoint_horizon.py --gradient-check
+python3 code/process_standalone_adjoint_horizon.py --gradient-check
 python3 code/process_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB reduced-basis baseline, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison, standalone state-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB reduced-basis baseline, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
@@ -75,6 +77,8 @@ The adjoint-polished process-horizon diagnostic puts exact Frechet gradients ins
 The shifted-fallback horizon comparison implements the candidate-inclusion part of the practical-decrease certificate: at each step it also scores the shifted tail of the previous horizon sequence with every admissible appended fallback. At `delta = 0.08`, it reaches held-out mean fidelity `0.995809` for Z and `0.997657` for H, while lowering mean pulse energy to `4.625/5.285`. This is a certification-oriented comparison, not the best-fidelity beam-horizon row.
 
 The standalone state-adjoint horizon diagnostic uses the finite-candidate horizon only as a local initializer, then optimizes the same short state-transfer Lyapunov score by exact Frechet derivatives without a terminal GRAPE reference. At `delta = 0.08`, it reaches held-out mean fidelity `0.997445` for Z and `0.996096` for H; the corresponding 60-segment finite-candidate seed reaches `0.997407/0.989428`. This is evidence for adjoint-assisted horizon scoring, not a global optimality claim.
+
+The standalone process-adjoint horizon diagnostic applies the same idea to average gate fidelity without a terminal process-GRAPE reference. At `delta = 0.08`, it reaches held-out average gate fidelity `0.924093` for Z and `0.927613` for H, close to the finite process seed's `0.927537/0.928319`. This negative result is included to document that exact short-horizon process gradients alone do not solve the global process-search difficulty.
 
 The open-system horizon-training diagnostic compares the existing closed-system-trained horizon pulses with compact Lindblad-trained finite-candidate horizon pulses. Under combined dephasing and relaxation at `delta = 0.08`, the compact open-trained pulses reach mean fidelity `0.948556` for Z and `0.942853` for H, below the closed-trained horizon's `0.957140` and `0.956625`, but with lower pulse energy. This diagnostic is included as a limitation rather than an improvement claim.
 
@@ -97,6 +101,7 @@ The adjoint open-system horizon diagnostic carries most of the open-system GRAPE
 - `results/gate_process_baseline_summary.md`
 - `results/ensemble_grape_baseline_summary.md`
 - `results/process_horizon_summary.md`
+- `results/process_standalone_adjoint_summary.md`
 - `results/process_seeded_horizon_summary.md`
 - `results/process_adjoint_horizon_summary.md`
 - `results/statistical_audit_summary.md`
