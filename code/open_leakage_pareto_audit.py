@@ -1,9 +1,9 @@
 """Pareto audit for the five-level leakage-plus-Lindblad stress test.
 
 This script does not rerun pulse design.  It reads the existing held-out CSV
-files, combines the GRAPE-free direct horizons with the reference-assisted and
-terminal baselines, and reports the fidelity/leakage tradeoff at the hardest
-combined-noise setting.
+files, combines the GRAPE-free direct horizons and integrated direct sweep with
+the reference-assisted and terminal baselines, and reports the fidelity/leakage
+tradeoff at the hardest combined-noise setting.
 """
 
 from __future__ import annotations
@@ -47,6 +47,13 @@ SPECS = (
         "Target-biased direct",
         "GRAPE-free horizon",
         "no-reference tradeoff",
+    ),
+    ControllerSpec(
+        "open_leakage_integrated_sweep_results.csv",
+        "integrated_alpha1p0_lw1p5_trust004",
+        "Integrated direct",
+        "GRAPE-free horizon",
+        "single-stage integrated tradeoff",
     ),
     ControllerSpec(
         "transmon_open_leakage_adjoint_results.csv",

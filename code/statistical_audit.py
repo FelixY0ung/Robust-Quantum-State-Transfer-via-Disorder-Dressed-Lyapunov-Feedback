@@ -177,6 +177,19 @@ def standalone_open_leakage_series(
     ].copy()
 
 
+def integrated_open_leakage_series(
+    controller: str = "integrated_alpha1p0_lw1p5_trust004",
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_leakage_integrated_sweep_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
 def slew_series(task: str, weight: float) -> pd.DataFrame:
     df = pd.read_csv(result_path("slew_constrained_horizon_results.csv"))
     return df[
@@ -241,12 +254,14 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "open leakage path combined fidelity", open_leakage_series("path_horizon"), "final_fidelity"),
         ("OL", "standalone open leakage adjoint combined fidelity", standalone_open_leakage_series("standalone_open_leakage_adjoint"), "final_fidelity"),
         ("OL", "target-biased open leakage adjoint combined fidelity", standalone_open_leakage_series("target_biased_open_leakage_adjoint"), "final_fidelity"),
+        ("OL", "integrated open leakage adjoint combined fidelity", integrated_open_leakage_series(), "final_fidelity"),
         ("OL", "two-stage target-biased open leakage adjoint combined fidelity", standalone_open_leakage_series("two_stage_target_biased_open_leakage_adjoint"), "final_fidelity"),
         ("OL", "open leakage adjoint combined fidelity", open_leakage_series("adjoint_horizon"), "final_fidelity"),
         ("OL", "open leakage-GRAPE combined fidelity", open_leakage_series("leakage_penalized_grape"), "final_fidelity"),
         ("OL", "open leakage path combined max leakage", open_leakage_series("path_horizon"), "max_leakage"),
         ("OL", "standalone open leakage adjoint combined max leakage", standalone_open_leakage_series("standalone_open_leakage_adjoint"), "max_leakage"),
         ("OL", "target-biased open leakage adjoint combined max leakage", standalone_open_leakage_series("target_biased_open_leakage_adjoint"), "max_leakage"),
+        ("OL", "integrated open leakage adjoint combined max leakage", integrated_open_leakage_series(), "max_leakage"),
         ("OL", "two-stage target-biased open leakage adjoint combined max leakage", standalone_open_leakage_series("two_stage_target_biased_open_leakage_adjoint"), "max_leakage"),
         ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
         ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
@@ -582,9 +597,23 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "integrated open leakage adjoint minus path seed",
+            integrated_open_leakage_series(),
+            standalone_open_leakage_series("open_leakage_path_seed"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "target-biased open leakage adjoint minus direct standalone open leakage adjoint",
             standalone_open_leakage_series("target_biased_open_leakage_adjoint"),
             standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "target-biased open leakage adjoint minus integrated open leakage adjoint",
+            standalone_open_leakage_series("target_biased_open_leakage_adjoint"),
+            integrated_open_leakage_series(),
             "final_fidelity",
         ),
         (
@@ -617,6 +646,13 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "reference-assisted open leakage adjoint minus integrated open leakage adjoint",
+            open_leakage_series("adjoint_horizon"),
+            integrated_open_leakage_series(),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "reference-assisted open leakage adjoint minus two-stage target-biased open leakage adjoint",
             open_leakage_series("adjoint_horizon"),
             standalone_open_leakage_series("two_stage_target_biased_open_leakage_adjoint"),
@@ -641,6 +677,13 @@ def summary_rows() -> list[dict[str, str]]:
             "open leakage-GRAPE minus target-biased open leakage adjoint",
             open_leakage_series("leakage_penalized_grape"),
             standalone_open_leakage_series("target_biased_open_leakage_adjoint"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus integrated open leakage adjoint",
+            open_leakage_series("leakage_penalized_grape"),
+            integrated_open_leakage_series(),
             "final_fidelity",
         ),
         (
@@ -673,9 +716,23 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "open leakage path seed max leakage minus integrated open leakage adjoint",
+            standalone_open_leakage_series("open_leakage_path_seed"),
+            integrated_open_leakage_series(),
+            "max_leakage",
+        ),
+        (
+            "OL",
             "target-biased open leakage adjoint max leakage minus direct standalone open leakage adjoint",
             standalone_open_leakage_series("target_biased_open_leakage_adjoint"),
             standalone_open_leakage_series("standalone_open_leakage_adjoint"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "target-biased open leakage adjoint max leakage minus integrated open leakage adjoint",
+            standalone_open_leakage_series("target_biased_open_leakage_adjoint"),
+            integrated_open_leakage_series(),
             "max_leakage",
         ),
         (
