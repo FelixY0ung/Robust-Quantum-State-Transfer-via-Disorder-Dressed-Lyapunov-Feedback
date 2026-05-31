@@ -17,12 +17,13 @@ import csv
 import time
 from dataclasses import dataclass
 
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.linalg import expm, expm_frechet
 from scipy.optimize import minimize
 
 from open_system_grape_baseline import commutator_super, liouvillian, vec
-from paths import result_path
+from paths import figure_path, result_path
 from transmon_leakage_horizon import (
     design_pulse,
     interaction_frame_operator,
@@ -40,6 +41,12 @@ from transmon_open_system_leakage import (
 
 
 TRAIN_NOISE = NoiseCase("combined", gamma_phi=0.001, gamma_relax=0.0005)
+PLOT_CONTROLLERS = (
+    ("open_leakage_path_seed", "Path horizon"),
+    ("standalone_open_leakage_adjoint", "Direct adjoint"),
+    ("adjoint_horizon", "Ref.-adjoint"),
+    ("leakage_penalized_grape", "Leakage-GRAPE"),
+)
 
 
 @dataclass(frozen=True)
@@ -311,6 +318,79 @@ def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
         f.write("| " + " | ".join(["---"] * len(headers)) + " |\n")
         for row in summary:
             f.write("| " + " | ".join(row[h] for h in headers) + " |\n")
+    plot_combined_results(rows)
+
+
+def load_result_rows(filename: str) -> list[dict[str, float | int | str]]:
+    path = result_path(filename)
+    if not path.exists():
+        return []
+    with path.open("r", newline="", encoding="utf-8") as f:
+        return [dict(row) for row in csv.DictReader(f)]
+
+
+def plot_combined_results(rows: list[dict[str, float | int | str]]) -> None:
+    stress_rows = load_result_rows("transmon_open_system_leakage_results.csv")
+    selected_rows: list[dict[str, float | int | str]] = []
+    selected_rows.extend(
+        row
+        for row in rows
+        if str(row["controller"]) in {"open_leakage_path_seed", "standalone_open_leakage_adjoint"}
+    )
+    selected_rows.extend(
+        row
+        for row in stress_rows
+        if str(row["controller"]) in {"adjoint_horizon", "leakage_penalized_grape"}
+    )
+    if not selected_rows:
+        return
+
+    summary = summarize(selected_rows)
+    by_key = {
+        (str(row["controller"]), str(row["noise_case"])): row
+        for row in summary
+    }
+    noise_cases = tuple(case.label for case in NOISE_CASES)
+    x = np.arange(len(noise_cases))
+    width = 0.82 / float(len(PLOT_CONTROLLERS))
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.1, 3.05), sharex=True)
+    handles = []
+    labels = []
+    for idx, (controller, label) in enumerate(PLOT_CONTROLLERS):
+        controller_rows = [by_key[(controller, noise)] for noise in noise_cases]
+        means = np.array([float(row["final_fidelity_mean"]) for row in controller_rows])
+        mins = np.array([float(row["final_fidelity_min"]) for row in controller_rows])
+        leaks = np.array([float(row["max_leakage_mean"]) for row in controller_rows])
+        offsets = x - 0.41 + width * (idx + 0.5)
+        bar = ax1.bar(offsets, means, width=width, label=label)
+        handles.append(bar[0])
+        labels.append(label)
+        ax1.scatter(offsets, mins, s=15, marker="x", color="black", linewidths=0.7)
+        ax2.plot(x, leaks, marker="o", linewidth=1.2, label=label)
+
+    ax1.set_ylabel("Held-out final fidelity")
+    ax1.set_ylim(0.48, 1.002)
+    ax1.grid(axis="y", alpha=0.25)
+    ax2.set_ylabel("Mean max leakage")
+    ax2.set_ylim(0.0, 0.065)
+    ax2.grid(True, alpha=0.25)
+    for ax in (ax1, ax2):
+        ax.set_xticks(x)
+        ax.set_xticklabels(noise_cases, rotation=25, ha="right")
+    fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 1.0), frameon=False, fontsize=7, ncol=4)
+    fig.tight_layout(rect=(0, 0, 1, 0.9))
+    fig.savefig(figure_path("transmon_open_leakage_combined.pdf"))
+    fig.savefig(figure_path("transmon_open_leakage_combined.png"), dpi=220)
+    plt.close(fig)
+
+
+def plot_existing_results() -> None:
+    rows = load_result_rows("transmon_open_leakage_adjoint_results.csv")
+    if not rows:
+        raise FileNotFoundError(result_path("transmon_open_leakage_adjoint_results.csv"))
+    plot_combined_results(rows)
+    print(f"wrote figure to {figure_path('transmon_open_leakage_combined.pdf')}")
 
 
 def gradient_check() -> None:
@@ -448,6 +528,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quick", action="store_true")
     parser.add_argument("--gradient-check", action="store_true")
+    parser.add_argument("--plot-only", action="store_true")
     parser.add_argument("--segments", type=int, default=120)
     parser.add_argument("--horizon-steps", type=int, default=5)
     parser.add_argument("--horizon-maxiter", type=int, default=4)
@@ -459,6 +540,9 @@ def main() -> None:
     args = parse_args()
     if args.gradient_check:
         gradient_check()
+        return
+    if args.plot_only:
+        plot_existing_results()
         return
     run(config_from_args(args), quick=args.quick)
 

@@ -56,6 +56,7 @@ python3 code/transmon_leakage_horizon.py
 python3 code/transmon_standalone_adjoint_horizon.py
 python3 code/transmon_open_system_leakage.py
 python3 code/transmon_open_leakage_adjoint_horizon.py
+python3 code/transmon_open_leakage_adjoint_horizon.py --plot-only
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
