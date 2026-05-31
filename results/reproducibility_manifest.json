@@ -1,0 +1,1590 @@
+{
+  "code_files": [
+    {
+      "bytes": 7949,
+      "path": "code/bandwidth_filter_audit.py",
+      "sha256": "ba66ba18292574793bb523f3edad27c316ae46842d445d4f961265731789a960"
+    },
+    {
+      "bytes": 15024,
+      "path": "code/crab_baseline.py",
+      "sha256": "7b0320370b41d41b094190b48ea8aa0d65147b3d30f2989c8e4bbe285f650a8a"
+    },
+    {
+      "bytes": 16448,
+      "path": "code/dcrab_baseline.py",
+      "sha256": "208e4c4fc0c2439bc31eec16e2598ff5d5e9dd93edef0b9a3d8fbdf10faae50e"
+    },
+    {
+      "bytes": 17845,
+      "path": "code/ensemble_grape_baseline.py",
+      "sha256": "2d2a585b1e46e95dc13553841de594b5680f4d95513965b9052b7a7f60728d1d"
+    },
+    {
+      "bytes": 9718,
+      "path": "code/ensemble_lyapunov.py",
+      "sha256": "0402f18d8b29a5f9afd6b93cdcc615c3552263b8b8239338e6590271ee3c4a38"
+    },
+    {
+      "bytes": 7284,
+      "path": "code/ensemble_openloop.py",
+      "sha256": "275fcd2308710c6f09766c822bbd6d3bd871324c94a09fd1f698a7c040c9f724"
+    },
+    {
+      "bytes": 6405,
+      "path": "code/gate_fidelity_probe.py",
+      "sha256": "cee608d5cac79e47c58f17888b2ce1a785faaaf8baac318986395fd9198ed420"
+    },
+    {
+      "bytes": 9197,
+      "path": "code/gate_process_baseline.py",
+      "sha256": "c59230406582539f219d228e645e2c6fe0a8b1414c0d0efb713483b686762d08"
+    },
+    {
+      "bytes": 7236,
+      "path": "code/horizon_ablation.py",
+      "sha256": "26834ad9a518f0c92dbbd2424a3b59be8956364dcb955b6dbc25477cee6cde33"
+    },
+    {
+      "bytes": 13013,
+      "path": "code/horizon_lyapunov.py",
+      "sha256": "a11b266bc886a319ab7b4306b221ef6468c7dd8bdc155d777b832cc669ecd145"
+    },
+    {
+      "bytes": 12216,
+      "path": "code/krotov_baseline.py",
+      "sha256": "6ccbd926127dc39b9c033445c22dea6a8ab1b68448ef03246bb8b70b51cefd82"
+    },
+    {
+      "bytes": 7501,
+      "path": "code/multiaxis_simulation.py",
+      "sha256": "93bf5bb2881ebfb3404b357f72d7bdcd497bb3df694ebbcf2a3a8f41e93386fd"
+    },
+    {
+      "bytes": 10427,
+      "path": "code/multilevel_horizon.py",
+      "sha256": "bc5c9182d58bd1dfc06d68c48c54e6e31dfdd8ca0fb642d67740bc9cda7eb377"
+    },
+    {
+      "bytes": 14467,
+      "path": "code/open_leakage_integrated_sweep.py",
+      "sha256": "0e165451ef8c8755030d3f1c730bd34b65b4923bd3337aaf6a859391aa24d17e"
+    },
+    {
+      "bytes": 8036,
+      "path": "code/open_leakage_pareto_audit.py",
+      "sha256": "8dc5becd6347e64418de505daa022de74b8c031ad69285e1b363fd827f4febe8"
+    },
+    {
+      "bytes": 23776,
+      "path": "code/open_system_adjoint_horizon.py",
+      "sha256": "862a612c255d93ec41676ea09c8f1019f088b8119086a90e201729c5c5c3adcc"
+    },
+    {
+      "bytes": 16267,
+      "path": "code/open_system_grape_baseline.py",
+      "sha256": "1f663091d61d83e7a9300f23121d7e623e8dd56e2b1990269e158c13f1687713"
+    },
+    {
+      "bytes": 13706,
+      "path": "code/open_system_horizon_training.py",
+      "sha256": "5f62078d0a45bb7cf39a984a0e22d30c4cf7c55752d79b0921af39b684af1c3e"
+    },
+    {
+      "bytes": 8977,
+      "path": "code/open_system_noise.py",
+      "sha256": "cea6cd798aedd5a08cf048026110da002de50eb8cd8d90b1d9ff2b4bd6869aa8"
+    },
+    {
+      "bytes": 7212,
+      "path": "code/open_system_standalone_adjoint_horizon.py",
+      "sha256": "517e8e104858d3a9a98dddb455e3ad80bcfaf0730e68109748a01eed3f2b9f37"
+    },
+    {
+      "bytes": 572,
+      "path": "code/paths.py",
+      "sha256": "5afe2793e353146a7f24d59d779cd0ea113a93c1d643e618b933a1c339747b46"
+    },
+    {
+      "bytes": 5426,
+      "path": "code/plot_experiments.py",
+      "sha256": "17ce78c7e13a7d811616accd26c3279aca0e5aaa7ca329bebfd3d6369632b6b6"
+    },
+    {
+      "bytes": 3673,
+      "path": "code/polished_openloop.py",
+      "sha256": "2cae0f03969a5fa50b3cea251476662bcce07275981189fbcce6d4e4498eef86"
+    },
+    {
+      "bytes": 23547,
+      "path": "code/process_adjoint_horizon.py",
+      "sha256": "ed30878f98c95cbfb829edb6d220c6d6b7211c01fa5c6f944d2db0423387e1d1"
+    },
+    {
+      "bytes": 13782,
+      "path": "code/process_horizon.py",
+      "sha256": "8c9c10e978125cfa3e4cc07313eb36d4a56a24c1f63bb757eff6d4449f5d23d3"
+    },
+    {
+      "bytes": 18402,
+      "path": "code/process_seeded_horizon.py",
+      "sha256": "3932f14091a574d96a53ad39a584096e2140f1b4357f43dd9c029df9dd23a64c"
+    },
+    {
+      "bytes": 21086,
+      "path": "code/process_standalone_adjoint_horizon.py",
+      "sha256": "068633f0b4febee9983c4d12b85bebdefed49e48d5bf10cda79d3c3a465a57f3"
+    },
+    {
+      "bytes": 3998,
+      "path": "code/reproducibility_manifest.py",
+      "sha256": "2530952dfe52aaad13a689078f1c293b84c986e1600330ead04690db714a4fc9"
+    },
+    {
+      "bytes": 11878,
+      "path": "code/reproducible_simulation.py",
+      "sha256": "508bddfa69bd5d62b52e7dc3f88a7e53b95706300843bf76b4ed7940197ad0e0"
+    },
+    {
+      "bytes": 18409,
+      "path": "code/resource_audit.py",
+      "sha256": "3bd1813948997efae7bd20bda8341859f0712190e0ac20ec980ac1f44c171dc5"
+    },
+    {
+      "bytes": 9160,
+      "path": "code/robustness_scan.py",
+      "sha256": "f21f8d1455bd2a08fdc5f28fadaa3d6cadad8012b07563694e3cd67d20a4db33"
+    },
+    {
+      "bytes": 12565,
+      "path": "code/shifted_fallback_horizon.py",
+      "sha256": "2d598935c02a573a623c015d972a5708c326ebb37d80edeb67d4b9170275a205"
+    },
+    {
+      "bytes": 11839,
+      "path": "code/shifted_fallback_margin_audit.py",
+      "sha256": "8c070874658ed673cd846e7a9ec2edb46860bd5e5b171ef8e813c863437e0180"
+    },
+    {
+      "bytes": 10962,
+      "path": "code/slew_constrained_horizon.py",
+      "sha256": "aaca6df020f3cca591ef81fff2a6375b7d23e4a8dd1669554ec7c3323e738f88"
+    },
+    {
+      "bytes": 21347,
+      "path": "code/state_adjoint_horizon.py",
+      "sha256": "0bdd0d5acb6495c252577a0a4ed71f891a5588e3856f599fe4e87da4f023e5f3"
+    },
+    {
+      "bytes": 3321,
+      "path": "code/stationarity_analysis.py",
+      "sha256": "3ac01db5171bea342e9d080471b6bd27ab157005976884586e49a7d8af6100bd"
+    },
+    {
+      "bytes": 36257,
+      "path": "code/statistical_audit.py",
+      "sha256": "6b4bd7098a5c52331fbf69bcec9dcdc0dc26608704de01e336172fca6c2d270c"
+    },
+    {
+      "bytes": 12088,
+      "path": "code/strong_disorder_audit.py",
+      "sha256": "df92cd469a289747670e944969db26dfd25573f7ae1af82892015c28bf30c656"
+    },
+    {
+      "bytes": 9453,
+      "path": "code/tracking_simulation.py",
+      "sha256": "6be46b3c8eb97d5067633fd03582650f4978c1b771c58b3bdb9e788fb19166f8"
+    },
+    {
+      "bytes": 41715,
+      "path": "code/transmon_leakage_horizon.py",
+      "sha256": "1c9f01caadf9c61b575b008ffebe679a40ff031a5fc5ed5235c549e87403221d"
+    },
+    {
+      "bytes": 24190,
+      "path": "code/transmon_open_leakage_adjoint_horizon.py",
+      "sha256": "2f8ddc6dda0699a2519a5c6f56866f7c2af8e67c42a0f9a0fbf71fce69ac4c22"
+    },
+    {
+      "bytes": 13991,
+      "path": "code/transmon_open_system_leakage.py",
+      "sha256": "9b92dbd351fb6e88eefebd766ba55339408740971f0293052171deaeb1fe6749"
+    },
+    {
+      "bytes": 4397,
+      "path": "code/transmon_standalone_adjoint_horizon.py",
+      "sha256": "94642bfe165870efaa8ef2683d11703c28f6f10d23c0c1b00ee3c2aef9ac9754"
+    }
+  ],
+  "git_commit": "3bf6a181b4ea969bceca94a749624ae9b3c60b8c",
+  "repository_root": ".",
+  "result_files": [
+    {
+      "bytes": 195619,
+      "columns": [
+        "task",
+        "controller",
+        "base_slew_weight",
+        "filter",
+        "filter_kind",
+        "filter_width",
+        "filter_sigma",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "segments",
+        "horizon_steps",
+        "beam_width",
+        "design_seconds",
+        "pulse_energy",
+        "rms_slew",
+        "max_step",
+        "total_variation",
+        "high_frequency_fraction"
+      ],
+      "path": "results/bandwidth_filter_audit_results.csv",
+      "row_count": 800,
+      "sha256": "42137e6794d579f160adb05e2c1cb5b88f0187f871e48197b553a8fb23f98689"
+    },
+    {
+      "bytes": 2251,
+      "path": "results/bandwidth_filter_audit_summary.md",
+      "sha256": "fa9ab569a3d50d90693c98c89076631452b766d3126107e6d0ff15dc2f8c685f"
+    },
+    {
+      "bytes": 27220,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "basis_count",
+        "segments",
+        "frequency_seed",
+        "restart_seed",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "optimization_seconds"
+      ],
+      "path": "results/crab_baseline_results.csv",
+      "row_count": 200,
+      "sha256": "5c2a0d2736698832ef3d697297131ab4d9188d7ababf1b28db6eeda37df8df3f"
+    },
+    {
+      "bytes": 767,
+      "path": "results/crab_baseline_summary.md",
+      "sha256": "2f649eb354c283120bb44cca7f485706507e56f2f38cfc5d80df194f24642294"
+    },
+    {
+      "bytes": 28338,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "basis_count",
+        "segments",
+        "refreshes",
+        "frequency_seed_path",
+        "training_objective",
+        "optimizer_success_all",
+        "optimization_seconds"
+      ],
+      "path": "results/dcrab_baseline_results.csv",
+      "row_count": 200,
+      "sha256": "1cc00cdade7eaa07a8d2b801190cc8279075efdbfd223dab04e7020044711487"
+    },
+    {
+      "bytes": 1552,
+      "path": "results/dcrab_baseline_summary.md",
+      "sha256": "b0ca052ccdc5c8e7d23d858fcb950be8730d0e71331fbaa9d1be3ec63b80e04a"
+    },
+    {
+      "bytes": 30213,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "basis_count",
+        "segments",
+        "refreshes",
+        "frequency_seed_path",
+        "training_objective",
+        "optimizer_success_all",
+        "optimization_seconds"
+      ],
+      "path": "results/dcrab_large_budget_results.csv",
+      "row_count": 200,
+      "sha256": "782411f6461b12a9dcaf7a792f32388a661c6ffcbba89fb15421b3b352cb2897"
+    },
+    {
+      "bytes": 1931,
+      "path": "results/dcrab_large_budget_summary.md",
+      "sha256": "899beb20d83f3f2b872b08a682bd5304220b34cb66ed8e57dbf91bc6bd4e7591"
+    },
+    {
+      "bytes": 29555,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "basis_count",
+        "segments",
+        "refreshes",
+        "frequency_seed_path",
+        "training_objective",
+        "optimizer_success_all",
+        "optimization_seconds"
+      ],
+      "path": "results/dcrab_train8_baseline_results.csv",
+      "row_count": 200,
+      "sha256": "343d9ab00849f0376985f560dc877a539883609dee9026a234ca37c78cf4b1b6"
+    },
+    {
+      "bytes": 1556,
+      "path": "results/dcrab_train8_baseline_summary.md",
+      "sha256": "798f4177230d2cfa7eee4359029560206e583e1f6249bfa884e48f4817ff49f0"
+    },
+    {
+      "bytes": 29185,
+      "columns": [
+        "task",
+        "baseline",
+        "objective_kind",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "training_objective",
+        "best_restart_seed",
+        "optimizer_iterations",
+        "optimizer_success",
+        "optimization_seconds"
+      ],
+      "path": "results/ensemble_grape_baseline_results.csv",
+      "row_count": 200,
+      "sha256": "c16ea9fd1c918a2e40e72f722b1557ef36707df798374a4bc0e0ae7567c6d489"
+    },
+    {
+      "bytes": 1189,
+      "path": "results/ensemble_grape_baseline_summary.md",
+      "sha256": "972495adacc62ea7e60efe4d9c6790747b967ff25cdfa8cf2cdbb81743bf0eed"
+    },
+    {
+      "bytes": 10888,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy"
+      ],
+      "path": "results/ensemble_lyapunov_results.csv",
+      "row_count": 100,
+      "sha256": "76e264978c3fc7f3729d549e0a5240284aed7528c9a4aa883509b3e6190e9453"
+    },
+    {
+      "bytes": 314,
+      "path": "results/ensemble_lyapunov_summary.md",
+      "sha256": "38ffe14cd95c184a028d5b3a9a9fd5de3c77ff1708c1e8967e952e8fb6c7e024"
+    },
+    {
+      "bytes": 10093,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "training_objective"
+      ],
+      "path": "results/ensemble_results.csv",
+      "row_count": 100,
+      "sha256": "955f413770a06d5c392cbb2bf3dc03ce54e6df86154b2f797a88f23ffa0e7690"
+    },
+    {
+      "bytes": 303,
+      "path": "results/ensemble_summary.md",
+      "sha256": "cba6587cf585c3cdb60de75d9ad5383ada8ced0aa845d995e72850fce862f564"
+    },
+    {
+      "bytes": 1243,
+      "path": "results/extended_heldout_summary.md",
+      "sha256": "bf56e071c38cdc85bdfaa35c7c1b3ea0a070177cb91e1688ecf7a525032872a0"
+    },
+    {
+      "bytes": 13066,
+      "path": "results/figures/crab_baseline.pdf",
+      "sha256": "29db0549e62a7aaf30e14f47cb24061f202247821c4d93c57ee1d679dc4375e4"
+    },
+    {
+      "bytes": 45516,
+      "path": "results/figures/crab_baseline.png",
+      "sha256": "bf7c39363fb6eda768fc84591515ce351c8a886aa46331eb0270cd693686f244"
+    },
+    {
+      "bytes": 13064,
+      "path": "results/figures/dcrab_baseline.pdf",
+      "sha256": "a77047c6763c79f76b60cc88b0e46819a3bcb74551a92923a3fc5920e7a68e07"
+    },
+    {
+      "bytes": 45188,
+      "path": "results/figures/dcrab_baseline.png",
+      "sha256": "703b1953ffbe32f825b791252f7df2560ef6a652f7df0fcc3dd39fca1f8c6a76"
+    },
+    {
+      "bytes": 13064,
+      "path": "results/figures/dcrab_large_budget.pdf",
+      "sha256": "08acc6cb378b7236eabddba41b493e8a625484756f3881e46c963a2831f4ede6"
+    },
+    {
+      "bytes": 45684,
+      "path": "results/figures/dcrab_large_budget.png",
+      "sha256": "e3c0f406172f20bd56db764f8acc7e9c13b424f292e2b3c3ab990ebbf330c9a3"
+    },
+    {
+      "bytes": 13068,
+      "path": "results/figures/dcrab_train8_baseline.pdf",
+      "sha256": "64a47203e63b093efac7b95db9d536d607fc338781c627b01552f186f3a477d3"
+    },
+    {
+      "bytes": 45152,
+      "path": "results/figures/dcrab_train8_baseline.png",
+      "sha256": "76ba76e4da16e47842e513f05cd82697c61ed9264377d7dda5cad6b851957aae"
+    },
+    {
+      "bytes": 15050,
+      "path": "results/figures/ensemble_grape_baseline.pdf",
+      "sha256": "465c9dd4dbe62e67a5592e34a1b616b8e27cba0f3421510ae59f714990b2dc32"
+    },
+    {
+      "bytes": 60320,
+      "path": "results/figures/ensemble_grape_baseline.png",
+      "sha256": "939dc8bf6bcc89fc8b7d0d7b78e56919bfdfc926490c9f4ce22153380ca6bf83"
+    },
+    {
+      "bytes": 16863,
+      "path": "results/figures/fidelity_vs_disorder.pdf",
+      "sha256": "bf461fa5c72363c63c5963ba6dc45fdd244ff24f111ee85d8da11c963dd277bf"
+    },
+    {
+      "bytes": 116834,
+      "path": "results/figures/fidelity_vs_disorder.png",
+      "sha256": "f1c0d1ab07a55b5ae847470e5d0b33a7c1b70e0370aafdc01cb23476d528a423"
+    },
+    {
+      "bytes": 14945,
+      "path": "results/figures/gate_fidelity_probe.pdf",
+      "sha256": "59e1d7189e78a5924f7173e24daf12afee7b85d80600fc9abf1164a93e225762"
+    },
+    {
+      "bytes": 37059,
+      "path": "results/figures/gate_fidelity_probe.png",
+      "sha256": "fa2bd5203d0a3b6d2bf34d579e3bf49fe96320c7b19f03881ca29a136a3a0aa8"
+    },
+    {
+      "bytes": 14089,
+      "path": "results/figures/gate_process_baseline.pdf",
+      "sha256": "20acae32354551291f6bac23daca0fc8644fcff49683a74e66381baddf027d0e"
+    },
+    {
+      "bytes": 37975,
+      "path": "results/figures/gate_process_baseline.png",
+      "sha256": "8509c1f055409bfec3930acd6c7d66ec46c2ec1bc2c8513dad94bed85ccdc32e"
+    },
+    {
+      "bytes": 26055,
+      "path": "results/figures/heldout_distribution_delta008.pdf",
+      "sha256": "43ee701960caf12f19a5f86b7363fbfc009e118d8a33679ed89720f5bef11977"
+    },
+    {
+      "bytes": 110356,
+      "path": "results/figures/heldout_distribution_delta008.png",
+      "sha256": "c10e1014eab74b0c78c3ef215c773b358c84c09568ae60519f1b6c7ed73c48e4"
+    },
+    {
+      "bytes": 16992,
+      "path": "results/figures/horizon_ablation.pdf",
+      "sha256": "10c3d26db32d83ea36428c5b80bb515f8fe2aa845ae9d9852069683670600d3f"
+    },
+    {
+      "bytes": 53556,
+      "path": "results/figures/horizon_ablation.png",
+      "sha256": "6fb49205a393f38ec304cb59e1892a389fec01938ee23a59f925358abc3cfa86"
+    },
+    {
+      "bytes": 15044,
+      "path": "results/figures/krotov_baseline.pdf",
+      "sha256": "76d144b232a343c7cfb195dbd78aec39a69de52764ff7aab9f3a92c2f89bfcbd"
+    },
+    {
+      "bytes": 48910,
+      "path": "results/figures/krotov_baseline.png",
+      "sha256": "2597adf6f825e5fb2f51d3348fd255cee06d62972a18d899ab24131fa41bc80f"
+    },
+    {
+      "bytes": 13135,
+      "path": "results/figures/multilevel_horizon.pdf",
+      "sha256": "0dea283082d759dee17c5eb0286b46af583d6ac9c21d53997769d72593b09337"
+    },
+    {
+      "bytes": 68291,
+      "path": "results/figures/multilevel_horizon.png",
+      "sha256": "46b3c12e5d50031fdcbfc3c576e19bbfa5308a0e32262683355bce5b7d1f2f9c"
+    },
+    {
+      "bytes": 19730,
+      "path": "results/figures/open_leakage_integrated_sweep.pdf",
+      "sha256": "419371d019e78c4b17222035de89fb2fbacc203b0a86480c5c40f281a318ae6d"
+    },
+    {
+      "bytes": 89041,
+      "path": "results/figures/open_leakage_integrated_sweep.png",
+      "sha256": "39f2367b57a0ffa40fa4bad0edaf4f6b13314de1f6ca664f3d136e81fbeedff0"
+    },
+    {
+      "bytes": 18913,
+      "path": "results/figures/open_leakage_pareto_audit.pdf",
+      "sha256": "69f78f37ffdda93f4c47882ac98f8fb703e433e7a7d9ddabf10aebe66a580fbb"
+    },
+    {
+      "bytes": 86755,
+      "path": "results/figures/open_leakage_pareto_audit.png",
+      "sha256": "2a5243a896a7b34972d25cef3f5234f1a4f68bcab04d9d6222691c012399a505"
+    },
+    {
+      "bytes": 14905,
+      "path": "results/figures/open_system_adjoint_horizon.pdf",
+      "sha256": "6fba7c36caae7641be2abd90c187aeade50a35dbc38ad2aa759984317d89121c"
+    },
+    {
+      "bytes": 65945,
+      "path": "results/figures/open_system_adjoint_horizon.png",
+      "sha256": "72506bb0537244a03fb72fff15462d964e850cb318fafa8d77188c8c6c0f5eb5"
+    },
+    {
+      "bytes": 14455,
+      "path": "results/figures/open_system_grape.pdf",
+      "sha256": "929f68e9fc94a44c4949f6d82d5c96796bb3603910b0495d78a35b727a7c61bf"
+    },
+    {
+      "bytes": 62988,
+      "path": "results/figures/open_system_grape.png",
+      "sha256": "7deec497fe262905cd51769299baa1642a6b9493053dd0bc20e50837c9c2e62b"
+    },
+    {
+      "bytes": 14715,
+      "path": "results/figures/open_system_noise.pdf",
+      "sha256": "751efeafe341d420000332e8f6ca4878f4c8fdb7226b8dfce9fde574398bd66e"
+    },
+    {
+      "bytes": 73545,
+      "path": "results/figures/open_system_noise.png",
+      "sha256": "7a96bae30cc7fb969459163f025117dbf6130ff5135d2fc5310f626bb214412d"
+    },
+    {
+      "bytes": 15039,
+      "path": "results/figures/open_system_training.pdf",
+      "sha256": "cf698515d052c04d7bbec95e2252a738f13f9b76280d8fe510047c57f62a636c"
+    },
+    {
+      "bytes": 69980,
+      "path": "results/figures/open_system_training.png",
+      "sha256": "cd286615f7e6aad52270924eeee2b8305fb7fc22a29af66573c47cd9389f1361"
+    },
+    {
+      "bytes": 15465,
+      "path": "results/figures/process_adjoint_horizon.pdf",
+      "sha256": "11152ed9fd5e13843f8c9f0939df047906f4a770205f865fd5fd051891b6a318"
+    },
+    {
+      "bytes": 59981,
+      "path": "results/figures/process_adjoint_horizon.png",
+      "sha256": "6e3fd42aa3c2d98ad4822fdf6dd96b476886f5602973a580b2555ec4ebc82021"
+    },
+    {
+      "bytes": 14095,
+      "path": "results/figures/process_horizon.pdf",
+      "sha256": "1a9b05e56382bf7f1eac63dd10077ce6ae5a5852b93a83851d71cbcc704c7973"
+    },
+    {
+      "bytes": 48070,
+      "path": "results/figures/process_horizon.png",
+      "sha256": "94c7e1c307dd477c307077a6ca34628c1febafdb7ac85b1f83f9ffda0d397a17"
+    },
+    {
+      "bytes": 15217,
+      "path": "results/figures/process_seeded_horizon.pdf",
+      "sha256": "a23c54e74e1ce9b26b47c7578e4533d60119a113383f252d03cd1975d1585054"
+    },
+    {
+      "bytes": 61145,
+      "path": "results/figures/process_seeded_horizon.png",
+      "sha256": "a3e0a269262fdf2a3876354243b6d368ab0d0e7b51d9a85e98858f0da038b62b"
+    },
+    {
+      "bytes": 13322,
+      "path": "results/figures/strong_disorder_audit.pdf",
+      "sha256": "d07f3f8064369652968310926e16461394d3630a09289eed33a65dbb8112d3ea"
+    },
+    {
+      "bytes": 64392,
+      "path": "results/figures/strong_disorder_audit.png",
+      "sha256": "37401400972ce4c719773cfa9094e068d998efbe9f74837284a09ce282c372a1"
+    },
+    {
+      "bytes": 19348,
+      "path": "results/figures/transmon_leakage.pdf",
+      "sha256": "76d3e5ac0ecca64d840b1e879303b3dbc0e298a89ee1a504c19f67a8f854076c"
+    },
+    {
+      "bytes": 115272,
+      "path": "results/figures/transmon_leakage.png",
+      "sha256": "9c47b4dcafce8e82d38899b25c1e9b219cd67417916c5b5d9e16524036b0bf18"
+    },
+    {
+      "bytes": 22178,
+      "path": "results/figures/transmon_open_leakage_combined.pdf",
+      "sha256": "af801375a9a591b3e02c24e3faeb16e1cda8193db98e0a942214371c03c0790a"
+    },
+    {
+      "bytes": 96590,
+      "path": "results/figures/transmon_open_leakage_combined.png",
+      "sha256": "cb9c31f059c331bc3c7d024940c5365c25705ded8010c400faa086c7eae1e6bd"
+    },
+    {
+      "bytes": 17308,
+      "path": "results/figures/transmon_open_system_leakage.pdf",
+      "sha256": "3251e00b22a331ef9c648b9846509de48ef9647a0f2750c6b787b6ec763b6f99"
+    },
+    {
+      "bytes": 91487,
+      "path": "results/figures/transmon_open_system_leakage.png",
+      "sha256": "85d4a4e144f2f5b9f090615914d1fe0dbceebe29789011a95aa75c3af57f6b28"
+    },
+    {
+      "bytes": 5682,
+      "columns": [
+        "task",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy"
+      ],
+      "path": "results/gate_fidelity_probe_results.csv",
+      "row_count": 100,
+      "sha256": "9dc78f3e4285a4322de1b6da14eeee667d910b9f9e2c879ebbee4e8cdcf8eaf4"
+    },
+    {
+      "bytes": 435,
+      "path": "results/gate_fidelity_probe_summary.md",
+      "sha256": "8d6c395abb3f642aa6d2118322c896b156fb8251c694b45e6a5ef4af7f6f2953"
+    },
+    {
+      "bytes": 12315,
+      "columns": [
+        "task",
+        "baseline",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "training_objective",
+        "best_restart_seed"
+      ],
+      "path": "results/gate_process_baseline_results.csv",
+      "row_count": 100,
+      "sha256": "ebdb8eb647182acc1e3d257f1d7248503899bd49dfbeee812a465861462555ec"
+    },
+    {
+      "bytes": 470,
+      "path": "results/gate_process_baseline_summary.md",
+      "sha256": "4f2a41be2c6f5bca17465912c4f09aa8cc5b5d24b98a57d9a740c9af457d1033"
+    },
+    {
+      "bytes": 80815,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy",
+        "task",
+        "config",
+        "horizon_steps",
+        "beam_width",
+        "segments",
+        "n_train_strengths",
+        "n_train_seeds"
+      ],
+      "path": "results/horizon_ablation_results.csv",
+      "row_count": 700,
+      "sha256": "3393bee52513d7ced8dc66833e9aac41e339524dd5678feab7e7b4621117be11"
+    },
+    {
+      "bytes": 1370,
+      "path": "results/horizon_ablation_summary.md",
+      "sha256": "2b12eb43d38c0fb50636d5c281268372783b9b61ab3a02d5b8d0b401b6ddb799"
+    },
+    {
+      "bytes": 38918,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy"
+      ],
+      "path": "results/horizon_lyapunov_results.csv",
+      "row_count": 400,
+      "sha256": "b12c1602a751ed746660c9df9cde52eb4287275650414f0a2e7820f5ec6e0fff"
+    },
+    {
+      "bytes": 956,
+      "path": "results/horizon_lyapunov_summary.md",
+      "sha256": "d14ab10244998665f28f2c8807496c82bd1a1010fe97ae69a5190268b41f0044"
+    },
+    {
+      "bytes": 7867,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy"
+      ],
+      "path": "results/horizon_robustness_results.csv",
+      "row_count": 80,
+      "sha256": "226d461b9eea86e2d0f2e89ae7347cbc24118eaf7d3de54016bf98654b1fef0b"
+    },
+    {
+      "bytes": 1156,
+      "path": "results/horizon_robustness_summary.md",
+      "sha256": "6dc3df514ba406aa342347ab73611e79006479a276983c0db1749df9e045bd03"
+    },
+    {
+      "bytes": 29072,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "max_abs_control",
+        "segments",
+        "training_strengths",
+        "training_seed_count",
+        "krotov_iterations",
+        "lambda_a",
+        "terminal_info",
+        "optimization_seconds"
+      ],
+      "path": "results/krotov_baseline_results.csv",
+      "row_count": 200,
+      "sha256": "9b7d767adac4f193247a0f21c63d74576dfadf8afc4eb9e3db2f0e341ee86c5c"
+    },
+    {
+      "bytes": 1030,
+      "path": "results/krotov_baseline_summary.md",
+      "sha256": "3849a5136a66ccd9d7fd895de1e4d1ec5663673b192b6bac37eb6521cc2b08a1"
+    },
+    {
+      "bytes": 1947,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "response_time",
+        "control_energy"
+      ],
+      "path": "results/multiaxis_results.csv",
+      "row_count": 18,
+      "sha256": "1ee44e4dbe10fdd4e7560d40d767dcd0496492d747ea32212bf903af17191ddd"
+    },
+    {
+      "bytes": 662,
+      "path": "results/multiaxis_summary.md",
+      "sha256": "6042e08d57aecf2cfa20b06e0de5e997bf23b3d938379e305aabee96999881a0"
+    },
+    {
+      "bytes": 18783,
+      "columns": [
+        "system",
+        "eval_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy"
+      ],
+      "path": "results/multilevel_horizon_results.csv",
+      "row_count": 200,
+      "sha256": "e8d4c5c0dd9a9d7d01cef211192a81a8b4b6ad8e43055d35255cb5bd6491691c"
+    },
+    {
+      "bytes": 583,
+      "path": "results/multilevel_horizon_summary.md",
+      "sha256": "06281a11785871552266b0d1e35ca0c13b2f12a2bbfda03864ebdf8fbf48b55f"
+    },
+    {
+      "bytes": 555375,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "sweep_label",
+        "terminal_target_weight",
+        "leakage_weight",
+        "worst_weight",
+        "trust_radius",
+        "horizon_maxiter"
+      ],
+      "path": "results/open_leakage_integrated_sweep_results.csv",
+      "row_count": 1800,
+      "sha256": "496f6201ae9a119b17b4343a0ab571c51e7635a3fbe565c283e1f84391221e4c"
+    },
+    {
+      "bytes": 8083,
+      "path": "results/open_leakage_integrated_sweep_summary.md",
+      "sha256": "34d6716175307295408f0088a07ab5ac5a245c150da66d5301cb51c500324555"
+    },
+    {
+      "bytes": 1397,
+      "columns": [
+        "controller",
+        "label",
+        "family",
+        "role",
+        "n",
+        "mean_fidelity",
+        "worst_fidelity",
+        "ci95_fidelity",
+        "mean_max_leakage",
+        "mean_final_leakage",
+        "pulse_energy",
+        "training_seconds",
+        "pareto_status"
+      ],
+      "path": "results/open_leakage_pareto_audit_results.csv",
+      "row_count": 7,
+      "sha256": "a95bc4edbba9b1a6ddeefb6d9f8d6dc4b4771a95a5b1e71afa1048ae3ed59cf2"
+    },
+    {
+      "bytes": 982,
+      "path": "results/open_leakage_pareto_audit_summary.md",
+      "sha256": "181de447064534c4870446f9764f5a04030e09d02e32288ba3aedeac96ae9bec"
+    },
+    {
+      "bytes": 183560,
+      "columns": [
+        "task",
+        "controller",
+        "train_noise_case",
+        "eval_noise_case",
+        "disorder_strength",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "reference_objective",
+        "reference_restart_seed",
+        "reference_iterations",
+        "reference_success",
+        "reference_seconds",
+        "horizon_objective",
+        "horizon_iterations",
+        "horizon_success",
+        "horizon_seconds"
+      ],
+      "path": "results/open_system_adjoint_horizon_results.csv",
+      "row_count": 800,
+      "sha256": "2604cd6d174db21eae366ae9af8b0bc741c07e73ffef88a87d273923eb6f915f"
+    },
+    {
+      "bytes": 2948,
+      "path": "results/open_system_adjoint_horizon_summary.md",
+      "sha256": "8b07160594abf24412746d960c37f25d21767c937af214a9a96f4e444deee410"
+    },
+    {
+      "bytes": 77270,
+      "columns": [
+        "task",
+        "baseline",
+        "train_noise_case",
+        "eval_noise_case",
+        "disorder_strength",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_objective",
+        "best_restart_seed",
+        "optimizer_iterations",
+        "optimizer_success",
+        "optimization_seconds"
+      ],
+      "path": "results/open_system_grape_results.csv",
+      "row_count": 400,
+      "sha256": "7e2e7d0857a05c19127902881a32ad65f905dde4edfc545126a6c34c2a9e424d"
+    },
+    {
+      "bytes": 1378,
+      "path": "results/open_system_grape_summary.md",
+      "sha256": "5327ef16ad637c6019d61e0c2c9f4844022076dfc46c72a785e17d99f71070cc"
+    },
+    {
+      "bytes": 58440,
+      "columns": [
+        "task",
+        "noise_case",
+        "disorder_strength",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "final_purity",
+        "pulse_energy"
+      ],
+      "path": "results/open_system_noise_results.csv",
+      "row_count": 600,
+      "sha256": "8825fb4b7f787bcb2567e1fc405a3855420b8bea3a6f888bc4a5d6132225baef"
+    },
+    {
+      "bytes": 1334,
+      "path": "results/open_system_noise_summary.md",
+      "sha256": "1c8e64d83960788c384946bf34b26c31b1facd222bd2da2bb6bed40746bf6203"
+    },
+    {
+      "bytes": 164547,
+      "columns": [
+        "task",
+        "controller",
+        "train_noise_case",
+        "eval_noise_case",
+        "disorder_strength",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "reference_objective",
+        "reference_restart_seed",
+        "reference_iterations",
+        "reference_success",
+        "reference_seconds",
+        "horizon_objective",
+        "horizon_iterations",
+        "horizon_success",
+        "horizon_seconds"
+      ],
+      "path": "results/open_system_standalone_adjoint_results.csv",
+      "row_count": 800,
+      "sha256": "f1b84aad82953ba36cc93fb978ef70dda2ff3203a76865a699556be7d6d71991"
+    },
+    {
+      "bytes": 2891,
+      "path": "results/open_system_standalone_adjoint_summary.md",
+      "sha256": "234c445c218b2edb9844bcc0d7dbfc29b588c42c9633dc9c35a115e6914e70af"
+    },
+    {
+      "bytes": 103489,
+      "columns": [
+        "task",
+        "pulse_type",
+        "train_noise_case",
+        "eval_noise_case",
+        "disorder_strength",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "final_purity",
+        "pulse_energy"
+      ],
+      "path": "results/open_system_training_results.csv",
+      "row_count": 800,
+      "sha256": "709f5ae0205a6af198361325767da553fcf2c5bddbd8ca90a8851a24df47439f"
+    },
+    {
+      "bytes": 2286,
+      "path": "results/open_system_training_summary.md",
+      "sha256": "4f52741536c0ca3147028803f88409b6c08cc11ea22b439909b4c3ce80fc222f"
+    },
+    {
+      "bytes": 23845,
+      "columns": [
+        "task",
+        "pulse_type",
+        "training_strength",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "training_objective"
+      ],
+      "path": "results/polished_openloop_results.csv",
+      "row_count": 200,
+      "sha256": "4fb7f31cb2689ca50784d9f36b87eff3cea115871bd972bacafc0e059b53bdb1"
+    },
+    {
+      "bytes": 683,
+      "path": "results/polished_openloop_summary.md",
+      "sha256": "1d8428ac3e95dcef8c99b060a7f7ae44a25f9f0972a6d181a35d7f4912ce6075"
+    },
+    {
+      "bytes": 36604,
+      "columns": [
+        "task",
+        "controller",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "reference_objective",
+        "reference_restart_seed",
+        "reference_iterations",
+        "reference_success",
+        "reference_seconds",
+        "horizon_objective",
+        "horizon_iterations",
+        "horizon_success",
+        "horizon_seconds"
+      ],
+      "path": "results/process_adjoint_horizon_results.csv",
+      "row_count": 200,
+      "sha256": "c1c9da3fc79c7650b7975f265e4d0032b2efdf9362a09b655fc66e279a90806f"
+    },
+    {
+      "bytes": 1158,
+      "path": "results/process_adjoint_horizon_summary.md",
+      "sha256": "1c315b57288c10037645c8109cf024b0dc6e2696c1fcd6467b6d292c6b0e1a24"
+    },
+    {
+      "bytes": 9175,
+      "columns": [
+        "task",
+        "controller",
+        "mode",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "beam_width",
+        "n_train_seeds"
+      ],
+      "path": "results/process_horizon_results.csv",
+      "row_count": 100,
+      "sha256": "b990d30aad4958a26f8ed86306d07de26f822cb5dde13b38764386dd71d83821"
+    },
+    {
+      "bytes": 578,
+      "path": "results/process_horizon_summary.md",
+      "sha256": "009477ed19cc98748ae710021ba0273aa425e8b9f3564845f288698f7e8029b7"
+    },
+    {
+      "bytes": 32606,
+      "columns": [
+        "task",
+        "controller",
+        "disorder_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "beam_width",
+        "reference_objective",
+        "reference_restart_seed",
+        "reference_iterations",
+        "reference_success",
+        "reference_seconds",
+        "horizon_seconds"
+      ],
+      "path": "results/process_seeded_horizon_results.csv",
+      "row_count": 200,
+      "sha256": "955d2cc499542bc8df7711b87ee47b06821977eafec3b20d19a996cccde6a226"
+    },
+    {
+      "bytes": 1087,
+      "path": "results/process_seeded_horizon_summary.md",
+      "sha256": "5b69f866db4993ff1e7c311055d0dc646525fd013199bfef2558160066f6fa35"
+    },
+    {
+      "bytes": 26010,
+      "columns": [
+        "task",
+        "controller",
+        "eval_strength",
+        "seed",
+        "state_fidelity",
+        "avg_gate_fidelity",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "objective_mean",
+        "horizon_iterations",
+        "successful_steps",
+        "design_seconds"
+      ],
+      "path": "results/process_standalone_adjoint_results.csv",
+      "row_count": 200,
+      "sha256": "24221a064d55a3a240b95a2b30355c20d6036bb161a69e433e040c1e4343b57e"
+    },
+    {
+      "bytes": 800,
+      "path": "results/process_standalone_adjoint_summary.md",
+      "sha256": "a13059867ebeaf43f8c254a5e6acab25082fdc9ca254fb275a0b97b5a96e40fb"
+    },
+    {
+      "bytes": 6171,
+      "columns": [
+        "regime",
+        "method",
+        "metric",
+        "heldout_n",
+        "heldout_mean",
+        "worst_or_leakage",
+        "pulse_energy",
+        "resource_profile",
+        "logged_design_seconds",
+        "role"
+      ],
+      "path": "results/resource_audit_results.csv",
+      "row_count": 25,
+      "sha256": "9e4cd4da38e80ed5f5b0ec16c3c98b2de95c1fea487f692b2d25a7d23ffffa34"
+    },
+    {
+      "bytes": 7026,
+      "path": "results/resource_audit_summary.md",
+      "sha256": "6c078e16cb4f6d64f34a1d3ebea0f2fc022760db54f3983fb23528e77fc67b85"
+    },
+    {
+      "bytes": 93156,
+      "columns": [
+        "task",
+        "pulse_type",
+        "training_strength",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "training_objective"
+      ],
+      "path": "results/robustness_scan_results.csv",
+      "row_count": 800,
+      "sha256": "b87a332356df691d4f2a345ef776944ae95bf2d8c2e9de2180c6a275dd8db6c4"
+    },
+    {
+      "bytes": 1723,
+      "path": "results/robustness_scan_summary.md",
+      "sha256": "fbd68d91178c97956e608023cf1ab2145255135333bd057d78449978bf3070b2"
+    },
+    {
+      "bytes": 49367,
+      "columns": [
+        "system",
+        "task",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_available_steps",
+        "shifted_selected_steps",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/shifted_fallback_horizon_results.csv",
+      "row_count": 400,
+      "sha256": "39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13"
+    },
+    {
+      "bytes": 1049,
+      "path": "results/shifted_fallback_horizon_summary.md",
+      "sha256": "0ec6c8ec52050f781fc9cd75fbe3372dbdddf13dcc2d2855fc527cf6fd05d2a0"
+    },
+    {
+      "bytes": 29022,
+      "columns": [
+        "step",
+        "selected_shifted",
+        "selected_cost",
+        "selected_phi",
+        "selected_energy_mean",
+        "shifted_available",
+        "best_shifted_margin",
+        "best_shifted_phi",
+        "best_shifted_cost",
+        "task",
+        "beam_width",
+        "residual_threshold",
+        "outside_residual"
+      ],
+      "path": "results/shifted_fallback_margin_audit_results.csv",
+      "row_count": 200,
+      "sha256": "5246a47293881337a43f89cad9e0ecaf519b7f7d516d32271ef3a7cf21143c76"
+    },
+    {
+      "bytes": 736,
+      "path": "results/shifted_fallback_margin_audit_summary.md",
+      "sha256": "9a17ab78e803c799fade0fed46f1c303e5a2e4a3ef5e1eb8c4cde7a27d4559fc"
+    },
+    {
+      "bytes": 19073,
+      "columns": [
+        "system",
+        "controller",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_infidelity_std",
+        "tail_stability_range",
+        "final_fidelity",
+        "response_time",
+        "control_energy"
+      ],
+      "path": "results/simulation_results.csv",
+      "row_count": 144,
+      "sha256": "07dbe69496ccb60ac3732415235ec24f203419cd75b941ec00f936da0e264ea8"
+    },
+    {
+      "bytes": 2684,
+      "path": "results/simulation_summary.md",
+      "sha256": "8b7ba219b13cc4ea28ce3efca26823c12773abe53807634a865c6aa88815d834"
+    },
+    {
+      "bytes": 63748,
+      "columns": [
+        "task",
+        "controller",
+        "slew_weight",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "segments",
+        "horizon_steps",
+        "beam_width",
+        "design_seconds",
+        "pulse_energy",
+        "rms_slew",
+        "max_step",
+        "total_variation",
+        "high_frequency_fraction"
+      ],
+      "path": "results/slew_constrained_horizon_results.csv",
+      "row_count": 300,
+      "sha256": "057214e4ef93fd91d43b7df292f64f20506350820acfc6e3c737489426701538"
+    },
+    {
+      "bytes": 949,
+      "path": "results/slew_constrained_horizon_summary.md",
+      "sha256": "ac0cb6743fffa6ddc04d8c59c890155b4e8120795dd3266e4547601857713a9d"
+    },
+    {
+      "bytes": 61966,
+      "columns": [
+        "task",
+        "controller",
+        "disorder_strength",
+        "seed",
+        "final_fidelity",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "pulse_energy",
+        "segments",
+        "horizon_steps",
+        "objective_mean",
+        "horizon_iterations",
+        "successful_steps",
+        "design_seconds"
+      ],
+      "path": "results/state_adjoint_horizon_results.csv",
+      "row_count": 400,
+      "sha256": "4455959c09121c94dcf9460a6cbe83f5bdb705475a9c9bffe328fe0051052dfd"
+    },
+    {
+      "bytes": 1352,
+      "path": "results/state_adjoint_horizon_summary.md",
+      "sha256": "4973c343c24f879723bd7c3cab6ff6d6ba679ca63d6357ca614b84a7bd53c15b"
+    },
+    {
+      "bytes": 188,
+      "columns": [
+        "task",
+        "target_stationarity_residual",
+        "target_drift_speed",
+        "target_self_infidelity_t0p1",
+        "initial_drift_lyapunov_term"
+      ],
+      "path": "results/stationarity_results.csv",
+      "row_count": 3,
+      "sha256": "aa9936058c892943a543f1b48c030ce8115bcdbb4f25a65475e0aca5c7ce1f78"
+    },
+    {
+      "bytes": 295,
+      "path": "results/stationarity_summary.md",
+      "sha256": "102aa11a917b6c44e13ef09e7a377b1d77e00f5ae79750855e449782c47444ff"
+    },
+    {
+      "bytes": 13871,
+      "columns": [
+        "kind",
+        "task",
+        "comparison",
+        "metric",
+        "n",
+        "mean",
+        "ci95_halfwidth",
+        "paired_delta",
+        "paired_delta_ci95",
+        "paired_effect_dz"
+      ],
+      "path": "results/statistical_audit_results.csv",
+      "row_count": 139,
+      "sha256": "f30f52b6c08185bd3172136dbd58dcba7ac3cecd6fee3232d27639c87111fef0"
+    },
+    {
+      "bytes": 17181,
+      "path": "results/statistical_audit_summary.md",
+      "sha256": "13592fadc446f262a244c2e3d26ed280c2bc29aefd70ff050061d15b437731e2"
+    },
+    {
+      "bytes": 102644,
+      "columns": [
+        "task",
+        "method",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "design_seconds",
+        "resource_profile",
+        "training_strengths"
+      ],
+      "path": "results/strong_disorder_audit_results.csv",
+      "row_count": 600,
+      "sha256": "3a34d98a314a3a2d94f51e8a0c6cf259b90e9da643bd9d7e869ab7a965a07261"
+    },
+    {
+      "bytes": 3540,
+      "path": "results/strong_disorder_audit_summary.md",
+      "sha256": "d32d251b8b276fc63f9628b7a6cc9f8c7ab653124de569140b0010fbefca05d4"
+    },
+    {
+      "bytes": 2028,
+      "columns": [
+        "system",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "response_time",
+        "control_energy"
+      ],
+      "path": "results/tracking_results.csv",
+      "row_count": 18,
+      "sha256": "bb8bd785b45a9137091612f3ec779955e2bc363257ae80a8618d708ddffc6e7b"
+    },
+    {
+      "bytes": 695,
+      "path": "results/tracking_summary.md",
+      "sha256": "27c5f1fb066b710c9210af41f940b297790f0a6ff12659ba7917086eaddee3eb"
+    },
+    {
+      "bytes": 202313,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success"
+      ],
+      "path": "results/transmon_leakage_results.csv",
+      "row_count": 1000,
+      "sha256": "a8d654d94ba6ee94fbbb08fa0a8af281f9452bff94ddcde35afd6f3052e3c394"
+    },
+    {
+      "bytes": 4744,
+      "path": "results/transmon_leakage_summary.md",
+      "sha256": "2698f62ea21272dacdf67b89b532a06bb175415fc39caa33c660417216cccc31"
+    },
+    {
+      "bytes": 204290,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success"
+      ],
+      "path": "results/transmon_open_leakage_adjoint_results.csv",
+      "row_count": 800,
+      "sha256": "78bb1e4ce52a739a478309c2c2035f7f5d0bd8db5dc459453df3a96efeaa040d"
+    },
+    {
+      "bytes": 3607,
+      "path": "results/transmon_open_leakage_adjoint_summary.md",
+      "sha256": "9284b0569fc296eefe49491a3575c86f25fbd6e11b2d83871edb484ba0d39570"
+    },
+    {
+      "bytes": 142542,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success"
+      ],
+      "path": "results/transmon_open_system_leakage_results.csv",
+      "row_count": 600,
+      "sha256": "7db30f02334f8e39ba91b63663b71e8cdb6910fca2a46a56c4494a04d792c981"
+    },
+    {
+      "bytes": 2606,
+      "path": "results/transmon_open_system_leakage_summary.md",
+      "sha256": "ee22c3a46993999078997875ff320a82fc97d1f43686332bfca7f6a5e46fdc74"
+    },
+    {
+      "bytes": 79886,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success"
+      ],
+      "path": "results/transmon_standalone_adjoint_results.csv",
+      "row_count": 400,
+      "sha256": "a0f510ca6690e470df43b5bde1d8b9e6a346c4c03e62b03f55b50993802269f5"
+    },
+    {
+      "bytes": 2184,
+      "path": "results/transmon_standalone_adjoint_summary.md",
+      "sha256": "634698be8d302ec7c28ab9558d45cdd9bc7ea7c369f0502f3ce60c76720a9298"
+    }
+  ],
+  "schema": "disorder-dressed-reproducibility-manifest-v1"
+}

@@ -76,6 +76,7 @@ python3 code/open_leakage_integrated_sweep.py --extended
 python3 code/open_leakage_pareto_audit.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
+python3 code/reproducibility_manifest.py
 ```
 
 The leakage and open-system GRAPE benchmarks also have quick derivative checks:
@@ -136,6 +137,8 @@ The bandwidth filter audit post-filters the compact beam pulses with determinist
 
 The resource audit aggregates representative held-out performance, pulse energy, segment counts, training sample counts, horizon parameters, and logged design seconds where available. It is included to make the journal comparisons transparent; it is not a universal runtime benchmark because the earliest finite-candidate runs did not write wall-clock timing fields.
 
+The reproducibility manifest records SHA-256 hashes, file sizes, CSV row counts, and CSV columns for the checked code and result artifacts without rerunning simulations. Regenerate it with `python3 code/reproducibility_manifest.py`; the outputs are `results/reproducibility_manifest.json` and `results/reproducibility_manifest.md`.
+
 ## Main Outputs
 
 - `results/horizon_lyapunov_summary.md`
@@ -165,6 +168,8 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/process_adjoint_horizon_summary.md`
 - `results/statistical_audit_summary.md`
 - `results/resource_audit_summary.md`
+- `results/reproducibility_manifest.md`
+- `results/reproducibility_manifest.json`
 - `results/multilevel_horizon_summary.md`
 - `results/transmon_leakage_summary.md`
 - `results/transmon_standalone_adjoint_summary.md`
