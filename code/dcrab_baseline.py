@@ -235,6 +235,7 @@ def evaluate_task(
     controls: np.ndarray,
     logs: list[dict[str, float | int | bool]],
     config: DCrabConfig,
+    baseline_label: str,
 ) -> list[dict[str, float | int | str | bool]]:
     p = problem(task)
     rows: list[dict[str, float | int | str | bool]] = []
@@ -260,7 +261,7 @@ def evaluate_task(
             rows.append(
                 {
                     "task": task,
-                    "baseline": "dcrab",
+                    "baseline": baseline_label,
                     "eval_strength": strength,
                     "seed": seed,
                     "final_fidelity": fid,
@@ -309,15 +310,16 @@ def summarize(rows: list[dict[str, float | int | str | bool]]) -> list[dict[str,
 def write_outputs(
     rows: list[dict[str, float | int | str | bool]],
     logs_by_task: dict[str, list[dict[str, float | int | bool]]],
+    output_prefix: str,
 ) -> None:
-    with result_path("dcrab_baseline_results.csv").open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+    with result_path(f"{output_prefix}_results.csv").open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
     summary = summarize(rows)
     headers = list(summary[0].keys())
-    with result_path("dcrab_baseline_summary.md").open("w", encoding="utf-8") as f:
+    with result_path(f"{output_prefix}_summary.md").open("w", encoding="utf-8") as f:
         f.write("# dCRAB-Style Baseline Summary\n\n")
         f.write("| " + " | ".join(headers) + " |\n")
         f.write("| " + " | ".join(["---"] * len(headers)) + " |\n")
@@ -352,7 +354,7 @@ def write_outputs(
                 )
 
 
-def plot_results(rows: list[dict[str, float | int | str | bool]]) -> None:
+def plot_results(rows: list[dict[str, float | int | str | bool]], output_prefix: str) -> None:
     summary = summarize(rows)
     tasks = ["Z", "H"]
     strengths = [0.05, 0.08]
@@ -386,8 +388,8 @@ def plot_results(rows: list[dict[str, float | int | str | bool]]) -> None:
     ax.grid(True, axis="y", alpha=0.25)
     ax.legend(frameon=False, fontsize=8)
     fig.tight_layout()
-    fig.savefig(figure_path("dcrab_baseline.pdf"))
-    fig.savefig(figure_path("dcrab_baseline.png"), dpi=300)
+    fig.savefig(figure_path(f"{output_prefix}.pdf"))
+    fig.savefig(figure_path(f"{output_prefix}.png"), dpi=300)
     plt.close(fig)
 
 
@@ -398,6 +400,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--basis-count", type=int, default=DCrabConfig.basis_count)
     parser.add_argument("--refreshes", type=int, default=DCrabConfig.refreshes)
     parser.add_argument("--popsize", type=int, default=DCrabConfig.popsize)
+    parser.add_argument("--training-seed-count", type=int, default=len(DCrabConfig.training_seeds))
+    parser.add_argument("--output-prefix", default="dcrab_baseline")
+    parser.add_argument("--baseline-label", default="dcrab")
     parser.add_argument("--skip-plot", action="store_true")
     return parser.parse_args()
 
@@ -410,6 +415,7 @@ def main() -> None:
         basis_count=args.basis_count,
         refreshes=args.refreshes,
         popsize=args.popsize,
+        training_seeds=tuple(range(args.training_seed_count)),
     )
     rows: list[dict[str, float | int | str | bool]] = []
     logs_by_task: dict[str, list[dict[str, float | int | bool]]] = {}
@@ -417,10 +423,10 @@ def main() -> None:
         print(f"optimizing dCRAB-style baseline for {task}", flush=True)
         controls, logs = optimize_task(task, config)
         logs_by_task[task] = logs
-        rows.extend(evaluate_task(task, controls, logs, config))
-    write_outputs(rows, logs_by_task)
+        rows.extend(evaluate_task(task, controls, logs, config, args.baseline_label))
+    write_outputs(rows, logs_by_task, args.output_prefix)
     if not args.skip_plot:
-        plot_results(rows)
+        plot_results(rows, args.output_prefix)
     for row in summarize(rows):
         print(row)
 

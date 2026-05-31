@@ -70,6 +70,12 @@ def dcrab_series(task: str) -> pd.DataFrame:
     return subset.rename(columns={"eval_strength": "disorder_strength"})
 
 
+def dcrab_train8_series(task: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("dcrab_train8_baseline_results.csv"))
+    subset = df[(df["task"] == task) & (df["eval_strength"] == 0.08)].copy()
+    return subset.rename(columns={"eval_strength": "disorder_strength"})
+
+
 def gate_probe_series(task: str) -> pd.DataFrame:
     df = pd.read_csv(result_path("gate_fidelity_probe_results.csv"))
     return df[df["task"] == task].copy()
@@ -190,6 +196,8 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "beam horizon transfer", horizon_series("H", "q6_b8"), "final_fidelity"),
         ("Z", "dCRAB transfer ceiling", dcrab_series("Z"), "final_fidelity"),
         ("H", "dCRAB transfer ceiling", dcrab_series("H"), "final_fidelity"),
+        ("Z", "dCRAB train-8 transfer ceiling", dcrab_train8_series("Z"), "final_fidelity"),
+        ("H", "dCRAB train-8 transfer ceiling", dcrab_train8_series("H"), "final_fidelity"),
         ("Z", "polished transfer ceiling", polished_series("Z"), "final_fidelity"),
         ("H", "polished transfer ceiling", polished_series("H"), "final_fidelity"),
         ("Z", "process horizon gate", process_horizon_series("Z"), "average_gate_fidelity"),
@@ -285,6 +293,34 @@ def summary_rows() -> list[dict[str, str]]:
             "dCRAB ceiling minus beam horizon",
             dcrab_series("H"),
             horizon_series("H", "q6_b8"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "dCRAB train-8 ceiling minus beam horizon",
+            dcrab_train8_series("Z"),
+            horizon_series("Z", "q6_b6"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "dCRAB train-8 ceiling minus beam horizon",
+            dcrab_train8_series("H"),
+            horizon_series("H", "q6_b8"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "dCRAB train-8 minus dCRAB train-4",
+            dcrab_train8_series("Z"),
+            dcrab_series("Z"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "dCRAB train-8 minus dCRAB train-4",
+            dcrab_train8_series("H"),
+            dcrab_series("H"),
             "final_fidelity",
         ),
         (

@@ -32,6 +32,8 @@ python3 code/ensemble_openloop.py
 python3 code/ensemble_lyapunov.py
 python3 code/crab_baseline.py
 python3 code/dcrab_baseline.py
+python3 code/dcrab_baseline.py --training-seed-count 8 --output-prefix dcrab_train8_baseline --baseline-label dcrab_train8
+python3 code/dcrab_baseline.py --basis-count 4 --refreshes 5 --maxiter 24 --popsize 5 --output-prefix dcrab_large_budget --baseline-label dcrab_large
 python3 code/horizon_lyapunov.py
 python3 code/slew_constrained_horizon.py
 python3 code/bandwidth_filter_audit.py
@@ -87,6 +89,8 @@ The reduced-basis CRAB baseline is an independent derivative-free terminal-contr
 
 The dCRAB-style reduced-basis baseline refreshes the randomized Fourier basis over three sequential terminal-optimization rounds and accepts only corrections that improve the robust training score. At `delta = 0.08`, it reaches held-out mean fidelity `0.999635` for Z and `0.999578` for H, with worst held-out fidelities above `0.9983`.
 
+The train-8 dCRAB comparator keeps the same three Fourier modes and three basis refreshes but doubles the training disorder seeds. At `delta = 0.08`, it reaches held-out mean fidelity `0.999713` for Z and `0.999789` for H, with worst held-out fidelities `0.998775/0.999393`. A separate four-mode, five-refresh diagnostic is also included; it generalizes worse on the held-out split (`0.998664/0.992961` for Z/H at `delta = 0.08`) and is kept as an over-parameterization diagnostic rather than the main terminal ceiling.
+
 The process-GRAPE-seeded horizon diagnostic uses a 60-segment process-GRAPE reference and a four-step local receding horizon. At `delta = 0.08`, it preserves held-out average gate fidelity `0.994732` for Z and `0.999573` for H. This is a gradient-reference diagnostic, not an independent replacement for process GRAPE.
 
 The adjoint-polished process-horizon diagnostic puts exact Frechet gradients inside the same four-step receding-horizon process score while staying in a trust region around the 60-segment process-GRAPE reference. At `delta = 0.08`, it preserves held-out average gate fidelity `0.994641` for Z and `0.999717` for H. This is a reference-assisted horizon diagnostic, not a standalone process-GRAPE replacement.
@@ -120,6 +124,8 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/bandwidth_filter_audit_summary.md`
 - `results/crab_baseline_summary.md`
 - `results/dcrab_baseline_summary.md`
+- `results/dcrab_train8_baseline_summary.md`
+- `results/dcrab_large_budget_summary.md`
 - `results/shifted_fallback_horizon_summary.md`
 - `results/shifted_fallback_margin_audit_summary.md`
 - `results/state_adjoint_horizon_summary.md`

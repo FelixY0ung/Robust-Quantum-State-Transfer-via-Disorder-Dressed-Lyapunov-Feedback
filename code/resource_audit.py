@@ -126,6 +126,7 @@ def rows() -> list[dict[str, str]]:
     slew = load("slew_constrained_horizon_results.csv")
     bandwidth = load("bandwidth_filter_audit_results.csv")
     dcrab = load("dcrab_baseline_results.csv")
+    dcrab_train8 = load("dcrab_train8_baseline_results.csv")
     grape = load("ensemble_grape_baseline_results.csv")
     process = load("process_horizon_results.csv")
     process_adj = load("process_adjoint_horizon_results.csv")
@@ -221,6 +222,19 @@ def rows() -> list[dict[str, str]]:
         ),
         "40 seg; 4 train seeds; 3 Fourier modes; 3 basis refreshes",
         "derivative-free terminal ceiling",
+    )
+    add(
+        "two-level transfer",
+        "dCRAB train-8 terminal",
+        "final state fidelity at delta=0.08",
+        pair_summary(
+            dcrab_train8,
+            lambda df, task: df[(df["task"] == task) & (df["eval_strength"] == 0.08)],
+            "final_fidelity",
+            seconds_columns=("optimization_seconds",),
+        ),
+        "40 seg; 8 train seeds; 3 Fourier modes; 3 basis refreshes",
+        "larger-training derivative-free terminal ceiling",
     )
     add(
         "two-level transfer",
