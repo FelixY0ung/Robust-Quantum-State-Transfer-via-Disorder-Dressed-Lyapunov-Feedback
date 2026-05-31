@@ -95,6 +95,15 @@ def open_noise_series(task: str, noise_case: str) -> pd.DataFrame:
     return df[(df["task"] == task) & (df["noise_case"] == noise_case)].copy()
 
 
+def open_adjoint_series(task: str, controller: str, noise_case: str = "combined") -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_system_adjoint_horizon_results.csv"))
+    return df[
+        (df["task"] == task)
+        & (df["controller"] == controller)
+        & (df["eval_noise_case"] == noise_case)
+    ].copy()
+
+
 def summary_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
 
@@ -115,6 +124,10 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "transfer horizon gate", gate_probe_series("H"), "average_gate_fidelity"),
         ("Z", "open noise combined", open_noise_series("Z", "combined"), "final_fidelity"),
         ("H", "open noise combined", open_noise_series("H", "combined"), "final_fidelity"),
+        ("Z", "adjoint Lindblad horizon combined", open_adjoint_series("Z", "adjoint_open_horizon"), "final_fidelity"),
+        ("H", "adjoint Lindblad horizon combined", open_adjoint_series("H", "adjoint_open_horizon"), "final_fidelity"),
+        ("Z", "open-system GRAPE combined", open_adjoint_series("Z", "open_grape_reference"), "final_fidelity"),
+        ("H", "open-system GRAPE combined", open_adjoint_series("H", "open_grape_reference"), "final_fidelity"),
     ]
 
     for task, label, frame, metric in series_specs:
@@ -190,6 +203,48 @@ def summary_rows() -> list[dict[str, str]]:
             "polished ceiling minus beam horizon",
             polished_series("H"),
             horizon_series("H", "q6_b8"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "adjoint Lindblad horizon minus closed horizon",
+            open_adjoint_series("Z", "adjoint_open_horizon"),
+            open_noise_series("Z", "combined"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "adjoint Lindblad horizon minus closed horizon",
+            open_adjoint_series("H", "adjoint_open_horizon"),
+            open_noise_series("H", "combined"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "open-system GRAPE minus closed horizon",
+            open_adjoint_series("Z", "open_grape_reference"),
+            open_noise_series("Z", "combined"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "open-system GRAPE minus closed horizon",
+            open_adjoint_series("H", "open_grape_reference"),
+            open_noise_series("H", "combined"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "open-system GRAPE minus adjoint Lindblad horizon",
+            open_adjoint_series("Z", "open_grape_reference"),
+            open_adjoint_series("Z", "adjoint_open_horizon"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "open-system GRAPE minus adjoint Lindblad horizon",
+            open_adjoint_series("H", "open_grape_reference"),
+            open_adjoint_series("H", "adjoint_open_horizon"),
             "final_fidelity",
         ),
         (

@@ -20,6 +20,10 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | H | transfer horizon gate | average_gate_fidelity | 50 | 0.906708784 | 0.00568 |  |  |  |
 | summary | Z | open noise combined | final_fidelity | 50 | 0.957140406 | 0.000329 |  |  |  |
 | summary | H | open noise combined | final_fidelity | 50 | 0.956625219 | 0.00034 |  |  |  |
+| summary | Z | adjoint Lindblad horizon combined | final_fidelity | 50 | 0.974683969 | 0.00063 |  |  |  |
+| summary | H | adjoint Lindblad horizon combined | final_fidelity | 50 | 0.977779184 | 0.000645 |  |  |  |
+| summary | Z | open-system GRAPE combined | final_fidelity | 50 | 0.97746055 | 0.000551 |  |  |  |
+| summary | H | open-system GRAPE combined | final_fidelity | 50 | 0.978929484 | 0.000435 |  |  |  |
 | paired | Z | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0402918502 | 0.00928 | 1.2 |
 | paired | H | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0421727374 | 0.00977 | 1.2 |
 | paired | Z | dCRAB ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00205382791 | 0.000431 | 1.32 |
@@ -28,6 +32,12 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | H | polished ceiling minus dCRAB ceiling | final_fidelity | 50 |  |  | 0.000406533891 | 0.000116 | 0.968 |
 | paired | Z | polished ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00238139247 | 0.000375 | 1.76 |
 | paired | H | polished ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00182862578 | 0.000407 | 1.24 |
+| paired | Z | adjoint Lindblad horizon minus closed horizon | final_fidelity | 50 |  |  | 0.0175435631 | 0.000732 | 6.64 |
+| paired | H | adjoint Lindblad horizon minus closed horizon | final_fidelity | 50 |  |  | 0.0211539652 | 0.000816 | 7.19 |
+| paired | Z | open-system GRAPE minus closed horizon | final_fidelity | 50 |  |  | 0.0203201437 | 0.000674 | 8.35 |
+| paired | H | open-system GRAPE minus closed horizon | final_fidelity | 50 |  |  | 0.0223042654 | 0.000664 | 9.31 |
+| paired | Z | open-system GRAPE minus adjoint Lindblad horizon | final_fidelity | 50 |  |  | 0.00277658065 | 0.000122 | 6.33 |
+| paired | H | open-system GRAPE minus adjoint Lindblad horizon | final_fidelity | 50 |  |  | 0.00115030017 | 0.000251 | 1.27 |
 | paired | Z | GRAPE process gate minus process horizon | average_gate_fidelity | 50 |  |  | 0.0681282649 | 0.0163 | 1.16 |
 | paired | H | GRAPE process gate minus process horizon | average_gate_fidelity | 50 |  |  | 0.0737978811 | 0.0173 | 1.18 |
 | paired | Z | process horizon gate minus transfer horizon gate | average_gate_fidelity | 50 |  |  | 0.548892818 | 0.018 | 8.44 |
