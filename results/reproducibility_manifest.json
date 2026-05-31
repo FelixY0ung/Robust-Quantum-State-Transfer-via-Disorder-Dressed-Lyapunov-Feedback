@@ -91,6 +91,11 @@
       "sha256": "b5b399b2c4abd063f5a2afed83a2dd0b2b6c7dd63602855f3eaa6c80e78ae13c"
     },
     {
+      "bytes": 13095,
+      "path": "code/open_leakage_training_ensemble_audit.py",
+      "sha256": "c66773225124f25dc0b879cb4ac09ccb24b557f5ff877b49f5966824929a750e"
+    },
+    {
       "bytes": 23776,
       "path": "code/open_system_adjoint_horizon.py",
       "sha256": "862a612c255d93ec41676ea09c8f1019f088b8119086a90e201729c5c5c3adcc"
@@ -619,6 +624,16 @@
       "sha256": "cbd722ed85d90dab09dc8d153b72fef888d32632dfe161bb4815d99fa6d786f3"
     },
     {
+      "bytes": 15177,
+      "path": "results/figures/open_leakage_training_ensemble_audit.pdf",
+      "sha256": "3d4f12bf6033cf8bac7568d5580a045e0124c5c4830c43fb82cd907993dc73a1"
+    },
+    {
+      "bytes": 54964,
+      "path": "results/figures/open_leakage_training_ensemble_audit.png",
+      "sha256": "5ff05f92b24d0e6dc980f96e7e2fbcd47069dc2cbc15e8f032c69256faef64b1"
+    },
+    {
       "bytes": 14905,
       "path": "results/figures/open_system_adjoint_horizon.pdf",
       "sha256": "6fba7c36caae7641be2abd90c187aeade50a35dbc38ad2aa759984317d89121c"
@@ -1071,6 +1086,41 @@
       "bytes": 5259,
       "path": "results/open_leakage_seed_continuation_sweep_summary.md",
       "sha256": "c431d4292770aaa59a184c7688a83bb87ca83529e9edb6dc6034f78069720d56"
+    },
+    {
+      "bytes": 286169,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "training_set_label",
+        "train_seeds",
+        "eval_seeds",
+        "stage_description"
+      ],
+      "path": "results/open_leakage_training_ensemble_audit_results.csv",
+      "row_count": 800,
+      "sha256": "0abb4173d39dad12c8715d3c7e7630e9770d9bdcb40be276902d102e0c6528ad"
+    },
+    {
+      "bytes": 4656,
+      "path": "results/open_leakage_training_ensemble_audit_summary.md",
+      "sha256": "43b8edd5dc4088d01527d53a079b60dec03d2f1f9d1e63e55ba732ae25fbc2f2"
     },
     {
       "bytes": 183560,
