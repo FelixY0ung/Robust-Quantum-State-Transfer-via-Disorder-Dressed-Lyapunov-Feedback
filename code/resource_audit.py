@@ -106,6 +106,7 @@ def rows() -> list[dict[str, str]]:
     open_noise = load("open_system_noise_results.csv")
     open_adj = load("open_system_adjoint_horizon_results.csv")
     leakage = load("transmon_leakage_results.csv")
+    standalone_leakage = load("transmon_standalone_adjoint_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -279,6 +280,14 @@ def rows() -> list[dict[str, str]]:
         leakage_summary(leakage, "path_horizon"),
         "120 seg; 12 train samples; q=5; B=6; finite grid",
         "leakage-aware finite-candidate horizon",
+    )
+    add(
+        "five-level leakage",
+        "standalone adjoint horizon",
+        "final state fidelity at delta=0.03",
+        leakage_summary(standalone_leakage, "standalone_adjoint_horizon"),
+        "120 seg; 12 train samples; q=5; path-seed adjoint polish",
+        "GRAPE-free leakage-adjoint diagnostic",
     )
     add(
         "five-level leakage",
