@@ -41,6 +41,7 @@ python3 code/gate_process_baseline.py
 python3 code/ensemble_grape_baseline.py
 python3 code/process_horizon.py
 python3 code/process_seeded_horizon.py
+python3 code/process_adjoint_horizon.py
 python3 code/statistical_audit.py
 python3 code/multilevel_horizon.py
 python3 code/transmon_leakage_horizon.py
@@ -53,15 +54,18 @@ The leakage and open-system GRAPE benchmarks also have quick derivative checks:
 ```bash
 python3 code/transmon_leakage_horizon.py --gradient-check
 python3 code/open_system_grape_baseline.py --gradient-check
+python3 code/process_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB reduced-basis baseline, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB, horizon-ablation, open-system stress-test, open-system training diagnostic, open-system GRAPE, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB reduced-basis baseline, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB, horizon-ablation, open-system stress-test, open-system training diagnostic, open-system GRAPE, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
 The reduced-basis CRAB baseline is an independent derivative-free terminal-control comparator. With three randomized Fourier modes per control and differential-evolution training at `delta = 0.08`, it reaches held-out mean fidelity `0.999240` for Z and `0.997811` for H at `delta = 0.08`.
 
 The process-GRAPE-seeded horizon diagnostic uses a 60-segment process-GRAPE reference and a four-step local receding horizon. At `delta = 0.08`, it preserves held-out average gate fidelity `0.994732` for Z and `0.999573` for H. This is a gradient-reference diagnostic, not an independent replacement for process GRAPE.
+
+The adjoint-polished process-horizon diagnostic puts exact Frechet gradients inside the same four-step receding-horizon process score while staying in a trust region around the 60-segment process-GRAPE reference. At `delta = 0.08`, it preserves held-out average gate fidelity `0.994641` for Z and `0.999717` for H. This is a reference-assisted horizon diagnostic, not a standalone process-GRAPE replacement.
 
 The open-system horizon-training diagnostic compares the existing closed-system-trained horizon pulses with compact Lindblad-trained finite-candidate horizon pulses. Under combined dephasing and relaxation at `delta = 0.08`, the compact open-trained pulses reach mean fidelity `0.948556` for Z and `0.942853` for H, below the closed-trained horizon's `0.957140` and `0.956625`, but with lower pulse energy. This diagnostic is included as a limitation rather than an improvement claim.
 
@@ -80,6 +84,7 @@ The open-system GRAPE baseline is a terminal open-loop comparator trained throug
 - `results/ensemble_grape_baseline_summary.md`
 - `results/process_horizon_summary.md`
 - `results/process_seeded_horizon_summary.md`
+- `results/process_adjoint_horizon_summary.md`
 - `results/statistical_audit_summary.md`
 - `results/multilevel_horizon_summary.md`
 - `results/transmon_leakage_summary.md`
