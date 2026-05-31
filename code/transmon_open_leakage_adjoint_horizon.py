@@ -7,8 +7,9 @@ then optimizes each short receding horizon directly through the five-level
 Lindblad model with an explicit running leakage penalty.
 
 The diagnostic remains local and nonconvex. It includes a conservative path
-score and a terminal-target-biased score, but neither uses a terminal GRAPE
-reference pulse or claims global optimality or convergence.
+score, a terminal-target-biased score, and a two-stage target/leakage tradeoff,
+but none of these direct variants uses a terminal GRAPE reference pulse or
+claims global optimality or convergence.
 """
 
 from __future__ import annotations
@@ -46,6 +47,7 @@ PLOT_CONTROLLERS = (
     ("open_leakage_path_seed", "Path horizon"),
     ("standalone_open_leakage_adjoint", "Direct adjoint"),
     ("target_biased_open_leakage_adjoint", "Target-biased"),
+    ("two_stage_target_biased_open_leakage_adjoint", "Two-stage direct"),
     ("adjoint_horizon", "Ref.-adjoint"),
     ("leakage_penalized_grape", "Leakage-GRAPE"),
 )
@@ -315,6 +317,52 @@ def design_open_leakage_adjoint_horizon(
     )
 
 
+def design_two_stage_open_leakage_adjoint_horizon(
+    reference_pulse: np.ndarray,
+    config: OpenLeakageAdjointConfig,
+) -> tuple[np.ndarray, float, int, bool, float]:
+    """First recover target fidelity, then repolish the pulse for leakage."""
+    common = {
+        "segments": config.segments,
+        "horizon_steps": config.horizon_steps,
+        "train_strength": config.train_strength,
+        "train_seeds": config.train_seeds,
+        "eval_strength": config.eval_strength,
+        "eval_seeds": config.eval_seeds,
+        "umax": config.umax,
+        "worst_weight": config.worst_weight,
+        "energy_weight": config.energy_weight,
+        "trust_weight": config.trust_weight,
+    }
+    target_recovery = OpenLeakageAdjointConfig(
+        **common,
+        horizon_maxiter=max(config.horizon_maxiter, 6),
+        trust_radius=max(config.trust_radius, 0.04),
+        leakage_weight=0.5,
+        terminal_target_weight=1.0,
+    )
+    leakage_repolish = OpenLeakageAdjointConfig(
+        **common,
+        horizon_maxiter=config.horizon_maxiter,
+        trust_radius=0.02,
+        leakage_weight=1.0,
+        terminal_target_weight=1.0,
+    )
+    pulse_1, _, iterations_1, success_1, seconds_1 = (
+        design_open_leakage_adjoint_horizon(reference_pulse, target_recovery)
+    )
+    pulse_2, objective_2, iterations_2, success_2, seconds_2 = (
+        design_open_leakage_adjoint_horizon(pulse_1, leakage_repolish)
+    )
+    return (
+        pulse_2,
+        objective_2,
+        iterations_1 + iterations_2,
+        success_1 and success_2,
+        seconds_1 + seconds_2,
+    )
+
+
 def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
     with result_path("transmon_open_leakage_adjoint_results.csv").open(
         "w", newline="", encoding="utf-8"
@@ -357,6 +405,7 @@ def plot_combined_results(rows: list[dict[str, float | int | str]]) -> None:
             "open_leakage_path_seed",
             "standalone_open_leakage_adjoint",
             "target_biased_open_leakage_adjoint",
+            "two_stage_target_biased_open_leakage_adjoint",
         }
     )
     selected_rows.extend(
@@ -576,6 +625,24 @@ def run(config: OpenLeakageAdjointConfig, quick: bool) -> None:
                 test_seeds=range(min(config.eval_seeds), max(config.eval_seeds) + 1),
             )
         )
+
+        if not quick:
+            print("polishing two-stage target-biased Lindblad leakage-aware horizon", flush=True)
+            pulse, objective, iterations, success, horizon_seconds = (
+                design_two_stage_open_leakage_adjoint_horizon(path_pulse, config)
+            )
+            rows.extend(
+                evaluate_pulse(
+                    pulse,
+                    "two_stage_target_biased_open_leakage_adjoint",
+                    path_seconds + horizon_seconds,
+                    objective,
+                    iterations,
+                    success,
+                    disorder_strength=config.eval_strength,
+                    test_seeds=range(min(config.eval_seeds), max(config.eval_seeds) + 1),
+                )
+            )
 
     write_outputs(rows)
     print(f"wrote {len(rows)} rows to {result_path('transmon_open_leakage_adjoint_results.csv')}")
