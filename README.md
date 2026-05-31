@@ -49,6 +49,7 @@ python3 code/process_standalone_adjoint_horizon.py
 python3 code/process_seeded_horizon.py
 python3 code/process_adjoint_horizon.py
 python3 code/statistical_audit.py
+python3 code/resource_audit.py
 python3 code/multilevel_horizon.py
 python3 code/transmon_leakage_horizon.py
 python3 code/polished_openloop.py
@@ -92,6 +93,8 @@ The open-system GRAPE baseline is a terminal open-loop comparator trained throug
 
 The adjoint open-system horizon diagnostic carries most of the open-system GRAPE performance into a reference-assisted receding-horizon form with exact Frechet derivatives. Under the combined-noise held-out test at `delta = 0.08`, it reaches mean fidelity `0.974684` for Z and `0.977779` for H. It remains reference-assisted and should not be read as an independent open-system Lyapunov proof.
 
+The resource audit aggregates representative held-out performance, pulse energy, segment counts, training sample counts, horizon parameters, and logged design seconds where available. It is included to make the journal comparisons transparent; it is not a universal runtime benchmark because the earliest finite-candidate runs did not write wall-clock timing fields.
+
 ## Main Outputs
 
 - `results/horizon_lyapunov_summary.md`
@@ -113,6 +116,7 @@ The adjoint open-system horizon diagnostic carries most of the open-system GRAPE
 - `results/process_seeded_horizon_summary.md`
 - `results/process_adjoint_horizon_summary.md`
 - `results/statistical_audit_summary.md`
+- `results/resource_audit_summary.md`
 - `results/multilevel_horizon_summary.md`
 - `results/transmon_leakage_summary.md`
 - `results/robustness_scan_summary.md`
