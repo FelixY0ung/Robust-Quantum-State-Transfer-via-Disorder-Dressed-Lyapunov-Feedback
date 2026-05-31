@@ -54,6 +54,7 @@ python3 code/resource_audit.py
 python3 code/multilevel_horizon.py
 python3 code/transmon_leakage_horizon.py
 python3 code/transmon_standalone_adjoint_horizon.py
+python3 code/transmon_open_system_leakage.py
 python3 code/polished_openloop.py
 python3 code/plot_experiments.py
 ```
@@ -69,11 +70,13 @@ python3 code/process_standalone_adjoint_horizon.py --gradient-check
 python3 code/process_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB/dCRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, CRAB/dCRAB, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
 The standalone leakage-adjoint horizon diagnostic uses the finite path-horizon pulse as the local initializer and does not use a GRAPE reference. At `delta = 0.03`, it raises mean final fidelity from the path seed's `0.837761` to `0.846606` while reducing mean maximum leakage from `0.046844` to `0.014642`. This is a GRAPE-free polishing diagnostic, not a terminal-optimization replacement.
+
+The five-level leakage-plus-Lindblad stress test evaluates the path horizon, reference-assisted adjoint horizon, and leakage-penalized GRAPE pulse under weak dephasing and relaxation with `gamma_phi = 0.001` and `gamma_relax = 0.0005`. At `delta = 0.03` under combined noise, the adjoint horizon reaches mean final fidelity `0.932452`, while leakage-penalized GRAPE reaches `0.952952`. This is an evaluation stress test, not a jointly trained open-system leakage optimizer.
 
 The reduced-basis CRAB baseline is an independent derivative-free terminal-control comparator. With three randomized Fourier modes per control and differential-evolution training at `delta = 0.08`, it reaches held-out mean fidelity `0.999240` for Z and `0.997811` for H at `delta = 0.08`.
 
@@ -127,6 +130,7 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/multilevel_horizon_summary.md`
 - `results/transmon_leakage_summary.md`
 - `results/transmon_standalone_adjoint_summary.md`
+- `results/transmon_open_system_leakage_summary.md`
 - `results/robustness_scan_summary.md`
 - `results/polished_openloop_summary.md`
 - `results/figures/`

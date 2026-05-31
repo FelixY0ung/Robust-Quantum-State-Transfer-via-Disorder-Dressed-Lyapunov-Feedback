@@ -139,6 +139,19 @@ def leakage_series(controller: str, strength: float = 0.03) -> pd.DataFrame:
     return df[(df["controller"] == controller) & (df["eval_strength"] == strength)].copy()
 
 
+def open_leakage_series(
+    controller: str,
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("transmon_open_system_leakage_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
 def summary_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
 
@@ -179,6 +192,12 @@ def summary_rows() -> list[dict[str, str]]:
         ("L", "leakage path seed max leakage", standalone_leakage_series("standalone_path_seed"), "max_leakage"),
         ("L", "standalone leakage adjoint max leakage", standalone_leakage_series("standalone_adjoint_horizon"), "max_leakage"),
         ("L", "leakage-GRAPE max leakage", leakage_series("leakage_penalized_grape"), "max_leakage"),
+        ("OL", "open leakage path combined fidelity", open_leakage_series("path_horizon"), "final_fidelity"),
+        ("OL", "open leakage adjoint combined fidelity", open_leakage_series("adjoint_horizon"), "final_fidelity"),
+        ("OL", "open leakage-GRAPE combined fidelity", open_leakage_series("leakage_penalized_grape"), "final_fidelity"),
+        ("OL", "open leakage path combined max leakage", open_leakage_series("path_horizon"), "max_leakage"),
+        ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
+        ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
     ]
 
     for task, label, frame, metric in series_specs:
@@ -452,6 +471,34 @@ def summary_rows() -> list[dict[str, str]]:
             standalone_leakage_series("standalone_adjoint_horizon"),
             "max_leakage",
         ),
+        (
+            "OL",
+            "open leakage adjoint minus path horizon",
+            open_leakage_series("adjoint_horizon"),
+            open_leakage_series("path_horizon"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus adjoint horizon",
+            open_leakage_series("leakage_penalized_grape"),
+            open_leakage_series("adjoint_horizon"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage path max leakage minus adjoint horizon",
+            open_leakage_series("path_horizon"),
+            open_leakage_series("adjoint_horizon"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE max leakage minus adjoint horizon",
+            open_leakage_series("leakage_penalized_grape"),
+            open_leakage_series("adjoint_horizon"),
+            "max_leakage",
+        ),
     ]
 
     for task, label, a, b, metric in comparisons:
@@ -488,7 +535,7 @@ def write_outputs(rows: list[dict[str, str]]) -> None:
         "paired_effect_dz",
     ]
     with result_path("statistical_audit_results.csv").open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=headers)
+        writer = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

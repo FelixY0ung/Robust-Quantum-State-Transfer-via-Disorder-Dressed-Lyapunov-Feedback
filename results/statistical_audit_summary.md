@@ -40,6 +40,12 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | L | leakage path seed max leakage | max_leakage | 50 | 0.0468435426 | 0.00266 |  |  |  |
 | summary | L | standalone leakage adjoint max leakage | max_leakage | 50 | 0.0146423576 | 0.000871 |  |  |  |
 | summary | L | leakage-GRAPE max leakage | max_leakage | 50 | 0.0539387677 | 0.00274 |  |  |  |
+| summary | OL | open leakage path combined fidelity | final_fidelity | 50 | 0.826420064 | 0.0254 |  |  |  |
+| summary | OL | open leakage adjoint combined fidelity | final_fidelity | 50 | 0.932451986 | 0.0104 |  |  |  |
+| summary | OL | open leakage-GRAPE combined fidelity | final_fidelity | 50 | 0.95295242 | 0.00917 |  |  |  |
+| summary | OL | open leakage path combined max leakage | max_leakage | 50 | 0.0466762953 | 0.0026 |  |  |  |
+| summary | OL | open leakage adjoint combined max leakage | max_leakage | 50 | 0.053823841 | 0.00274 |  |  |  |
+| summary | OL | open leakage-GRAPE combined max leakage | max_leakage | 50 | 0.0548929297 | 0.00272 |  |  |  |
 | paired | Z | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0402918502 | 0.00928 | 1.2 |
 | paired | H | beam horizon minus one-step horizon | final_fidelity | 50 |  |  | 0.0421727374 | 0.00977 | 1.2 |
 | paired | Z | dCRAB ceiling minus beam horizon | final_fidelity | 50 |  |  | 0.00205382791 | 0.000431 | 1.32 |
@@ -76,3 +82,7 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | L | leakage-GRAPE minus standalone leakage adjoint | final_fidelity | 50 |  |  | 0.12284084 | 0.0278 | 1.22 |
 | paired | L | path seed max leakage minus standalone leakage adjoint | max_leakage | 50 |  |  | 0.032201185 | 0.00213 | 4.19 |
 | paired | L | leakage-GRAPE max leakage minus standalone leakage adjoint | max_leakage | 50 |  |  | 0.0392964101 | 0.00259 | 4.21 |
+| paired | OL | open leakage adjoint minus path horizon | final_fidelity | 50 |  |  | 0.106031923 | 0.02 | 1.47 |
+| paired | OL | open leakage-GRAPE minus adjoint horizon | final_fidelity | 50 |  |  | 0.0205004332 | 0.00712 | 0.798 |
+| paired | OL | open leakage path max leakage minus adjoint horizon | max_leakage | 50 |  |  | -0.00714754568 | 0.0038 | -0.521 |
+| paired | OL | open leakage-GRAPE max leakage minus adjoint horizon | max_leakage | 50 |  |  | 0.00106908866 | 0.00267 | 0.111 |
