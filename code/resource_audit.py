@@ -139,6 +139,7 @@ def rows() -> list[dict[str, str]]:
     open_leakage = load("transmon_open_system_leakage_results.csv")
     standalone_open_leakage = load("transmon_open_leakage_adjoint_results.csv")
     integrated_open_leakage = load("open_leakage_integrated_sweep_results.csv")
+    continuation_open_leakage = load("open_leakage_continuation_sweep_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -460,6 +461,17 @@ def rows() -> list[dict[str, str]]:
     )
     add(
         "five-level leakage + Lindblad",
+        "continuation open-leakage adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            continuation_open_leakage,
+            "continuation_target08_leak12",
+        ),
+        "120 seg; 4 train seeds; q=5; low-leakage seed then two target/leakage continuation stages",
+        "best GRAPE-free mean/leakage combined-noise horizon tradeoff",
+    )
+    add(
+        "five-level leakage + Lindblad",
         "adjoint leakage horizon",
         "combined-noise final fidelity at delta=0.03",
         open_leakage_summary(open_leakage, "adjoint_horizon"),
@@ -480,7 +492,7 @@ def rows() -> list[dict[str, str]]:
 
 def write_csv(audit_rows: list[dict[str, str]]) -> None:
     path = result_path("resource_audit_results.csv")
-    with path.open("w", newline="") as f:
+    with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=list(audit_rows[0].keys()),

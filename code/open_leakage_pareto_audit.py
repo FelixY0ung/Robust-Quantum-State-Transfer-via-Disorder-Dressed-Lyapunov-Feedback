@@ -2,8 +2,9 @@
 
 This script does not rerun pulse design.  It reads the existing held-out CSV
 files, combines the GRAPE-free direct horizons, integrated sweep, Pareto
-refinement rows, reference-assisted horizon, and terminal baselines, and reports
-the fidelity/leakage tradeoff at the hardest combined-noise setting.
+refinement and continuation rows, reference-assisted horizon, and terminal
+baselines, and reports the fidelity/leakage tradeoff at the hardest
+combined-noise setting.
 """
 
 from __future__ import annotations
@@ -89,6 +90,13 @@ SPECS = (
         "Two-stage direct",
         "GRAPE-free horizon",
         "best no-reference worst seed",
+    ),
+    ControllerSpec(
+        "open_leakage_continuation_sweep_results.csv",
+        "continuation_target08_leak12",
+        "Continuation direct",
+        "GRAPE-free horizon",
+        "best no-reference mean/leakage point",
     ),
     ControllerSpec(
         "transmon_open_system_leakage_results.csv",
@@ -185,8 +193,12 @@ def summarize() -> list[dict[str, str]]:
 
 def write_outputs(rows: list[dict[str, str]]) -> None:
     csv_path = result_path("open_leakage_pareto_audit_results.csv")
-    with csv_path.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=list(rows[0].keys()),
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 

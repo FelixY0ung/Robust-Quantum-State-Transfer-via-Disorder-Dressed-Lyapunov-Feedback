@@ -7,6 +7,7 @@ pareto_alpha0p8_lw1p5_trust004,Pareto alpha0.8 leak1.5,GRAPE-free horizon,low-le
 pareto_alpha0p8_lw1p2_trust004,Pareto alpha0.8 leak1.2,GRAPE-free horizon,low-leakage refinement,50,0.866819,0.687288,0.024391,0.026303,0.003332,0.001754,79.0,Pareto
 pareto_alpha0p8_lw1p0_trust004,Pareto alpha0.8 leak1.0,GRAPE-free horizon,low-leakage refinement,50,0.872490,0.701739,0.023481,0.030948,0.002990,0.001825,79.6,Pareto
 pareto_alpha0p8_lw0p8_trust004,Pareto alpha0.8 leak0.8,GRAPE-free horizon,target-balanced refinement,50,0.881557,0.720702,0.021903,0.036526,0.002001,0.001894,80.3,Pareto
-two_stage_target_biased_open_leakage_adjoint,Two-stage direct,GRAPE-free horizon,best no-reference worst seed,50,0.919179,0.784895,0.012391,0.065347,0.002991,0.002444,89.9,dominated by Reference-assisted horizon; Leakage-GRAPE
+two_stage_target_biased_open_leakage_adjoint,Two-stage direct,GRAPE-free horizon,best no-reference worst seed,50,0.919179,0.784895,0.012391,0.065347,0.002991,0.002444,89.9,dominated by Continuation direct; Reference-assisted horizon; Leakage-GRAPE
+continuation_target08_leak12,Continuation direct,GRAPE-free horizon,best no-reference mean/leakage point,50,0.920133,0.766810,0.012074,0.053478,0.004346,0.00296,103.7,Pareto
 adjoint_horizon,Reference-assisted horizon,reference-assisted horizon,reference-assisted Pareto point,50,0.932452,0.787640,0.010369,0.053824,0.015825,0.00202,19.9,Pareto
 leakage_penalized_grape,Leakage-GRAPE,terminal optimizer,terminal ceiling,50,0.952952,0.830203,0.009170,0.054893,0.002367,0.002661,16.1,Pareto
