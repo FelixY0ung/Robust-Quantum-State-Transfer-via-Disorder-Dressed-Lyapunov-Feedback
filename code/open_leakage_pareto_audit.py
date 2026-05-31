@@ -1,9 +1,9 @@
 """Pareto audit for the five-level leakage-plus-Lindblad stress test.
 
 This script does not rerun pulse design.  It reads the existing held-out CSV
-files, combines the GRAPE-free direct horizons and integrated direct sweep with
-the reference-assisted and terminal baselines, and reports the fidelity/leakage
-tradeoff at the hardest combined-noise setting.
+files, combines the GRAPE-free direct horizons, integrated sweep, Pareto
+refinement rows, reference-assisted horizon, and terminal baselines, and reports
+the fidelity/leakage tradeoff at the hardest combined-noise setting.
 """
 
 from __future__ import annotations
@@ -54,6 +54,34 @@ SPECS = (
         "Integrated direct",
         "GRAPE-free horizon",
         "single-stage integrated tradeoff",
+    ),
+    ControllerSpec(
+        "open_leakage_pareto_refinement_results.csv",
+        "pareto_alpha0p8_lw1p5_trust004",
+        "Pareto alpha0.8 leak1.5",
+        "GRAPE-free horizon",
+        "low-leakage refinement",
+    ),
+    ControllerSpec(
+        "open_leakage_pareto_refinement_results.csv",
+        "pareto_alpha0p8_lw1p2_trust004",
+        "Pareto alpha0.8 leak1.2",
+        "GRAPE-free horizon",
+        "low-leakage refinement",
+    ),
+    ControllerSpec(
+        "open_leakage_pareto_refinement_results.csv",
+        "pareto_alpha0p8_lw1p0_trust004",
+        "Pareto alpha0.8 leak1.0",
+        "GRAPE-free horizon",
+        "low-leakage refinement",
+    ),
+    ControllerSpec(
+        "open_leakage_pareto_refinement_results.csv",
+        "pareto_alpha0p8_lw0p8_trust004",
+        "Pareto alpha0.8 leak0.8",
+        "GRAPE-free horizon",
+        "target-balanced refinement",
     ),
     ControllerSpec(
         "transmon_open_leakage_adjoint_results.csv",

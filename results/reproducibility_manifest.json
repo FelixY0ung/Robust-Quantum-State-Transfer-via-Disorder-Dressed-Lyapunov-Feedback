@@ -71,9 +71,14 @@
       "sha256": "0e165451ef8c8755030d3f1c730bd34b65b4923bd3337aaf6a859391aa24d17e"
     },
     {
-      "bytes": 8036,
+      "bytes": 8943,
       "path": "code/open_leakage_pareto_audit.py",
-      "sha256": "8dc5becd6347e64418de505daa022de74b8c031ad69285e1b363fd827f4febe8"
+      "sha256": "3a88de497f61c981fab353004588601aa476d81c7667d2e3ff22915aa9c39be9"
+    },
+    {
+      "bytes": 12985,
+      "path": "code/open_leakage_pareto_refinement.py",
+      "sha256": "f1abc2fd7be6f87d22871b50666f67f0dc137166530884ffbb3663e53d3ca2e1"
     },
     {
       "bytes": 23776,
@@ -564,14 +569,24 @@
       "sha256": "39f2367b57a0ffa40fa4bad0edaf4f6b13314de1f6ca664f3d136e81fbeedff0"
     },
     {
-      "bytes": 18913,
+      "bytes": 19772,
       "path": "results/figures/open_leakage_pareto_audit.pdf",
-      "sha256": "69f78f37ffdda93f4c47882ac98f8fb703e433e7a7d9ddabf10aebe66a580fbb"
+      "sha256": "671b9ae6fac53d7dcf53141a54c0c0e3d532658b2181d757ef03bceafd47c772"
     },
     {
-      "bytes": 86755,
+      "bytes": 110742,
       "path": "results/figures/open_leakage_pareto_audit.png",
-      "sha256": "2a5243a896a7b34972d25cef3f5234f1a4f68bcab04d9d6222691c012399a505"
+      "sha256": "c7af2c50d893bbb5225f67d597efbc6d0dddab455c982a4f2b09fe71abf2258d"
+    },
+    {
+      "bytes": 17997,
+      "path": "results/figures/open_leakage_pareto_refinement.pdf",
+      "sha256": "be398dbe333ad258c4f69bc8118785864031137843b9a6760ab48f64ab9d054d"
+    },
+    {
+      "bytes": 73230,
+      "path": "results/figures/open_leakage_pareto_refinement.png",
+      "sha256": "1da9f8092a3b244ecd8f7ff36a05eaf2014fba205fabb4200d0379a7a60769cd"
     },
     {
       "bytes": 14905,
@@ -899,7 +914,7 @@
       "sha256": "34d6716175307295408f0088a07ab5ac5a245c150da66d5301cb51c500324555"
     },
     {
-      "bytes": 1397,
+      "bytes": 2169,
       "columns": [
         "controller",
         "label",
@@ -916,13 +931,50 @@
         "pareto_status"
       ],
       "path": "results/open_leakage_pareto_audit_results.csv",
-      "row_count": 7,
-      "sha256": "a95bc4edbba9b1a6ddeefb6d9f8d6dc4b4771a95a5b1e71afa1048ae3ed59cf2"
+      "row_count": 11,
+      "sha256": "af7c64cda20932aa65ac0a1c2775b7f5894252daba8e7b80e29330218f4138e4"
     },
     {
-      "bytes": 982,
+      "bytes": 1446,
       "path": "results/open_leakage_pareto_audit_summary.md",
-      "sha256": "181de447064534c4870446f9764f5a04030e09d02e32288ba3aedeac96ae9bec"
+      "sha256": "3b6a4b68d8cf4fe815240aea4a56f821bec5456d1fec8a8c4908471b26cc5075"
+    },
+    {
+      "bytes": 299856,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "refinement_label",
+        "terminal_target_weight",
+        "leakage_weight",
+        "worst_weight",
+        "trust_radius",
+        "horizon_maxiter"
+      ],
+      "path": "results/open_leakage_pareto_refinement_results.csv",
+      "row_count": 1000,
+      "sha256": "b4a34e7dd21776ab6d61f8fec9dec545670fdbf873fbfa0d9c419949b3854ebb"
+    },
+    {
+      "bytes": 4592,
+      "path": "results/open_leakage_pareto_refinement_summary.md",
+      "sha256": "b28b3c2eceebe29f0d8af7f6ddb989a086a86cf40fa1962fb101e123bee055de"
     },
     {
       "bytes": 183560,

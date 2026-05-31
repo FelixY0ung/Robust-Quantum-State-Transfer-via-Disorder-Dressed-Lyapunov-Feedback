@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 43
+Code files hashed: 44
 
-Result artifacts hashed: 137
+Result artifacts hashed: 141
 
 ## CSV Row Counts
 
@@ -27,7 +27,8 @@ Result artifacts hashed: 137
 | `results/multiaxis_results.csv` | 18 | `1ee44e4dbe10fdd4e7560d40d767dcd0496492d747ea32212bf903af17191ddd` |
 | `results/multilevel_horizon_results.csv` | 200 | `e8d4c5c0dd9a9d7d01cef211192a81a8b4b6ad8e43055d35255cb5bd6491691c` |
 | `results/open_leakage_integrated_sweep_results.csv` | 1800 | `496f6201ae9a119b17b4343a0ab571c51e7635a3fbe565c283e1f84391221e4c` |
-| `results/open_leakage_pareto_audit_results.csv` | 7 | `a95bc4edbba9b1a6ddeefb6d9f8d6dc4b4771a95a5b1e71afa1048ae3ed59cf2` |
+| `results/open_leakage_pareto_audit_results.csv` | 11 | `af7c64cda20932aa65ac0a1c2775b7f5894252daba8e7b80e29330218f4138e4` |
+| `results/open_leakage_pareto_refinement_results.csv` | 1000 | `b4a34e7dd21776ab6d61f8fec9dec545670fdbf873fbfa0d9c419949b3854ebb` |
 | `results/open_system_adjoint_horizon_results.csv` | 800 | `2604cd6d174db21eae366ae9af8b0bc741c07e73ffef88a87d273923eb6f915f` |
 | `results/open_system_grape_results.csv` | 400 | `7e2e7d0857a05c19127902881a32ad65f905dde4edfc545126a6c34c2a9e424d` |
 | `results/open_system_noise_results.csv` | 600 | `8825fb4b7f787bcb2567e1fc405a3855420b8bea3a6f888bc4a5d6132225baef` |
