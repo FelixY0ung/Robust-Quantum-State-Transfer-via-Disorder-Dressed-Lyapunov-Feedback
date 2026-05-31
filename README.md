@@ -30,6 +30,7 @@ python3 code/tracking_simulation.py
 python3 code/robustness_scan.py
 python3 code/ensemble_openloop.py
 python3 code/ensemble_lyapunov.py
+python3 code/crab_baseline.py
 python3 code/horizon_lyapunov.py
 python3 code/horizon_ablation.py
 python3 code/open_system_noise.py
@@ -53,9 +54,11 @@ python3 code/transmon_leakage_horizon.py --gradient-check
 python3 code/open_system_grape_baseline.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, horizon-ablation, open-system stress-test, open-system training diagnostic, open-system GRAPE, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB reduced-basis baseline, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, open-system horizon-training diagnostic, open-system GRAPE baseline, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, CRAB, horizon-ablation, open-system stress-test, open-system training diagnostic, open-system GRAPE, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
+
+The reduced-basis CRAB baseline is an independent derivative-free terminal-control comparator. With three randomized Fourier modes per control and differential-evolution training at `delta = 0.08`, it reaches held-out mean fidelity `0.999240` for Z and `0.997811` for H at `delta = 0.08`.
 
 The open-system horizon-training diagnostic compares the existing closed-system-trained horizon pulses with compact Lindblad-trained finite-candidate horizon pulses. Under combined dephasing and relaxation at `delta = 0.08`, the compact open-trained pulses reach mean fidelity `0.948556` for Z and `0.942853` for H, below the closed-trained horizon's `0.957140` and `0.956625`, but with lower pulse energy. This diagnostic is included as a limitation rather than an improvement claim.
 
@@ -64,6 +67,7 @@ The open-system GRAPE baseline is a terminal open-loop comparator trained throug
 ## Main Outputs
 
 - `results/horizon_lyapunov_summary.md`
+- `results/crab_baseline_summary.md`
 - `results/horizon_ablation_summary.md`
 - `results/open_system_noise_summary.md`
 - `results/open_system_training_summary.md`
