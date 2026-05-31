@@ -40,6 +40,7 @@ class SweepVariant:
     leakage_weight: float
     trust_radius: float
     horizon_maxiter: int
+    worst_weight: float = 0.25
 
 
 COMPACT_VARIANTS = (
@@ -51,6 +52,9 @@ COMPACT_VARIANTS = (
 EXTENDED_VARIANTS = COMPACT_VARIANTS + (
     SweepVariant("integrated_alpha1p0_lw1p2_trust004", "alpha 1.0, leak 1.2, trust 0.04", 1.0, 1.2, 0.04, 6),
     SweepVariant("integrated_alpha1p0_lw1p5_trust004", "alpha 1.0, leak 1.5, trust 0.04", 1.0, 1.5, 0.04, 6),
+    SweepVariant("integrated_alpha1p0_lw1p2_worst05_trust004", "alpha 1.0, leak 1.2, worst 0.5, trust 0.04", 1.0, 1.2, 0.04, 6, 0.5),
+    SweepVariant("integrated_alpha1p0_lw1p5_worst05_trust004", "alpha 1.0, leak 1.5, worst 0.5, trust 0.04", 1.0, 1.5, 0.04, 6, 0.5),
+    SweepVariant("integrated_alpha1p0_lw1p2_worst10_trust004", "alpha 1.0, leak 1.2, worst 1.0, trust 0.04", 1.0, 1.2, 0.04, 6, 1.0),
 )
 
 
@@ -67,6 +71,7 @@ def annotate_rows(
                     "sweep_label": "path seed",
                     "terminal_target_weight": "",
                     "leakage_weight": "",
+                    "worst_weight": "",
                     "trust_radius": "",
                     "horizon_maxiter": "",
                 }
@@ -77,6 +82,7 @@ def annotate_rows(
                     "sweep_label": variant.label,
                     "terminal_target_weight": variant.terminal_target_weight,
                     "leakage_weight": variant.leakage_weight,
+                    "worst_weight": variant.worst_weight,
                     "trust_radius": variant.trust_radius,
                     "horizon_maxiter": variant.horizon_maxiter,
                 }
@@ -115,6 +121,7 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
                 "training_seconds": f"{float(first['training_seconds']):.4g}",
                 "terminal_target_weight": str(first["terminal_target_weight"]),
                 "leakage_weight": str(first["leakage_weight"]),
+                "worst_weight": str(first["worst_weight"]),
                 "trust_radius": str(first["trust_radius"]),
                 "horizon_maxiter": str(first["horizon_maxiter"]),
             }
@@ -185,6 +192,9 @@ def plot_results(rows: list[dict[str, float | int | str]]) -> None:
         "integrated_alpha1p0_lw1p5": "alpha1.0/lw1.5",
         "integrated_alpha1p0_lw1p2_trust004": "alpha1.0/lw1.2/t0.04",
         "integrated_alpha1p0_lw1p5_trust004": "alpha1.0/lw1.5/t0.04",
+        "integrated_alpha1p0_lw1p2_worst05_trust004": "alpha1.0/lw1.2/w0.5",
+        "integrated_alpha1p0_lw1p5_worst05_trust004": "alpha1.0/lw1.5/w0.5",
+        "integrated_alpha1p0_lw1p2_worst10_trust004": "alpha1.0/lw1.2/w1.0",
     }
 
     fig, ax = plt.subplots(figsize=(5.4, 3.4))
@@ -286,7 +296,7 @@ def run(args: argparse.Namespace) -> None:
             eval_seeds=base_config.eval_seeds,
             umax=base_config.umax,
             trust_radius=variant.trust_radius if not args.quick else base_config.trust_radius,
-            worst_weight=base_config.worst_weight,
+            worst_weight=variant.worst_weight,
             leakage_weight=variant.leakage_weight,
             energy_weight=base_config.energy_weight,
             trust_weight=base_config.trust_weight,
