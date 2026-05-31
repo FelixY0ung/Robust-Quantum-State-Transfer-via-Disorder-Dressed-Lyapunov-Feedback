@@ -80,6 +80,22 @@ def process_horizon_series(task: str) -> pd.DataFrame:
     return df[df["task"] == task].copy()
 
 
+def process_seeded_series(task: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_seeded_horizon_results.csv"))
+    return df[(df["task"] == task) & (df["controller"] == "seeded_process_horizon")].copy()
+
+
+def process_adjoint_series(task: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_adjoint_horizon_results.csv"))
+    return df[(df["task"] == task) & (df["controller"] == "adjoint_process_horizon")].copy()
+
+
+def standalone_process_adjoint_series(task: str, controller: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_standalone_adjoint_results.csv"))
+    subset = df[(df["task"] == task) & (df["controller"] == controller)].copy()
+    return subset.rename(columns={"avg_gate_fidelity": "average_gate_fidelity"})
+
+
 def grape_process_series(task: str) -> pd.DataFrame:
     df = pd.read_csv(result_path("ensemble_grape_baseline_results.csv"))
     return df[(df["task"] == task) & (df["objective_kind"] == "process")].copy()
@@ -116,6 +132,12 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "polished transfer ceiling", polished_series("H"), "final_fidelity"),
         ("Z", "process horizon gate", process_horizon_series("Z"), "average_gate_fidelity"),
         ("H", "process horizon gate", process_horizon_series("H"), "average_gate_fidelity"),
+        ("Z", "seeded process horizon gate", process_seeded_series("Z"), "average_gate_fidelity"),
+        ("H", "seeded process horizon gate", process_seeded_series("H"), "average_gate_fidelity"),
+        ("Z", "adjoint process horizon gate", process_adjoint_series("Z"), "average_gate_fidelity"),
+        ("H", "adjoint process horizon gate", process_adjoint_series("H"), "average_gate_fidelity"),
+        ("Z", "standalone process-adjoint gate", standalone_process_adjoint_series("Z", "standalone_process_adjoint"), "average_gate_fidelity"),
+        ("H", "standalone process-adjoint gate", standalone_process_adjoint_series("H", "standalone_process_adjoint"), "average_gate_fidelity"),
         ("Z", "GRAPE process gate", grape_process_series("Z"), "average_gate_fidelity"),
         ("H", "GRAPE process gate", grape_process_series("H"), "average_gate_fidelity"),
         ("Z", "GRAPE state gate", grape_state_series("Z"), "average_gate_fidelity"),
@@ -246,6 +268,62 @@ def summary_rows() -> list[dict[str, str]]:
             open_adjoint_series("H", "open_grape_reference"),
             open_adjoint_series("H", "adjoint_open_horizon"),
             "final_fidelity",
+        ),
+        (
+            "Z",
+            "seeded process horizon minus process horizon",
+            process_seeded_series("Z"),
+            process_horizon_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "seeded process horizon minus process horizon",
+            process_seeded_series("H"),
+            process_horizon_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "adjoint process horizon minus process horizon",
+            process_adjoint_series("Z"),
+            process_horizon_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "adjoint process horizon minus process horizon",
+            process_adjoint_series("H"),
+            process_horizon_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "GRAPE process gate minus adjoint process horizon",
+            grape_process_series("Z"),
+            process_adjoint_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "GRAPE process gate minus adjoint process horizon",
+            grape_process_series("H"),
+            process_adjoint_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "standalone process adjoint minus finite process seed",
+            standalone_process_adjoint_series("Z", "standalone_process_adjoint"),
+            standalone_process_adjoint_series("Z", "finite_process_seed"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "standalone process adjoint minus finite process seed",
+            standalone_process_adjoint_series("H", "standalone_process_adjoint"),
+            standalone_process_adjoint_series("H", "finite_process_seed"),
+            "average_gate_fidelity",
         ),
         (
             "Z",
