@@ -338,6 +338,9 @@ These limitations are scientifically acceptable only because the manuscript now 
 - Added `code/bandwidth_filter_audit.py`, generated post-design low-pass filter
   robustness rows, and recorded the result as bandwidth-aware evidence rather
   than a calibrated hardware transfer-function study.
+- Extended `code/statistical_audit.py` with paired smoothness/filter
+  comparisons, including the boxcar3 fidelity loss before and after slew
+  shaping.
 
 ## Judgment
 

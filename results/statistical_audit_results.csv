@@ -43,6 +43,14 @@ summary,OL,open leakage path combined max leakage,max_leakage,50,0.0466762953,0.
 summary,OL,standalone open leakage adjoint combined max leakage,max_leakage,50,0.0176521996,0.000984,,,
 summary,OL,open leakage adjoint combined max leakage,max_leakage,50,0.053823841,0.00274,,,
 summary,OL,open leakage-GRAPE combined max leakage,max_leakage,50,0.0548929297,0.00272,,,
+summary,Z,compact beam no-slew transfer,final_fidelity,50,0.990507913,0.000508,,,
+summary,H,compact beam no-slew transfer,final_fidelity,50,0.996504934,0.000437,,,
+summary,Z,compact slew-constrained transfer,final_fidelity,50,0.995053745,0.000382,,,
+summary,H,compact slew-constrained transfer,final_fidelity,50,0.995259938,0.000726,,,
+summary,Z,filtered no-slew boxcar3 transfer,final_fidelity,50,0.960063585,0.00337,,,
+summary,H,filtered no-slew boxcar3 transfer,final_fidelity,50,0.958034091,0.00482,,,
+summary,Z,filtered slew boxcar3 transfer,final_fidelity,50,0.994356367,0.000778,,,
+summary,H,filtered slew boxcar3 transfer,final_fidelity,50,0.995035697,0.00113,,,
 paired,Z,beam horizon minus one-step horizon,final_fidelity,50,,,0.0402918502,0.00928,1.2
 paired,H,beam horizon minus one-step horizon,final_fidelity,50,,,0.0421727374,0.00977,1.2
 paired,Z,dCRAB ceiling minus beam horizon,final_fidelity,50,,,0.00205382791,0.000431,1.32
@@ -88,3 +96,13 @@ paired,OL,open leakage path max leakage minus adjoint horizon,max_leakage,50,,,-
 paired,OL,open leakage path seed max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0290240958,0.00199,4.04
 paired,OL,reference-assisted open leakage adjoint max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0361716414,0.00259,3.87
 paired,OL,open leakage-GRAPE max leakage minus adjoint horizon,max_leakage,50,,,0.00106908866,0.00267,0.111
+paired,Z,compact slew-constrained minus no-slew beam,final_fidelity,50,,,0.00454583191,0.000622,2.02
+paired,H,compact slew-constrained minus no-slew beam,final_fidelity,50,,,-0.00124499609,0.000674,-0.512
+paired,Z,boxcar3 no-slew filtered minus no-slew beam,final_fidelity,50,,,-0.0304443285,0.00364,-2.32
+paired,H,boxcar3 no-slew filtered minus no-slew beam,final_fidelity,50,,,-0.038470843,0.0046,-2.32
+paired,Z,boxcar3 filtered slew minus slew beam,final_fidelity,50,,,-0.00069737842,0.000752,-0.257
+paired,H,boxcar3 filtered slew minus slew beam,final_fidelity,50,,,-0.000224240975,0.00115,-0.0542
+paired,Z,boxcar3 filtered slew minus filtered no-slew,final_fidelity,50,,,0.034292782,0.00286,3.33
+paired,H,boxcar3 filtered slew minus filtered no-slew,final_fidelity,50,,,0.037001606,0.00542,1.89
+paired,Z,gaussian7 filtered slew minus slew beam,final_fidelity,50,,,-0.0201968259,0.00223,-2.51
+paired,H,gaussian7 filtered slew minus slew beam,final_fidelity,50,,,-0.00669288856,0.0026,-0.714

@@ -165,6 +165,23 @@ def standalone_open_leakage_series(
     ].copy()
 
 
+def slew_series(task: str, weight: float) -> pd.DataFrame:
+    df = pd.read_csv(result_path("slew_constrained_horizon_results.csv"))
+    return df[
+        (df["task"] == task)
+        & (df["slew_weight"].astype(float) == weight)
+    ].copy()
+
+
+def bandwidth_series(task: str, base_weight: float, filter_name: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("bandwidth_filter_audit_results.csv"))
+    return df[
+        (df["task"] == task)
+        & (df["base_slew_weight"].astype(float) == base_weight)
+        & (df["filter"] == filter_name)
+    ].copy()
+
+
 def summary_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
 
@@ -213,6 +230,14 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "standalone open leakage adjoint combined max leakage", standalone_open_leakage_series("standalone_open_leakage_adjoint"), "max_leakage"),
         ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
         ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
+        ("Z", "compact beam no-slew transfer", slew_series("Z", 0.0), "final_fidelity"),
+        ("H", "compact beam no-slew transfer", slew_series("H", 0.0), "final_fidelity"),
+        ("Z", "compact slew-constrained transfer", slew_series("Z", 0.005), "final_fidelity"),
+        ("H", "compact slew-constrained transfer", slew_series("H", 0.005), "final_fidelity"),
+        ("Z", "filtered no-slew boxcar3 transfer", bandwidth_series("Z", 0.0, "boxcar3"), "final_fidelity"),
+        ("H", "filtered no-slew boxcar3 transfer", bandwidth_series("H", 0.0, "boxcar3"), "final_fidelity"),
+        ("Z", "filtered slew boxcar3 transfer", bandwidth_series("Z", 0.005, "boxcar3"), "final_fidelity"),
+        ("H", "filtered slew boxcar3 transfer", bandwidth_series("H", 0.005, "boxcar3"), "final_fidelity"),
     ]
 
     for task, label, frame, metric in series_specs:
@@ -548,6 +573,76 @@ def summary_rows() -> list[dict[str, str]]:
             open_leakage_series("leakage_penalized_grape"),
             open_leakage_series("adjoint_horizon"),
             "max_leakage",
+        ),
+        (
+            "Z",
+            "compact slew-constrained minus no-slew beam",
+            slew_series("Z", 0.005),
+            slew_series("Z", 0.0),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "compact slew-constrained minus no-slew beam",
+            slew_series("H", 0.005),
+            slew_series("H", 0.0),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "boxcar3 no-slew filtered minus no-slew beam",
+            bandwidth_series("Z", 0.0, "boxcar3"),
+            bandwidth_series("Z", 0.0, "none"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "boxcar3 no-slew filtered minus no-slew beam",
+            bandwidth_series("H", 0.0, "boxcar3"),
+            bandwidth_series("H", 0.0, "none"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "boxcar3 filtered slew minus slew beam",
+            bandwidth_series("Z", 0.005, "boxcar3"),
+            bandwidth_series("Z", 0.005, "none"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "boxcar3 filtered slew minus slew beam",
+            bandwidth_series("H", 0.005, "boxcar3"),
+            bandwidth_series("H", 0.005, "none"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "boxcar3 filtered slew minus filtered no-slew",
+            bandwidth_series("Z", 0.005, "boxcar3"),
+            bandwidth_series("Z", 0.0, "boxcar3"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "boxcar3 filtered slew minus filtered no-slew",
+            bandwidth_series("H", 0.005, "boxcar3"),
+            bandwidth_series("H", 0.0, "boxcar3"),
+            "final_fidelity",
+        ),
+        (
+            "Z",
+            "gaussian7 filtered slew minus slew beam",
+            bandwidth_series("Z", 0.005, "gaussian7"),
+            bandwidth_series("Z", 0.005, "none"),
+            "final_fidelity",
+        ),
+        (
+            "H",
+            "gaussian7 filtered slew minus slew beam",
+            bandwidth_series("H", 0.005, "gaussian7"),
+            bandwidth_series("H", 0.005, "none"),
+            "final_fidelity",
         ),
     ]
 
