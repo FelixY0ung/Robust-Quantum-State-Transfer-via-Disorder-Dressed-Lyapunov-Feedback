@@ -33,11 +33,12 @@ Audited the simulation code used by `manuscript/cac2026_paper.tex`, especially:
      - `results/ensemble_results.csv`: 100 rows, Z/H tasks, seeds `10..59`.
      - `results/ensemble_lyapunov_results.csv`: 100 rows, Z/H tasks, seeds
        `10..59`.
-     - `results/transmon_leakage_results.csv`: 800 rows, 4 controllers,
+    - `results/transmon_leakage_results.csv`: 1000 rows, 5 controllers,
        strengths `0, 0.01, 0.02, 0.03`, seeds `10..59`.
    - Ran `python3 code/transmon_leakage_horizon.py --gradient-check`; directional
      derivative errors were about `1e-9` for both the terminal and leakage-
-     penalized GRAPE objectives.
+     penalized GRAPE objectives and about `1e-10` for the short-horizon adjoint
+     objective.
 
 2. Train/test separation
    - Two-level horizon training uses seeds `0..7`, test uses `10..59`.
@@ -51,7 +52,9 @@ Audited the simulation code used by `manuscript/cac2026_paper.tex`, especially:
    - Five-level leakage path-horizon training uses seeds `0..5`; terminal
      GRAPE and leakage-penalized GRAPE use training seeds `0..3`; the
      gradient-seeded horizon uses a leakage-penalized reference pulse and
-     horizon training seeds `0..3`; all four use test seeds `10..59`.
+     horizon training seeds `0..3`; the adjoint-polished horizon optimizes each
+     short horizon in a trust region around the same leakage-penalized
+     reference; all five use test seeds `10..59`.
 
 3. Physical state checks
    - Checked representative two-level and three-level evolutions for trace preservation and Hermiticity.
@@ -91,11 +94,12 @@ These limitations are scientifically acceptable only because the manuscript now 
 - The five-level leakage benchmark shows a remaining method gap: terminal GRAPE
   outperforms the finite-candidate path-horizon controller on final fidelity.
   Gradient-seeded horizon control improves the finite-candidate horizon while
-  keeping transient leakage low.
+  keeping transient leakage low, and adjoint-polished horizon control closes
+  more of the final-fidelity gap by continuously optimizing short horizons.
   Leakage-penalized GRAPE nearly preserves terminal-GRAPE fidelity while
   reducing transient leakage, indicating that the next horizon controller should
-  go beyond candidate seeding and incorporate explicit leakage shaping and
-  gradient information inside the horizon optimization.
+  go beyond reference seeding or local polishing and incorporate explicit
+  leakage shaping and gradient information inside the horizon optimization.
 
 ## Changes Made During Audit
 
@@ -111,7 +115,7 @@ These limitations are scientifically acceptable only because the manuscript now 
   experiment figures.
 - Added `code/transmon_leakage_horizon.py`, regenerated five-level leakage CSV,
   summary, and figure outputs, and extended the benchmark with gradient-seeded
-  horizon and leakage-penalized GRAPE comparators.
+  horizon, adjoint-polished horizon, and leakage-penalized GRAPE comparators.
 
 ## Judgment
 

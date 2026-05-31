@@ -449,6 +449,181 @@ def design_gradient_seeded_horizon(
     return np.vstack(pulse)
 
 
+def horizon_objective_and_gradient(
+    controls_flat: np.ndarray,
+    current_states: tuple[np.ndarray, ...],
+    strengths: tuple[float, ...],
+    controls_cache: tuple[tuple[np.ndarray, ...], ...],
+    disorder_cache: tuple[tuple[np.ndarray, ...], ...],
+    start_index: int,
+    dt: float,
+    score_target: np.ndarray,
+    p: Problem,
+    leakage_weight: float,
+    worst_weight: float,
+    energy_weight: float,
+) -> tuple[float, np.ndarray]:
+    n_controls = len(p.controls)
+    horizon_steps = controls_flat.size // n_controls
+    controls = np.reshape(controls_flat, (horizon_steps, n_controls))
+    leakage_observable = np.eye(p.h0.shape[0], dtype=complex) - p.computational_projector
+    scenario_costs = []
+    scenario_grads = []
+
+    for rho0, strength, disorders_i in zip(current_states, strengths, disorder_cache):
+        rhos = [rho0]
+        unitaries = []
+        generators = []
+        frechet_dirs = []
+        for depth, coeffs in enumerate(controls):
+            index = start_index + depth
+            h = strength * disorders_i[index]
+            for coeff, hc_i in zip(coeffs, controls_cache[index]):
+                h = h + coeff * hc_i
+            generator = -1.0j * h * dt
+            unitary_i = expm(generator)
+            generators.append(generator)
+            unitaries.append(unitary_i)
+            frechet_dirs.append([-1.0j * hc_i * dt for hc_i in controls_cache[index]])
+            rhos.append(unitary_i @ rhos[-1] @ dagger(unitary_i))
+
+        leakage_values = [
+            float(np.real(np.trace(leakage_observable @ rho))) for rho in rhos[1:]
+        ]
+        scenario_cost = (
+            1.0
+            - fidelity(rhos[-1], score_target)
+            + leakage_weight * float(np.mean(leakage_values))
+        )
+        scenario_costs.append(scenario_cost)
+
+        state_weight = leakage_weight / float(horizon_steps)
+        lambdas: list[np.ndarray] = [
+            np.zeros_like(p.target) for _ in range(horizon_steps + 1)
+        ]
+        lambdas[-1] = -score_target + state_weight * leakage_observable
+        for depth in reversed(range(1, horizon_steps)):
+            lambdas[depth] = (
+                state_weight * leakage_observable
+                + dagger(unitaries[depth]) @ lambdas[depth + 1] @ unitaries[depth]
+            )
+
+        grad = np.zeros((horizon_steps, n_controls), dtype=float)
+        for depth in range(horizon_steps):
+            for control_index in range(n_controls):
+                d_unitary = expm_frechet(
+                    generators[depth],
+                    frechet_dirs[depth][control_index],
+                    compute_expm=False,
+                )
+                value = np.trace(
+                    lambdas[depth + 1]
+                    @ d_unitary
+                    @ rhos[depth]
+                    @ dagger(unitaries[depth])
+                )
+                grad[depth, control_index] = 2.0 * float(np.real(value))
+        scenario_grads.append(grad.reshape(-1))
+
+    costs = np.array(scenario_costs, dtype=float)
+    grads = np.vstack(scenario_grads)
+    worst_index = int(np.argmax(costs))
+    objective = float(
+        np.mean(costs)
+        + worst_weight * costs[worst_index]
+        + energy_weight * np.mean(np.square(controls_flat))
+    )
+    grad = (
+        np.mean(grads, axis=0)
+        + worst_weight * grads[worst_index]
+        + energy_weight * (2.0 / controls_flat.size) * controls_flat
+    )
+    return objective, grad
+
+
+def design_adjoint_horizon(
+    reference_pulse: np.ndarray,
+    train_strengths: tuple[float, ...] = (0.01, 0.02, 0.03),
+    train_seeds: tuple[int, ...] = (0, 1, 2, 3),
+    horizon_steps: int = 5,
+    maxiter: int = 6,
+    trust_radius: float = 0.02,
+    umax: float = 0.12,
+    worst_weight: float = 0.25,
+    leakage_weight: float = 0.8,
+    energy_weight: float = 1e-5,
+) -> tuple[np.ndarray, float, int, bool]:
+    p = problem()
+    segments = len(reference_pulse)
+    t_eval = np.linspace(0.0, p.t_final, segments + 1)
+    dt = float(t_eval[1] - t_eval[0])
+    scenarios = tuple(
+        (strength, random_disorder(seed, p.h0.shape[0]))
+        for strength in train_strengths
+        for seed in train_seeds
+    )
+    strengths = tuple(strength for strength, _ in scenarios)
+    rhos = tuple(p.initial.copy() for _ in scenarios)
+    cache_times = tuple(
+        float(t_eval[min(j, segments - 1)]) for j in range(segments + horizon_steps)
+    )
+    controls_cache = tuple(
+        tuple(interaction_frame_operator(p, hc, t) for hc in p.controls)
+        for t in cache_times
+    )
+    disorder_cache = tuple(
+        tuple(interaction_frame_operator(p, disorder, t) for t in cache_times)
+        for _, disorder in scenarios
+    )
+    pulse = []
+    objectives = []
+    iterations = []
+    successes = []
+
+    for index in range(segments):
+        horizon = min(horizon_steps, segments - index)
+        initial = reference_pulse[index : index + horizon].reshape(-1).copy()
+        target = path_projector((index + horizon) / float(segments), p.h0.shape[0])
+        lower = np.maximum(-umax, initial - trust_radius)
+        upper = np.minimum(umax, initial + trust_radius)
+        result = minimize(
+            lambda x: horizon_objective_and_gradient(
+                x,
+                rhos,
+                strengths,
+                controls_cache,
+                disorder_cache,
+                index,
+                dt,
+                target,
+                p,
+                leakage_weight,
+                worst_weight,
+                energy_weight,
+            ),
+            initial,
+            method="L-BFGS-B",
+            jac=True,
+            bounds=list(zip(lower, upper)),
+            options={"maxiter": maxiter, "ftol": 1e-10, "gtol": 1e-7},
+        )
+        control = np.reshape(result.x, (horizon, len(p.controls)))[0]
+        pulse.append(control)
+        objectives.append(float(result.fun))
+        iterations.append(int(result.nit))
+        successes.append(bool(result.success))
+        rhos = step_precomputed(
+            rhos,
+            strengths,
+            controls_cache[index],
+            tuple(disorders[index] for disorders in disorder_cache),
+            dt,
+            control,
+        )
+
+    return np.vstack(pulse), float(np.mean(objectives)), int(sum(iterations)), all(successes)
+
+
 def evaluate_pulse(
     pulse: np.ndarray,
     disorder_strength: float,
@@ -835,6 +1010,71 @@ def gradient_check() -> None:
             f"error={abs(finite_difference - analytic):.3g}"
         )
 
+    horizon_steps = 3
+    t_eval = np.linspace(0.0, p.t_final, 81)
+    dt = float(t_eval[1] - t_eval[0])
+    controls_cache = tuple(
+        tuple(interaction_frame_operator(p, hc, float(t)) for hc in p.controls)
+        for t in t_eval[:horizon_steps]
+    )
+    disorder = random_disorder(1, p.h0.shape[0])
+    disorder_cache = (
+        tuple(interaction_frame_operator(p, disorder, float(t)) for t in t_eval[:horizon_steps]),
+    )
+    horizon_controls = rng.normal(scale=0.01, size=horizon_steps * len(p.controls))
+    target = path_projector(horizon_steps / 80.0, p.h0.shape[0])
+    value, grad = horizon_objective_and_gradient(
+        horizon_controls,
+        (p.initial.copy(),),
+        (0.01,),
+        controls_cache,
+        disorder_cache,
+        0,
+        dt,
+        target,
+        p,
+        leakage_weight=0.8,
+        worst_weight=0.25,
+        energy_weight=1e-5,
+    )
+    direction = rng.normal(size=horizon_controls.size)
+    direction /= np.linalg.norm(direction)
+    eps = 1e-6
+    plus = horizon_objective_and_gradient(
+        horizon_controls + eps * direction,
+        (p.initial.copy(),),
+        (0.01,),
+        controls_cache,
+        disorder_cache,
+        0,
+        dt,
+        target,
+        p,
+        leakage_weight=0.8,
+        worst_weight=0.25,
+        energy_weight=1e-5,
+    )[0]
+    minus = horizon_objective_and_gradient(
+        horizon_controls - eps * direction,
+        (p.initial.copy(),),
+        (0.01,),
+        controls_cache,
+        disorder_cache,
+        0,
+        dt,
+        target,
+        p,
+        leakage_weight=0.8,
+        worst_weight=0.25,
+        energy_weight=1e-5,
+    )[0]
+    finite_difference = (plus - minus) / (2.0 * eps)
+    analytic = float(np.dot(grad, direction))
+    print(
+        f"horizon: value={value:.8g}, finite_diff={finite_difference:.8g}, "
+        f"analytic={analytic:.8g}, error={abs(finite_difference - analytic):.3g}"
+    )
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -928,6 +1168,24 @@ def main() -> None:
                 training_objective=seeded_reference_objective,
                 optimizer_iterations=seeded_reference_iters,
                 optimizer_success=seeded_reference_success,
+            )
+        )
+
+    start = time.perf_counter()
+    adjoint_horizon_pulse, adjoint_objective, adjoint_iters, adjoint_success = (
+        design_adjoint_horizon(seeded_reference_pulse)
+    )
+    adjoint_seconds = seeded_reference_seconds + time.perf_counter() - start
+    for strength in EVAL_STRENGTHS:
+        rows.extend(
+            evaluate_pulse(
+                adjoint_horizon_pulse,
+                strength,
+                controller="adjoint_horizon",
+                training_seconds=adjoint_seconds,
+                training_objective=adjoint_objective,
+                optimizer_iterations=adjoint_iters,
+                optimizer_success=adjoint_success,
             )
         )
     write_outputs(rows)

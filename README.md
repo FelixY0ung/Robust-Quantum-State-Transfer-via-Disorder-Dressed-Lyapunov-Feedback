@@ -52,7 +52,7 @@ python3 code/transmon_leakage_horizon.py --gradient-check
 
 The longer scripts are the open-loop optimization, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostic, five-level leakage benchmark, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, horizon-ablation, open-system stress-test, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, and statistical-audit results.
 
-The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
+The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
 ## Main Outputs
 
