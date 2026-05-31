@@ -35,6 +35,7 @@ python3 code/dcrab_baseline.py
 python3 code/dcrab_baseline.py --training-seed-count 8 --output-prefix dcrab_train8_baseline --baseline-label dcrab_train8
 python3 code/dcrab_baseline.py --basis-count 4 --refreshes 5 --maxiter 24 --popsize 5 --output-prefix dcrab_large_budget --baseline-label dcrab_large
 python3 code/horizon_lyapunov.py
+python3 code/strong_disorder_audit.py
 python3 code/slew_constrained_horizon.py
 python3 code/bandwidth_filter_audit.py
 python3 code/shifted_fallback_horizon.py
@@ -77,7 +78,7 @@ python3 code/process_adjoint_horizon.py --gradient-check
 python3 code/transmon_open_leakage_adjoint_horizon.py --gradient-check
 ```
 
-The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, bandwidth filter audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, standalone open-leakage adjoint diagnostic, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, three-level, five-level leakage, five-level leakage-plus-Lindblad, standalone open-leakage adjoint, CRAB/dCRAB, slew-constrained, bandwidth-filter, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
+The longer scripts are the open-loop optimization, CRAB and dCRAB reduced-basis baselines, strong-disorder extrapolation audit, terminal process-fidelity baseline, ensemble-GRAPE baseline, process-horizon diagnostics, slew-constrained horizon audit, bandwidth filter audit, five-level leakage benchmark, five-level leakage-plus-Lindblad stress test, standalone open-leakage adjoint diagnostic, open-system horizon-training diagnostic, open-system GRAPE baseline, adjoint open-system horizon diagnostic, shifted-fallback horizon comparison and margin audit, standalone state-adjoint horizon diagnostic, standalone process-adjoint horizon diagnostic, and horizon-search experiments. The checked outputs currently included in `results/` use held-out disorder seeds `10..59` for the key two-level, strong-disorder extrapolation, three-level, five-level leakage, five-level leakage-plus-Lindblad, standalone open-leakage adjoint, CRAB/dCRAB, slew-constrained, bandwidth-filter, horizon-ablation, shifted-fallback, standalone state-adjoint, standalone process-adjoint, open-system stress-test, open-system training diagnostic, open-system GRAPE, adjoint open-system horizon, gate-fidelity diagnostic, terminal process-baseline, ensemble-GRAPE, process-horizon, process-seeded horizon, process-adjoint horizon, and statistical-audit results.
 
 The five-level weakly anharmonic leakage benchmark compares path-horizon control, gradient-seeded horizon control, adjoint-polished horizon control, terminal GRAPE, and leakage-penalized GRAPE. At `delta = 0.03`, gradient-seeded horizon control reaches mean final fidelity `0.916971` with mean maximum leakage `0.037966`; adjoint-polished horizon control reaches mean final fidelity `0.948305` with mean maximum leakage `0.053031`; leakage-penalized GRAPE reaches mean final fidelity `0.969447` while reducing mean maximum leakage to `0.053939`.
 
@@ -90,6 +91,8 @@ The reduced-basis CRAB baseline is an independent derivative-free terminal-contr
 The dCRAB-style reduced-basis baseline refreshes the randomized Fourier basis over three sequential terminal-optimization rounds and accepts only corrections that improve the robust training score. At `delta = 0.08`, it reaches held-out mean fidelity `0.999635` for Z and `0.999578` for H, with worst held-out fidelities above `0.9983`.
 
 The train-8 dCRAB comparator keeps the same three Fourier modes and three basis refreshes but doubles the training disorder seeds. At `delta = 0.08`, it reaches held-out mean fidelity `0.999713` for Z and `0.999789` for H, with worst held-out fidelities `0.998775/0.999393`. A separate four-mode, five-refresh diagnostic is also included; it generalizes worse on the held-out split (`0.998664/0.992961` for Z/H at `delta = 0.08`) and is kept as an over-parameterization diagnostic rather than the main terminal ceiling.
+
+The strong-disorder extrapolation audit reruns the existing beam-horizon protocol trained on `delta = 0.05/0.08` and the train-8 dCRAB protocol trained at `delta = 0.08`, then evaluates the resulting pulses at `delta = 0.08`, `0.10`, and `0.12` without retuning. At `delta = 0.12`, beam-horizon control retains held-out mean fidelity `0.995700/0.996804` for Z/H, while train-8 dCRAB reaches `0.998811/0.999259`. Paired on the same held-out seeds, the train-8 dCRAB advantage at `delta = 0.12` is `0.00311051 ± 0.00091051` for Z and `0.00245446 ± 0.00081157` for H.
 
 The process-GRAPE-seeded horizon diagnostic uses a 60-segment process-GRAPE reference and a four-step local receding horizon. At `delta = 0.08`, it preserves held-out average gate fidelity `0.994732` for Z and `0.999573` for H. This is a gradient-reference diagnostic, not an independent replacement for process GRAPE.
 
@@ -126,6 +129,7 @@ The resource audit aggregates representative held-out performance, pulse energy,
 - `results/dcrab_baseline_summary.md`
 - `results/dcrab_train8_baseline_summary.md`
 - `results/dcrab_large_budget_summary.md`
+- `results/strong_disorder_audit_summary.md`
 - `results/shifted_fallback_horizon_summary.md`
 - `results/shifted_fallback_margin_audit_summary.md`
 - `results/state_adjoint_horizon_summary.md`
