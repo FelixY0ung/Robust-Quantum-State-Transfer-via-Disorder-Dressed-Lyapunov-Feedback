@@ -76,6 +76,11 @@
       "sha256": "0e165451ef8c8755030d3f1c730bd34b65b4923bd3337aaf6a859391aa24d17e"
     },
     {
+      "bytes": 13841,
+      "path": "code/open_leakage_long_horizon_sweep.py",
+      "sha256": "5c6261fb27be18190ab50792ee6a17997b66326304db821c8273fbbdcc3f1290"
+    },
+    {
       "bytes": 9744,
       "path": "code/open_leakage_pareto_audit.py",
       "sha256": "cc2b12cdef6517700bbf470bfea387faf45e6c381c4acbd330ea21f8551d9d28"
@@ -594,6 +599,16 @@
       "sha256": "39f2367b57a0ffa40fa4bad0edaf4f6b13314de1f6ca664f3d136e81fbeedff0"
     },
     {
+      "bytes": 17093,
+      "path": "results/figures/open_leakage_long_horizon_sweep.pdf",
+      "sha256": "7c6872bb3e2bdb62fa2136ece80036d1aad4a0dacf8a48cfa9a354f4a74f0d5b"
+    },
+    {
+      "bytes": 60720,
+      "path": "results/figures/open_leakage_long_horizon_sweep.png",
+      "sha256": "bd816c891d8260a02760fbcd28e4f92dcad630be30f7413709031edd9f3b2857"
+    },
+    {
       "bytes": 20767,
       "path": "results/figures/open_leakage_pareto_audit.pdf",
       "sha256": "26a174988e34d2b673d69bbca4b8a8197736dee1cfc92891a0bdccf8abb1c4d0"
@@ -990,6 +1005,40 @@
       "bytes": 8083,
       "path": "results/open_leakage_integrated_sweep_summary.md",
       "sha256": "34d6716175307295408f0088a07ab5ac5a245c150da66d5301cb51c500324555"
+    },
+    {
+      "bytes": 336470,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "sweep_label",
+        "horizon_steps",
+        "stage_description"
+      ],
+      "path": "results/open_leakage_long_horizon_sweep_results.csv",
+      "row_count": 1000,
+      "sha256": "63e30b2436270da14d687cc87853f17a83b0eb30686c11fc60bf43c89a4bed1f"
+    },
+    {
+      "bytes": 5155,
+      "path": "results/open_leakage_long_horizon_sweep_summary.md",
+      "sha256": "30ac03ac82fbb7405d66d9bb19ffd40a434778f0ec8b80db9e7849cbfea4d753"
     },
     {
       "bytes": 2830,
