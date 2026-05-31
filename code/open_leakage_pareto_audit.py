@@ -94,9 +94,23 @@ SPECS = (
     ControllerSpec(
         "open_leakage_continuation_sweep_results.csv",
         "continuation_target08_leak12",
-        "Continuation direct",
+        "Continuation controlled",
         "GRAPE-free horizon",
-        "best no-reference mean/leakage point",
+        "leakage-controlled continuation point",
+    ),
+    ControllerSpec(
+        "open_leakage_continuation_sweep_results.csv",
+        "continuation_target08_leak10",
+        "Continuation balanced",
+        "GRAPE-free horizon",
+        "balanced continuation point",
+    ),
+    ControllerSpec(
+        "open_leakage_continuation_sweep_results.csv",
+        "continuation_target08_leak08",
+        "Continuation high-fidelity",
+        "GRAPE-free horizon",
+        "fidelity-favoring continuation point",
     ),
     ControllerSpec(
         "transmon_open_system_leakage_results.csv",

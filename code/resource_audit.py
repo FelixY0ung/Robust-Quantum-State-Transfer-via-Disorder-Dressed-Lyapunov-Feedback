@@ -472,6 +472,17 @@ def rows() -> list[dict[str, str]]:
     )
     add(
         "five-level leakage + Lindblad",
+        "fidelity-favoring continuation adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            continuation_open_leakage,
+            "continuation_target08_leak08",
+        ),
+        "120 seg; 4 train seeds; q=5; lower leakage penalty in final continuation stage",
+        "highest-fidelity GRAPE-free combined-noise horizon row, with higher leakage",
+    )
+    add(
+        "five-level leakage + Lindblad",
         "adjoint leakage horizon",
         "combined-noise final fidelity at delta=0.03",
         open_leakage_summary(open_leakage, "adjoint_horizon"),

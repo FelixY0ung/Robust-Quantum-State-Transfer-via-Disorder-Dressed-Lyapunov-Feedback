@@ -12,7 +12,9 @@ Combined five-level leakage-plus-Lindblad evaluation at $\delta=0.03$, $\gamma_\
 | Pareto alpha0.8 leak1.2 | GRAPE-free horizon | 0.866819 | 0.687288 | 0.026303 | Pareto |
 | Pareto alpha0.8 leak1.0 | GRAPE-free horizon | 0.872490 | 0.701739 | 0.030948 | Pareto |
 | Pareto alpha0.8 leak0.8 | GRAPE-free horizon | 0.881557 | 0.720702 | 0.036526 | Pareto |
-| Two-stage direct | GRAPE-free horizon | 0.919179 | 0.784895 | 0.065347 | dominated by Continuation direct; Reference-assisted horizon; Leakage-GRAPE |
-| Continuation direct | GRAPE-free horizon | 0.920133 | 0.766810 | 0.053478 | Pareto |
+| Two-stage direct | GRAPE-free horizon | 0.919179 | 0.784895 | 0.065347 | dominated by Continuation controlled; Continuation balanced; Reference-assisted horizon; Leakage-GRAPE |
+| Continuation controlled | GRAPE-free horizon | 0.920133 | 0.766810 | 0.053478 | Pareto |
+| Continuation balanced | GRAPE-free horizon | 0.924778 | 0.795870 | 0.060700 | dominated by Reference-assisted horizon; Leakage-GRAPE |
+| Continuation high-fidelity | GRAPE-free horizon | 0.929533 | 0.812158 | 0.071371 | dominated by Reference-assisted horizon; Leakage-GRAPE |
 | Reference-assisted horizon | reference-assisted horizon | 0.932452 | 0.787640 | 0.053824 | Pareto |
 | Leakage-GRAPE | terminal optimizer | 0.952952 | 0.830203 | 0.054893 | Pareto |

@@ -61,6 +61,22 @@ VARIANTS = (
         ),
     ),
     ContinuationVariant(
+        "continuation_target08_leak08",
+        "low-leak seed, target 0.8 then leak 0.8",
+        (
+            StageSpec(1.0, 0.8, 0.02, 6),
+            StageSpec(1.0, 0.8, 0.015, 6),
+        ),
+    ),
+    ContinuationVariant(
+        "continuation_target08_leak10",
+        "low-leak seed, target 0.8 then leak 1.0",
+        (
+            StageSpec(1.0, 0.8, 0.02, 6),
+            StageSpec(1.0, 1.0, 0.015, 6),
+        ),
+    ),
+    ContinuationVariant(
         "continuation_target05_leak15",
         "low-leak seed, target 0.5 then leak 1.5",
         (
@@ -74,6 +90,22 @@ VARIANTS = (
         (
             StageSpec(1.0, 0.8, 0.025, 6, 0.5),
             StageSpec(1.0, 1.2, 0.015, 6, 0.5),
+        ),
+    ),
+    ContinuationVariant(
+        "continuation_robust_leak08",
+        "low-leak seed, robust target 0.8 then leak 0.8",
+        (
+            StageSpec(1.0, 0.8, 0.025, 6, 0.5),
+            StageSpec(1.0, 0.8, 0.015, 6, 0.5),
+        ),
+    ),
+    ContinuationVariant(
+        "continuation_robust075_leak12",
+        "low-leak seed, robust-0.75 target 0.8 then leak 1.2",
+        (
+            StageSpec(1.0, 0.8, 0.025, 6, 0.75),
+            StageSpec(1.0, 1.2, 0.015, 6, 0.75),
         ),
     ),
 )
