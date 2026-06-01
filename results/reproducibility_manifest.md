@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 62
+Code files hashed: 63
 
-Result artifacts hashed: 199
+Result artifacts hashed: 203
 
 ## CSV Row Counts
 
@@ -51,10 +51,11 @@ Result artifacts hashed: 199
 | `results/polished_openloop_results.csv` | 200 | `4fb7f31cb2689ca50784d9f36b87eff3cea115871bd972bacafc0e059b53bdb1` |
 | `results/process_adjoint_horizon_results.csv` | 200 | `c1c9da3fc79c7650b7975f265e4d0032b2efdf9362a09b655fc66e279a90806f` |
 | `results/process_dcrab_baseline_results.csv` | 100 | `cf1833e164e67d2a1d7cf070d0b5ee6c2648758416282f97a5ff20a0925e432e` |
+| `results/process_dcrab_seeded_horizon_results.csv` | 200 | `ef5358b3d98da3d5d741f91ea9a547ccaeb4ab295a3f4ebd2441a9e81901c047` |
 | `results/process_horizon_results.csv` | 100 | `b990d30aad4958a26f8ed86306d07de26f822cb5dde13b38764386dd71d83821` |
 | `results/process_seeded_horizon_results.csv` | 200 | `955d2cc499542bc8df7711b87ee47b06821977eafec3b20d19a996cccde6a226` |
 | `results/process_standalone_adjoint_results.csv` | 200 | `24221a064d55a3a240b95a2b30355c20d6036bb161a69e433e040c1e4343b57e` |
-| `results/resource_audit_results.csv` | 34 | `3ece44572fe8a0f9c1fa4da7afe6f9d4f556b27444c6d79479d9707a15fb3bb8` |
+| `results/resource_audit_results.csv` | 35 | `07ece019c8bd0a63340f5c9a127d7d0a22904e62c017585cdf4e5829b1ae7e4e` |
 | `results/robustness_scan_results.csv` | 800 | `b87a332356df691d4f2a345ef776944ae95bf2d8c2e9de2180c6a275dd8db6c4` |
 | `results/shifted_fallback_horizon_results.csv` | 400 | `39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13` |
 | `results/shifted_fallback_margin_audit_results.csv` | 200 | `72f407dcc74d80a882c8fd9025b027cdc63d01d8068f98ba7e41e74499b7b91d` |
@@ -62,7 +63,7 @@ Result artifacts hashed: 199
 | `results/slew_constrained_horizon_results.csv` | 300 | `057214e4ef93fd91d43b7df292f64f20506350820acfc6e3c737489426701538` |
 | `results/state_adjoint_horizon_results.csv` | 400 | `4455959c09121c94dcf9460a6cbe83f5bdb705475a9c9bffe328fe0051052dfd` |
 | `results/stationarity_results.csv` | 3 | `b468df001aa3d73d849a9402180b8b0ffcd439b5d9d7c42799f620b91ebe9cb0` |
-| `results/statistical_audit_results.csv` | 198 | `b84cf62bf735d4c04bed3fc7078165c65f6240f67a1078a9e2c3f34359de35cf` |
+| `results/statistical_audit_results.csv` | 204 | `e2e24a2a84bc960083bbd8f23835e8a7554a6e1a5f73019fc60f0e4f956b22ef` |
 | `results/strong_disorder_audit_results.csv` | 600 | `3a34d98a314a3a2d94f51e8a0c6cf259b90e9da643bd9d7e869ab7a965a07261` |
 | `results/terminal_fallback_alphabet_sweep_results.csv` | 594 | `cc18fa1dfd3100be4307de8003e65c0c39bc8ff5e55d41a1af2e4ec89fbd75d7` |
 | `results/terminal_score_candidate_audit_results.csv` | 240 | `006b6cbc8caaab17eab93bdd5e570d164fd5bd6f61ae5716943d281787beef46` |

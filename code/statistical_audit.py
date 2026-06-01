@@ -103,6 +103,11 @@ def process_dcrab_series(task: str) -> pd.DataFrame:
     return subset
 
 
+def process_dcrab_seeded_series(task: str, controller: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_dcrab_seeded_horizon_results.csv"))
+    return df[(df["task"] == task) & (df["controller"] == controller)].copy()
+
+
 def process_adjoint_series(task: str) -> pd.DataFrame:
     df = pd.read_csv(result_path("process_adjoint_horizon_results.csv"))
     return df[(df["task"] == task) & (df["controller"] == "adjoint_process_horizon")].copy()
@@ -309,6 +314,8 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "process horizon gate", process_horizon_series("H"), "average_gate_fidelity"),
         ("Z", "process dCRAB gate", process_dcrab_series("Z"), "average_gate_fidelity"),
         ("H", "process dCRAB gate", process_dcrab_series("H"), "average_gate_fidelity"),
+        ("Z", "dCRAB-seeded process horizon gate", process_dcrab_seeded_series("Z", "dcrab_seeded_process_horizon"), "average_gate_fidelity"),
+        ("H", "dCRAB-seeded process horizon gate", process_dcrab_seeded_series("H", "dcrab_seeded_process_horizon"), "average_gate_fidelity"),
         ("Z", "seeded process horizon gate", process_seeded_series("Z"), "average_gate_fidelity"),
         ("H", "seeded process horizon gate", process_seeded_series("H"), "average_gate_fidelity"),
         ("Z", "adjoint process horizon gate", process_adjoint_series("Z"), "average_gate_fidelity"),
@@ -589,6 +596,34 @@ def summary_rows() -> list[dict[str, str]]:
             "H",
             "process dCRAB minus process horizon",
             process_dcrab_series("H"),
+            process_horizon_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "dCRAB-seeded process horizon minus process dCRAB reference",
+            process_dcrab_seeded_series("Z", "dcrab_seeded_process_horizon"),
+            process_dcrab_seeded_series("Z", "process_dcrab_reference"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "dCRAB-seeded process horizon minus process dCRAB reference",
+            process_dcrab_seeded_series("H", "dcrab_seeded_process_horizon"),
+            process_dcrab_seeded_series("H", "process_dcrab_reference"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "dCRAB-seeded process horizon minus process horizon",
+            process_dcrab_seeded_series("Z", "dcrab_seeded_process_horizon"),
+            process_horizon_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "dCRAB-seeded process horizon minus process horizon",
+            process_dcrab_seeded_series("H", "dcrab_seeded_process_horizon"),
             process_horizon_series("H"),
             "average_gate_fidelity",
         ),

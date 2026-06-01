@@ -131,6 +131,7 @@ def rows() -> list[dict[str, str]]:
     grape = load("ensemble_grape_baseline_results.csv")
     process = load("process_horizon_results.csv")
     process_dcrab = load("process_dcrab_baseline_results.csv")
+    process_dcrab_seeded = load("process_dcrab_seeded_horizon_results.csv")
     process_adj = load("process_adjoint_horizon_results.csv")
     open_noise = load("open_system_noise_results.csv")
     standalone_open = load("open_system_standalone_adjoint_results.csv")
@@ -300,6 +301,22 @@ def rows() -> list[dict[str, str]]:
         ),
         "40 seg; 8 train seeds; 3 Fourier modes; 3 basis refreshes",
         "derivative-free terminal process ceiling",
+    )
+    add(
+        "process fidelity",
+        "dCRAB-seeded process horizon",
+        "average gate fidelity at delta=0.08",
+        pair_summary(
+            process_dcrab_seeded,
+            lambda df, task: df[
+                (df["task"] == task)
+                & (df["controller"] == "dcrab_seeded_process_horizon")
+            ],
+            "average_gate_fidelity",
+            seconds_columns=("reference_seconds", "horizon_seconds"),
+        ),
+        "40 seg; 8 train seeds; q=4; B=6; derivative-free process reference",
+        "reference-assisted horizon diagnostic without a process-GRAPE reference",
     )
     add(
         "process fidelity",
