@@ -216,9 +216,9 @@
       "sha256": "2d598935c02a573a623c015d972a5708c326ebb37d80edeb67d4b9170275a205"
     },
     {
-      "bytes": 11839,
+      "bytes": 13410,
       "path": "code/shifted_fallback_margin_audit.py",
-      "sha256": "8c070874658ed673cd846e7a9ec2edb46860bd5e5b171ef8e813c863437e0180"
+      "sha256": "3b336cdd512df884ac0f51c614d59829d0a6db4e2137a4e4cbab72889391d3f2"
     },
     {
       "bytes": 10962,
@@ -1829,7 +1829,7 @@
       "sha256": "0ec6c8ec52050f781fc9cd75fbe3372dbdddf13dcc2d2855fc527cf6fd05d2a0"
     },
     {
-      "bytes": 29022,
+      "bytes": 33725,
       "columns": [
         "step",
         "selected_shifted",
@@ -1837,22 +1837,24 @@
         "selected_phi",
         "selected_energy_mean",
         "shifted_available",
+        "previous_terminal_phi",
         "best_shifted_margin",
         "best_shifted_phi",
         "best_shifted_cost",
         "task",
         "beam_width",
         "residual_threshold",
-        "outside_residual"
+        "current_outside_residual",
+        "terminal_outside_residual"
       ],
       "path": "results/shifted_fallback_margin_audit_results.csv",
       "row_count": 200,
-      "sha256": "5246a47293881337a43f89cad9e0ecaf519b7f7d516d32271ef3a7cf21143c76"
+      "sha256": "72f407dcc74d80a882c8fd9025b027cdc63d01d8068f98ba7e41e74499b7b91d"
     },
     {
-      "bytes": 736,
+      "bytes": 1112,
       "path": "results/shifted_fallback_margin_audit_summary.md",
-      "sha256": "9a17ab78e803c799fade0fed46f1c303e5a2e4a3ef5e1eb8c4cde7a27d4559fc"
+      "sha256": "b58436a7754c1739f20a4e12d3d1485def1b08512a63366acf92c270f591a0c5"
     },
     {
       "bytes": 19073,

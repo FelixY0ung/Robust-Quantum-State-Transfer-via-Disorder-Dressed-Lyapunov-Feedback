@@ -1,15 +1,16 @@
-"""Audit the shifted-fallback practical-decrease margin.
+"""Audit the shifted-fallback terminal-fallback margin.
 
 The shifted-fallback proposition in the manuscript has two parts:
 
 * candidate inclusion, enforced by explicitly scoring shifted-tail sequences;
 * terminal progress, a sufficient condition on the appended fallback.
 
-The main shifted-fallback experiment records final held-out fidelity and how
-often shifted candidates are selected. This audit recomputes the training
-trajectory and measures the best available shifted-fallback margin at each step
-after the first one. The margin is positive when at least one appended fallback
-would satisfy the proposition's terminal-progress inequality for that step.
+The terminal-fallback proposition rewrites that terminal-progress condition as
+a one-segment fallback decrease from the terminal ensemble predicted by the
+previous selected horizon. This audit recomputes the training trajectory and
+measures the best available fallback margin at each post-initial step. A
+positive margin means that at least one appended fallback satisfies the
+terminal-fallback condition for the previous predicted terminal ensemble.
 """
 
 from __future__ import annotations
@@ -141,7 +142,9 @@ def select_with_margin_record(
     shifted_phi_best = float("nan")
     shifted_cost_best = float("nan")
     shifted_available = 0
+    previous_terminal_phi = float("nan")
     if previous_sequence is not None and previous_phi is not None and previous_first_norm is not None:
+        previous_terminal_phi = previous_phi
         shifted_tail = previous_sequence[1:]
         shifted_margins = []
         for fallback in candidates:
@@ -177,6 +180,7 @@ def select_with_margin_record(
         "selected_phi": selected_phi,
         "selected_energy_mean": selected_energy / float(horizon_steps),
         "shifted_available": shifted_available,
+        "previous_terminal_phi": previous_terminal_phi,
         "best_shifted_margin": shifted_margin_best,
         "best_shifted_phi": shifted_phi_best,
         "best_shifted_cost": shifted_cost_best,
@@ -247,7 +251,11 @@ def audit_task(task: str, config: MarginConfig) -> list[dict[str, float | int | 
                 "task": task,
                 "beam_width": beam_width,
                 "residual_threshold": config.residual_threshold,
-                "outside_residual": int(phi > config.residual_threshold),
+                "current_outside_residual": int(phi > config.residual_threshold),
+                "terminal_outside_residual": int(
+                    previous_phi is not None
+                    and previous_phi > config.residual_threshold
+                ),
             }
         )
         rows.append(row)
@@ -263,21 +271,41 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
     for task in sorted({str(row["task"]) for row in rows}):
         task_rows = [row for row in rows if row["task"] == task and int(row["shifted_available"]) == 1]
         margins = np.array([float(row["best_shifted_margin"]) for row in task_rows])
-        outside = np.array([int(row["outside_residual"]) for row in task_rows], dtype=bool)
-        outside_margins = margins[outside]
+        current_outside = np.array(
+            [int(row["current_outside_residual"]) for row in task_rows],
+            dtype=bool,
+        )
+        terminal_outside = np.array(
+            [int(row["terminal_outside_residual"]) for row in task_rows],
+            dtype=bool,
+        )
+        current_outside_margins = margins[current_outside]
+        terminal_outside_margins = margins[terminal_outside]
+        previous_terminal_phi = np.array(
+            [float(row["previous_terminal_phi"]) for row in task_rows]
+        )
         positive = margins > 0.0
-        positive_outside = outside_margins > 0.0
+        positive_current_outside = current_outside_margins > 0.0
+        positive_terminal_outside = terminal_outside_margins > 0.0
         summary.append(
             {
                 "task": task,
                 "audited_steps": str(len(task_rows)),
                 "positive_margin_fraction": f"{float(np.mean(positive)):.6g}",
-                "outside_residual_steps": str(int(np.sum(outside))),
-                "positive_outside_residual_fraction": (
-                    f"{float(np.mean(positive_outside)):.6g}"
-                    if outside_margins.size
+                "current_outside_residual_steps": str(int(np.sum(current_outside))),
+                "positive_current_outside_fraction": (
+                    f"{float(np.mean(positive_current_outside)):.6g}"
+                    if current_outside_margins.size
                     else "nan"
                 ),
+                "terminal_outside_residual_steps": str(int(np.sum(terminal_outside))),
+                "positive_terminal_outside_fraction": (
+                    f"{float(np.mean(positive_terminal_outside)):.6g}"
+                    if terminal_outside_margins.size
+                    else "nan"
+                ),
+                "terminal_phi_mean": f"{float(np.mean(previous_terminal_phi)):.6g}",
+                "terminal_phi_median": f"{float(np.median(previous_terminal_phi)):.6g}",
                 "margin_mean": f"{float(np.mean(margins)):.6g}",
                 "margin_median": f"{float(np.median(margins)):.6g}",
                 "margin_min": f"{float(np.min(margins)):.6g}",
@@ -305,8 +333,10 @@ def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
         f.write(
             "Margins are computed on the training ensemble along the implemented "
             "shifted-fallback trajectory. Positive margin means that at least one "
-            "appended fallback satisfies the proposition's terminal-progress "
-            "inequality at that step.\n\n"
+            "appended fallback satisfies the terminal-fallback inequality for the "
+            "previous predicted terminal ensemble state. The terminal-outside "
+            "columns use the previous selected terminal Lyapunov score, matching "
+            "the terminal-fallback proposition.\n\n"
         )
         f.write("| " + " | ".join(headers) + " |\n")
         f.write("| " + " | ".join(["---"] * len(headers)) + " |\n")
