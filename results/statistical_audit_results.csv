@@ -44,6 +44,9 @@ summary,OL,standalone open leakage adjoint combined fidelity,final_fidelity,50,0
 summary,OL,target-biased open leakage adjoint combined fidelity,final_fidelity,50,0.910936339,0.0144,,,
 summary,OL,integrated open leakage adjoint combined fidelity,final_fidelity,50,0.897659127,0.0174,,,
 summary,OL,two-stage target-biased open leakage adjoint combined fidelity,final_fidelity,50,0.91917948,0.0124,,,
+summary,OL,continuation open leakage adjoint combined fidelity,final_fidelity,50,0.920132503,0.0121,,,
+summary,OL,fidelity-favoring continuation combined fidelity,final_fidelity,50,0.929533385,0.0103,,,
+summary,OL,target-push high-fidelity continuation combined fidelity,final_fidelity,50,0.935047037,0.0096,,,
 summary,OL,open leakage adjoint combined fidelity,final_fidelity,50,0.932451986,0.0104,,,
 summary,OL,open leakage-GRAPE combined fidelity,final_fidelity,50,0.95295242,0.00917,,,
 summary,OL,open leakage path combined max leakage,max_leakage,50,0.0466762953,0.0026,,,
@@ -51,6 +54,9 @@ summary,OL,standalone open leakage adjoint combined max leakage,max_leakage,50,0
 summary,OL,target-biased open leakage adjoint combined max leakage,max_leakage,50,0.0420208268,0.00172,,,
 summary,OL,integrated open leakage adjoint combined max leakage,max_leakage,50,0.0401412636,0.00164,,,
 summary,OL,two-stage target-biased open leakage adjoint combined max leakage,max_leakage,50,0.0653466518,0.00211,,,
+summary,OL,continuation open leakage adjoint combined max leakage,max_leakage,50,0.0534781523,0.00226,,,
+summary,OL,fidelity-favoring continuation combined max leakage,max_leakage,50,0.0713706766,0.00279,,,
+summary,OL,target-push high-fidelity continuation combined max leakage,max_leakage,50,0.0794282322,0.0029,,,
 summary,OL,open leakage adjoint combined max leakage,max_leakage,50,0.053823841,0.00274,,,
 summary,OL,open leakage-GRAPE combined max leakage,max_leakage,50,0.0548929297,0.00272,,,
 summary,Z,compact beam no-slew transfer,final_fidelity,50,0.990507913,0.000508,,,
@@ -113,11 +119,14 @@ paired,OL,reference-assisted open leakage adjoint minus standalone open leakage 
 paired,OL,reference-assisted open leakage adjoint minus target-biased open leakage adjoint,final_fidelity,50,,,0.021515647,0.00677,0.881
 paired,OL,reference-assisted open leakage adjoint minus integrated open leakage adjoint,final_fidelity,50,,,0.0347928592,0.0154,0.626
 paired,OL,reference-assisted open leakage adjoint minus two-stage target-biased open leakage adjoint,final_fidelity,50,,,0.0132725059,0.00817,0.45
+paired,OL,target-push high-fidelity continuation minus fidelity-favoring continuation,final_fidelity,50,,,0.00551365188,0.00367,0.416
+paired,OL,target-push high-fidelity continuation minus reference-assisted open leakage adjoint,final_fidelity,50,,,0.00259505059,0.00787,0.0914
 paired,OL,open leakage-GRAPE minus adjoint horizon,final_fidelity,50,,,0.0205004332,0.00712,0.798
 paired,OL,open leakage-GRAPE minus standalone open leakage adjoint,final_fidelity,50,,,0.112357051,0.0261,1.19
 paired,OL,open leakage-GRAPE minus target-biased open leakage adjoint,final_fidelity,50,,,0.0420160802,0.00983,1.18
 paired,OL,open leakage-GRAPE minus integrated open leakage adjoint,final_fidelity,50,,,0.0552932924,0.0146,1.05
 paired,OL,open leakage-GRAPE minus two-stage target-biased open leakage adjoint,final_fidelity,50,,,0.0337729391,0.00827,1.13
+paired,OL,open leakage-GRAPE minus target-push high-fidelity continuation,final_fidelity,50,,,0.0179053826,0.00511,0.972
 paired,OL,open leakage path max leakage minus adjoint horizon,max_leakage,50,,,-0.00714754568,0.0038,-0.521
 paired,OL,open leakage path seed max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0290240958,0.00199,4.04
 paired,OL,open leakage path seed max leakage minus target-biased open leakage adjoint,max_leakage,50,,,0.00465546854,0.00217,0.595
@@ -125,7 +134,10 @@ paired,OL,open leakage path seed max leakage minus integrated open leakage adjoi
 paired,OL,target-biased open leakage adjoint max leakage minus direct standalone open leakage adjoint,max_leakage,50,,,0.0243686272,0.00126,5.37
 paired,OL,target-biased open leakage adjoint max leakage minus integrated open leakage adjoint,max_leakage,50,,,0.00187956319,0.000609,0.856
 paired,OL,two-stage target-biased open leakage adjoint max leakage minus target-biased open leakage adjoint,max_leakage,50,,,0.023325825,0.00268,2.42
+paired,OL,target-push high-fidelity continuation max leakage minus fidelity-favoring continuation,max_leakage,50,,,0.00805755563,0.000821,2.72
+paired,OL,target-push high-fidelity continuation max leakage minus reference-assisted open leakage adjoint,max_leakage,50,,,0.0256043912,0.00321,2.21
 paired,OL,reference-assisted open leakage adjoint max leakage minus standalone open leakage adjoint,max_leakage,50,,,0.0361716414,0.00259,3.87
+paired,OL,target-push high-fidelity continuation max leakage minus open leakage-GRAPE,max_leakage,50,,,0.0245353026,0.00277,2.45
 paired,OL,open leakage-GRAPE max leakage minus two-stage target-biased open leakage adjoint,max_leakage,50,,,-0.0104537221,0.00241,-1.2
 paired,OL,open leakage-GRAPE max leakage minus adjoint horizon,max_leakage,50,,,0.00106908866,0.00267,0.111
 paired,Z,compact slew-constrained minus no-slew beam,final_fidelity,50,,,0.00454583191,0.000622,2.02

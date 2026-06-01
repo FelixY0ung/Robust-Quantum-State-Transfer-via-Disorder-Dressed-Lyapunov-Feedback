@@ -113,6 +113,27 @@ SPECS = (
         "fidelity-favoring continuation point",
     ),
     ControllerSpec(
+        "open_leakage_high_fidelity_sweep_results.csv",
+        "hf_leak06",
+        "HF continuation leak0.6",
+        "GRAPE-free horizon",
+        "high-fidelity target-push point",
+    ),
+    ControllerSpec(
+        "open_leakage_high_fidelity_sweep_results.csv",
+        "hf_leak05",
+        "HF continuation leak0.5",
+        "GRAPE-free horizon",
+        "high-fidelity target-push point",
+    ),
+    ControllerSpec(
+        "open_leakage_high_fidelity_sweep_results.csv",
+        "hf_leak04",
+        "HF continuation leak0.4",
+        "GRAPE-free horizon",
+        "highest-mean no-reference point",
+    ),
+    ControllerSpec(
         "transmon_open_system_leakage_results.csv",
         "adjoint_horizon",
         "Reference-assisted horizon",
@@ -270,7 +291,7 @@ def plot(rows: list[dict[str, str]]) -> None:
     ax.set_title("Open-leakage fidelity/leakage Pareto audit", fontsize=11)
     ax.grid(alpha=0.25, linewidth=0.6)
     ax.set_xlim(left=0.0)
-    ax.set_xlim(right=0.076)
+    ax.set_xlim(right=0.095)
     ax.set_ylim(0.81, 0.965)
     fig.tight_layout()
     fig.savefig(figure_path("open_leakage_pareto_audit.pdf"))
