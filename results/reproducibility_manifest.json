@@ -246,6 +246,11 @@
       "sha256": "df92cd469a289747670e944969db26dfd25573f7ae1af82892015c28bf30c656"
     },
     {
+      "bytes": 9484,
+      "path": "code/terminal_fallback_alphabet_sweep.py",
+      "sha256": "fb5c70100e21da88bcb16337a713b124e131696ffb2eb1b022f57d157dafa80a"
+    },
+    {
       "bytes": 9453,
       "path": "code/tracking_simulation.py",
       "sha256": "6be46b3c8eb97d5067633fd03582650f4978c1b771c58b3bdb9e788fb19166f8"
@@ -2001,6 +2006,29 @@
       "bytes": 3540,
       "path": "results/strong_disorder_audit_summary.md",
       "sha256": "d32d251b8b276fc63f9628b7a6cc9f8c7ab653124de569140b0010fbefca05d4"
+    },
+    {
+      "bytes": 60936,
+      "columns": [
+        "task",
+        "step",
+        "fallback_spec",
+        "candidate_count",
+        "previous_terminal_phi",
+        "best_margin",
+        "best_fallback_phi",
+        "best_fallback_norm",
+        "terminal_outside_residual",
+        "residual_threshold"
+      ],
+      "path": "results/terminal_fallback_alphabet_sweep_results.csv",
+      "row_count": 594,
+      "sha256": "cc18fa1dfd3100be4307de8003e65c0c39bc8ff5e55d41a1af2e4ec89fbd75d7"
+    },
+    {
+      "bytes": 1340,
+      "path": "results/terminal_fallback_alphabet_sweep_summary.md",
+      "sha256": "a11c20f457c50336729815ee711d126c190622503a8d8d0ca0f9b0f6ef036258"
     },
     {
       "bytes": 2028,
