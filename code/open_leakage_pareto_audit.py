@@ -134,6 +134,27 @@ SPECS = (
         "cap-refined target-push point",
     ),
     ControllerSpec(
+        "open_leakage_cap_refinement_results.csv",
+        "cap050_w120_mean02_worst05",
+        "Robust leakage-cap target-push",
+        "GRAPE-free horizon",
+        "balanced cap-refined target-push point",
+    ),
+    ControllerSpec(
+        "open_leakage_worst_cap_refinement_results.csv",
+        "worstcap050_w120_mean02_worst05",
+        "Worst-seed leakage-cap target-push",
+        "GRAPE-free horizon",
+        "worst-seed-preserving cap-refined target-push point",
+    ),
+    ControllerSpec(
+        "open_leakage_smooth_cap_refinement_results.csv",
+        "smoothcap050_w120_slew10",
+        "Slew-aware leakage-cap target-push",
+        "GRAPE-free horizon",
+        "physical-regularity cap-refined target-push point",
+    ),
+    ControllerSpec(
         "open_leakage_high_fidelity_sweep_results.csv",
         "hf_leak04",
         "HF continuation leak0.4",

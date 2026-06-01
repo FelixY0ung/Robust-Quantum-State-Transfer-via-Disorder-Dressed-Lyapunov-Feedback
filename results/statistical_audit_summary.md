@@ -53,6 +53,9 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | OL | fidelity-favoring continuation combined fidelity | final_fidelity | 50 | 0.929533385 | 0.0103 |  |  |  |
 | summary | OL | target-push high-fidelity continuation combined fidelity | final_fidelity | 50 | 0.935047037 | 0.0096 |  |  |  |
 | summary | OL | leakage-cap target-push combined fidelity | final_fidelity | 50 | 0.938529604 | 0.0104 |  |  |  |
+| summary | OL | robust leakage-cap target-push combined fidelity | final_fidelity | 50 | 0.936211681 | 0.0094 |  |  |  |
+| summary | OL | worst-seed leakage-cap target-push combined fidelity | final_fidelity | 50 | 0.936143856 | 0.00914 |  |  |  |
+| summary | OL | slew-aware leakage-cap target-push combined fidelity | final_fidelity | 50 | 0.935210479 | 0.00944 |  |  |  |
 | summary | OL | open leakage adjoint combined fidelity | final_fidelity | 50 | 0.932451986 | 0.0104 |  |  |  |
 | summary | OL | open leakage-GRAPE combined fidelity | final_fidelity | 50 | 0.95295242 | 0.00917 |  |  |  |
 | summary | OL | open leakage path combined max leakage | max_leakage | 50 | 0.0466762953 | 0.0026 |  |  |  |
@@ -64,6 +67,9 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | OL | fidelity-favoring continuation combined max leakage | max_leakage | 50 | 0.0713706766 | 0.00279 |  |  |  |
 | summary | OL | target-push high-fidelity continuation combined max leakage | max_leakage | 50 | 0.0794282322 | 0.0029 |  |  |  |
 | summary | OL | leakage-cap target-push combined max leakage | max_leakage | 50 | 0.0697827268 | 0.00217 |  |  |  |
+| summary | OL | robust leakage-cap target-push combined max leakage | max_leakage | 50 | 0.0688448423 | 0.0021 |  |  |  |
+| summary | OL | worst-seed leakage-cap target-push combined max leakage | max_leakage | 50 | 0.0706524707 | 0.00233 |  |  |  |
+| summary | OL | slew-aware leakage-cap target-push combined max leakage | max_leakage | 50 | 0.0702277856 | 0.00228 |  |  |  |
 | summary | OL | open leakage adjoint combined max leakage | max_leakage | 50 | 0.053823841 | 0.00274 |  |  |  |
 | summary | OL | open leakage-GRAPE combined max leakage | max_leakage | 50 | 0.0548929297 | 0.00272 |  |  |  |
 | summary | Z | compact beam no-slew transfer | final_fidelity | 50 | 0.990507913 | 0.000508 |  |  |  |
@@ -129,6 +135,12 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | OL | target-push high-fidelity continuation minus fidelity-favoring continuation | final_fidelity | 50 |  |  | 0.00551365188 | 0.00367 | 0.416 |
 | paired | OL | target-push high-fidelity continuation minus reference-assisted open leakage adjoint | final_fidelity | 50 |  |  | 0.00259505059 | 0.00787 | 0.0914 |
 | paired | OL | leakage-cap target-push minus target-push high-fidelity continuation | final_fidelity | 50 |  |  | 0.00348256693 | 0.00368 | 0.263 |
+| paired | OL | robust leakage-cap target-push minus target-push high-fidelity continuation | final_fidelity | 50 |  |  | 0.00116464425 | 0.00191 | 0.169 |
+| paired | OL | worst-seed leakage-cap target-push minus worst-seed target-push reference | final_fidelity | 50 |  |  | 0.00259516086 | 0.00224 | 0.321 |
+| paired | OL | worst-seed leakage-cap target-push minus robust leakage-cap target-push | final_fidelity | 50 |  |  | -6.78249013e-05 | 0.000501 | -0.0376 |
+| paired | OL | slew-aware leakage-cap target-push minus target-push high-fidelity continuation | final_fidelity | 50 |  |  | 0.000163442499 | 0.00247 | 0.0184 |
+| paired | OL | slew-aware leakage-cap target-push minus robust leakage-cap target-push | final_fidelity | 50 |  |  | -0.00100120175 | 0.00125 | -0.222 |
+| paired | OL | robust leakage-cap target-push minus leakage-cap target-push | final_fidelity | 50 |  |  | -0.00231792268 | 0.00292 | -0.22 |
 | paired | OL | leakage-cap target-push minus reference-assisted open leakage adjoint | final_fidelity | 50 |  |  | 0.00607761752 | 0.0103 | 0.163 |
 | paired | OL | open leakage-GRAPE minus adjoint horizon | final_fidelity | 50 |  |  | 0.0205004332 | 0.00712 | 0.798 |
 | paired | OL | open leakage-GRAPE minus standalone open leakage adjoint | final_fidelity | 50 |  |  | 0.112357051 | 0.0261 | 1.19 |
@@ -137,6 +149,9 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | OL | open leakage-GRAPE minus two-stage target-biased open leakage adjoint | final_fidelity | 50 |  |  | 0.0337729391 | 0.00827 | 1.13 |
 | paired | OL | open leakage-GRAPE minus target-push high-fidelity continuation | final_fidelity | 50 |  |  | 0.0179053826 | 0.00511 | 0.972 |
 | paired | OL | open leakage-GRAPE minus leakage-cap target-push | final_fidelity | 50 |  |  | 0.0144228157 | 0.00606 | 0.66 |
+| paired | OL | open leakage-GRAPE minus robust leakage-cap target-push | final_fidelity | 50 |  |  | 0.0167407384 | 0.00533 | 0.871 |
+| paired | OL | open leakage-GRAPE minus worst-seed leakage-cap target-push | final_fidelity | 50 |  |  | 0.0168085633 | 0.0053 | 0.879 |
+| paired | OL | open leakage-GRAPE minus slew-aware leakage-cap target-push | final_fidelity | 50 |  |  | 0.0177419401 | 0.00605 | 0.813 |
 | paired | OL | open leakage path max leakage minus adjoint horizon | max_leakage | 50 |  |  | -0.00714754568 | 0.0038 | -0.521 |
 | paired | OL | open leakage path seed max leakage minus standalone open leakage adjoint | max_leakage | 50 |  |  | 0.0290240958 | 0.00199 | 4.04 |
 | paired | OL | open leakage path seed max leakage minus target-biased open leakage adjoint | max_leakage | 50 |  |  | 0.00465546854 | 0.00217 | 0.595 |
@@ -149,7 +164,16 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | OL | reference-assisted open leakage adjoint max leakage minus standalone open leakage adjoint | max_leakage | 50 |  |  | 0.0361716414 | 0.00259 | 3.87 |
 | paired | OL | target-push high-fidelity continuation max leakage minus open leakage-GRAPE | max_leakage | 50 |  |  | 0.0245353026 | 0.00277 | 2.45 |
 | paired | OL | leakage-cap target-push max leakage minus target-push high-fidelity continuation | max_leakage | 50 |  |  | -0.0096455054 | 0.00142 | -1.89 |
+| paired | OL | robust leakage-cap target-push max leakage minus target-push high-fidelity continuation | max_leakage | 50 |  |  | -0.0105833899 | 0.00143 | -2.04 |
+| paired | OL | worst-seed leakage-cap target-push max leakage minus worst-seed target-push reference | max_leakage | 50 |  |  | -0.0180010551 | 0.00138 | -3.62 |
+| paired | OL | worst-seed leakage-cap target-push max leakage minus robust leakage-cap target-push | max_leakage | 50 |  |  | 0.00180762844 | 0.000965 | 0.519 |
+| paired | OL | slew-aware leakage-cap target-push max leakage minus target-push high-fidelity continuation | max_leakage | 50 |  |  | -0.00920044665 | 0.00126 | -2.02 |
+| paired | OL | slew-aware leakage-cap target-push max leakage minus robust leakage-cap target-push | max_leakage | 50 |  |  | 0.00138294327 | 0.000402 | 0.955 |
+| paired | OL | robust leakage-cap target-push max leakage minus leakage-cap target-push | max_leakage | 50 |  |  | -0.000937884522 | 0.000148 | -1.75 |
 | paired | OL | leakage-cap target-push max leakage minus open leakage-GRAPE | max_leakage | 50 |  |  | 0.0148897972 | 0.00247 | 1.67 |
+| paired | OL | robust leakage-cap target-push max leakage minus open leakage-GRAPE | max_leakage | 50 |  |  | 0.0139519126 | 0.00244 | 1.58 |
+| paired | OL | worst-seed leakage-cap target-push max leakage minus open leakage-GRAPE | max_leakage | 50 |  |  | 0.0157595411 | 0.00246 | 1.77 |
+| paired | OL | slew-aware leakage-cap target-push max leakage minus open leakage-GRAPE | max_leakage | 50 |  |  | 0.0153348559 | 0.0026 | 1.64 |
 | paired | OL | open leakage-GRAPE max leakage minus two-stage target-biased open leakage adjoint | max_leakage | 50 |  |  | -0.0104537221 | 0.00241 | -1.2 |
 | paired | OL | open leakage-GRAPE max leakage minus adjoint horizon | max_leakage | 50 |  |  | 0.00106908866 | 0.00267 | 0.111 |
 | paired | Z | compact slew-constrained minus no-slew beam | final_fidelity | 50 |  |  | 0.00454583191 | 0.000622 | 2.02 |

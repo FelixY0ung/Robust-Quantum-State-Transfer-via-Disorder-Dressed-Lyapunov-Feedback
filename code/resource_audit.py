@@ -142,6 +142,8 @@ def rows() -> list[dict[str, str]]:
     continuation_open_leakage = load("open_leakage_continuation_sweep_results.csv")
     high_fidelity_open_leakage = load("open_leakage_high_fidelity_sweep_results.csv")
     cap_open_leakage = load("open_leakage_cap_refinement_results.csv")
+    worst_cap_open_leakage = load("open_leakage_worst_cap_refinement_results.csv")
+    smooth_cap_open_leakage = load("open_leakage_smooth_cap_refinement_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -504,6 +506,39 @@ def rows() -> list[dict[str, str]]:
         ),
         "120 seg; 4 train seeds; q=5; target-push seed then cap-0.05 leakage polish",
         "GRAPE-free cap-refined target-push tradeoff",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "robust leakage-cap target-push adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            cap_open_leakage,
+            "cap050_w120_mean02_worst05",
+        ),
+        "120 seg; 4 train seeds; q=5; cap-0.05 polish with worst weight 0.5 and mean-leakage term",
+        "GRAPE-free balanced cap-refined target-push tradeoff",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "worst-seed leakage-cap target-push adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            worst_cap_open_leakage,
+            "worstcap050_w120_mean02_worst05",
+        ),
+        "120 seg; 4 train seeds; q=5; worst-weighted target-push seed then cap-0.05 polish",
+        "GRAPE-free worst-seed-preserving cap-refined target-push tradeoff",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "slew-aware leakage-cap target-push adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            smooth_cap_open_leakage,
+            "smoothcap050_w120_slew10",
+        ),
+        "120 seg; 4 train seeds; q=5; cap-0.05 polish with worst weight 0.5, mean-leakage term, and slew weight 10",
+        "GRAPE-free physical-regularity cap-refined target-push tradeoff",
     )
     add(
         "five-level leakage + Lindblad",

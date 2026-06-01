@@ -229,6 +229,32 @@ def cap_open_leakage_series(
     ].copy()
 
 
+def worst_cap_open_leakage_series(
+    controller: str = "worstcap050_w120_mean02_worst05",
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_leakage_worst_cap_refinement_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
+def smooth_cap_open_leakage_series(
+    controller: str = "smoothcap050_w120_slew10",
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_leakage_smooth_cap_refinement_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
 def slew_series(task: str, weight: float) -> pd.DataFrame:
     df = pd.read_csv(result_path("slew_constrained_horizon_results.csv"))
     return df[
@@ -299,6 +325,9 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "fidelity-favoring continuation combined fidelity", continuation_open_leakage_series("continuation_target08_leak08"), "final_fidelity"),
         ("OL", "target-push high-fidelity continuation combined fidelity", high_fidelity_open_leakage_series("hf_leak05"), "final_fidelity"),
         ("OL", "leakage-cap target-push combined fidelity", cap_open_leakage_series("cap050_w120"), "final_fidelity"),
+        ("OL", "robust leakage-cap target-push combined fidelity", cap_open_leakage_series("cap050_w120_mean02_worst05"), "final_fidelity"),
+        ("OL", "worst-seed leakage-cap target-push combined fidelity", worst_cap_open_leakage_series(), "final_fidelity"),
+        ("OL", "slew-aware leakage-cap target-push combined fidelity", smooth_cap_open_leakage_series(), "final_fidelity"),
         ("OL", "open leakage adjoint combined fidelity", open_leakage_series("adjoint_horizon"), "final_fidelity"),
         ("OL", "open leakage-GRAPE combined fidelity", open_leakage_series("leakage_penalized_grape"), "final_fidelity"),
         ("OL", "open leakage path combined max leakage", open_leakage_series("path_horizon"), "max_leakage"),
@@ -310,6 +339,9 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "fidelity-favoring continuation combined max leakage", continuation_open_leakage_series("continuation_target08_leak08"), "max_leakage"),
         ("OL", "target-push high-fidelity continuation combined max leakage", high_fidelity_open_leakage_series("hf_leak05"), "max_leakage"),
         ("OL", "leakage-cap target-push combined max leakage", cap_open_leakage_series("cap050_w120"), "max_leakage"),
+        ("OL", "robust leakage-cap target-push combined max leakage", cap_open_leakage_series("cap050_w120_mean02_worst05"), "max_leakage"),
+        ("OL", "worst-seed leakage-cap target-push combined max leakage", worst_cap_open_leakage_series(), "max_leakage"),
+        ("OL", "slew-aware leakage-cap target-push combined max leakage", smooth_cap_open_leakage_series(), "max_leakage"),
         ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
         ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
         ("Z", "compact beam no-slew transfer", slew_series("Z", 0.0), "final_fidelity"),
@@ -728,6 +760,48 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "robust leakage-cap target-push minus target-push high-fidelity continuation",
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "worst-seed leakage-cap target-push minus worst-seed target-push reference",
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            worst_cap_open_leakage_series("worstcap_target_push_reference"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "worst-seed leakage-cap target-push minus robust leakage-cap target-push",
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "slew-aware leakage-cap target-push minus target-push high-fidelity continuation",
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "slew-aware leakage-cap target-push minus robust leakage-cap target-push",
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "robust leakage-cap target-push minus leakage-cap target-push",
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            cap_open_leakage_series("cap050_w120"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "leakage-cap target-push minus reference-assisted open leakage adjoint",
             cap_open_leakage_series("cap050_w120"),
             open_leakage_series("adjoint_horizon"),
@@ -780,6 +854,27 @@ def summary_rows() -> list[dict[str, str]]:
             "open leakage-GRAPE minus leakage-cap target-push",
             open_leakage_series("leakage_penalized_grape"),
             cap_open_leakage_series("cap050_w120"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus robust leakage-cap target-push",
+            open_leakage_series("leakage_penalized_grape"),
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus worst-seed leakage-cap target-push",
+            open_leakage_series("leakage_penalized_grape"),
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus slew-aware leakage-cap target-push",
+            open_leakage_series("leakage_penalized_grape"),
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
             "final_fidelity",
         ),
         (
@@ -868,8 +963,71 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "robust leakage-cap target-push max leakage minus target-push high-fidelity continuation",
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "worst-seed leakage-cap target-push max leakage minus worst-seed target-push reference",
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            worst_cap_open_leakage_series("worstcap_target_push_reference"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "worst-seed leakage-cap target-push max leakage minus robust leakage-cap target-push",
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "slew-aware leakage-cap target-push max leakage minus target-push high-fidelity continuation",
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "slew-aware leakage-cap target-push max leakage minus robust leakage-cap target-push",
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "robust leakage-cap target-push max leakage minus leakage-cap target-push",
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            cap_open_leakage_series("cap050_w120"),
+            "max_leakage",
+        ),
+        (
+            "OL",
             "leakage-cap target-push max leakage minus open leakage-GRAPE",
             cap_open_leakage_series("cap050_w120"),
+            open_leakage_series("leakage_penalized_grape"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "robust leakage-cap target-push max leakage minus open leakage-GRAPE",
+            cap_open_leakage_series("cap050_w120_mean02_worst05"),
+            open_leakage_series("leakage_penalized_grape"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "worst-seed leakage-cap target-push max leakage minus open leakage-GRAPE",
+            worst_cap_open_leakage_series("worstcap050_w120_mean02_worst05"),
+            open_leakage_series("leakage_penalized_grape"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "slew-aware leakage-cap target-push max leakage minus open leakage-GRAPE",
+            smooth_cap_open_leakage_series("smoothcap050_w120_slew10"),
             open_leakage_series("leakage_penalized_grape"),
             "max_leakage",
         ),

@@ -492,6 +492,19 @@ These limitations are scientifically acceptable only because the manuscript now 
 - Extended `code/statistical_audit.py` with paired smoothness/filter
   comparisons, including the boxcar3 fidelity loss before and after slew
   shaping.
+- Added `code/open_leakage_worst_cap_refinement.py`, generated worst-seed
+  cap-refinement rows, and recorded the result as a no-reference robustness
+  aggregate for the hardest five-level leakage-plus-Lindblad setting.
+- Added `code/open_leakage_smooth_cap_refinement.py`, generated the
+  slew-aware cap-refinement rows and figures, and recorded the result as a
+  physical-regularity extension of the no-reference cap-refined frontier. The
+  representative combined-noise row reaches mean/worst/max-leak
+  `0.935210/0.808055/0.070228` and reduces RMS slew from `0.025262` for
+  target-push to `0.018457`.
+- Regenerated `code/resource_audit.py`, `code/open_leakage_pareto_audit.py`,
+  and `code/statistical_audit.py` outputs so the resource, Pareto, and paired
+  statistical audits include the robust-cap, worst-seed cap, and slew-aware
+  cap refinements.
 - Added `code/reproducibility_manifest.py` and generated JSON/Markdown
   manifests so reviewers can audit artifact hashes, CSV schemas, and row counts
   without rerunning the full benchmark suite.
