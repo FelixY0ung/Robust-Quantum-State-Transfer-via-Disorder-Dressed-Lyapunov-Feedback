@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 58
+Code files hashed: 59
 
-Result artifacts hashed: 189
+Result artifacts hashed: 191
 
 ## CSV Row Counts
 
@@ -19,6 +19,7 @@ Result artifacts hashed: 189
 | `results/ensemble_grape_baseline_results.csv` | 200 | `c16ea9fd1c918a2e40e72f722b1557ef36707df798374a4bc0e0ae7567c6d489` |
 | `results/ensemble_lyapunov_results.csv` | 100 | `76e264978c3fc7f3729d549e0a5240284aed7528c9a4aa883509b3e6190e9453` |
 | `results/ensemble_results.csv` | 100 | `955f413770a06d5c392cbb2bf3dc03ce54e6df86154b2f797a88f23ffa0e7690` |
+| `results/fine_adaptive_terminal_fallback_audit_results.csv` | 396 | `42e6dffbe295c1ec21026f9c1eeff30ec90604d83d2a31b2d675bdafeb5e17d1` |
 | `results/finite_net_scalar_audit_results.csv` | 250 | `c33de9516284767629bcabc9922b74474655ef5bf4e2911ad23363d61e9d0118` |
 | `results/gate_fidelity_probe_results.csv` | 100 | `9dc78f3e4285a4322de1b6da14eeee667d910b9f9e2c879ebbee4e8cdcf8eaf4` |
 | `results/gate_process_baseline_results.csv` | 100 | `ebdb8eb647182acc1e3d257f1d7248503899bd49dfbeee812a465861462555ec` |

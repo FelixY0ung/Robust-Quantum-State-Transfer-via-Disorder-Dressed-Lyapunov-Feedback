@@ -36,6 +36,11 @@
       "sha256": "275fcd2308710c6f09766c822bbd6d3bd871324c94a09fd1f698a7c040c9f724"
     },
     {
+      "bytes": 2842,
+      "path": "code/fine_adaptive_terminal_fallback_audit.py",
+      "sha256": "d0b4f00aa9c68145595755405e6216f4abd60d0118dad9dc04ed440f1cf3bf25"
+    },
+    {
       "bytes": 10351,
       "path": "code/finite_net_scalar_audit.py",
       "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
@@ -893,6 +898,32 @@
       "bytes": 91487,
       "path": "results/figures/transmon_open_system_leakage.png",
       "sha256": "85d4a4e144f2f5b9f090615914d1fe0dbceebe29789011a95aa75c3af57f6b28"
+    },
+    {
+      "bytes": 62119,
+      "columns": [
+        "task",
+        "step",
+        "method",
+        "previous_terminal_phi",
+        "shift_tail_phi",
+        "tail_phi_abs_error",
+        "best_margin",
+        "best_fallback_phi",
+        "best_fallback_norm",
+        "terminal_outside_residual",
+        "residual_threshold",
+        "gradient_norm",
+        "line_radius"
+      ],
+      "path": "results/fine_adaptive_terminal_fallback_audit_results.csv",
+      "row_count": 396,
+      "sha256": "42e6dffbe295c1ec21026f9c1eeff30ec90604d83d2a31b2d675bdafeb5e17d1"
+    },
+    {
+      "bytes": 1168,
+      "path": "results/fine_adaptive_terminal_fallback_audit_summary.md",
+      "sha256": "c071cab56323b2d6ab5866d6975d917e170f35c446547fd27ba4b740fd016314"
     },
     {
       "bytes": 38720,
