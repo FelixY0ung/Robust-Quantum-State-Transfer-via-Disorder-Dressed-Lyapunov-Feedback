@@ -71,6 +71,11 @@
       "sha256": "bc5c9182d58bd1dfc06d68c48c54e6e31dfdd8ca0fb642d67740bc9cda7eb377"
     },
     {
+      "bytes": 26634,
+      "path": "code/open_leakage_cap_refinement.py",
+      "sha256": "1e61bf5e6363a67a612dc5ee39c0c498bfcef7c6a604185c24d07160eecf471a"
+    },
+    {
       "bytes": 15406,
       "path": "code/open_leakage_continuation_sweep.py",
       "sha256": "2681e541cd7e0ceb3843137703695d2d7799d9f9fb673ab2965642da33f60b11"
@@ -91,9 +96,9 @@
       "sha256": "5c6261fb27be18190ab50792ee6a17997b66326304db821c8273fbbdcc3f1290"
     },
     {
-      "bytes": 10380,
+      "bytes": 10587,
       "path": "code/open_leakage_pareto_audit.py",
-      "sha256": "f0cc22c8e6a44407bca2cf5efd1ab9caae22e8308d9bab407a1364b504ee4cc3"
+      "sha256": "f1fe7c62dbf91a2c8b3a40379fd496fe7dd62fb59ea5709ba2f31edec94368fa"
     },
     {
       "bytes": 12985,
@@ -181,9 +186,9 @@
       "sha256": "508bddfa69bd5d62b52e7dc3f88a7e53b95706300843bf76b4ed7940197ad0e0"
     },
     {
-      "bytes": 19974,
+      "bytes": 20438,
       "path": "code/resource_audit.py",
-      "sha256": "43f572df04d2c1abba54866373db8ea4735c80040109270a9ef040a273a18d88"
+      "sha256": "1c4fb20c52b328b646c3ee1d5c2b283daeaa9a38714923a6fc1988b49164ba3a"
     },
     {
       "bytes": 9160,
@@ -216,9 +221,9 @@
       "sha256": "3ac01db5171bea342e9d080471b6bd27ab157005976884586e49a7d8af6100bd"
     },
     {
-      "bytes": 39683,
+      "bytes": 41599,
       "path": "code/statistical_audit.py",
-      "sha256": "7375fdaec2f1ee96c07e1c770a9061b4ed9e9fbcfcd036bdab98798a6eccf138"
+      "sha256": "66a74967d628d8feb7994064212b829781bf8450e4a485e57e3ce9eda93d374c"
     },
     {
       "bytes": 12088,
@@ -599,6 +604,16 @@
       "sha256": "46b3c12e5d50031fdcbfc3c576e19bbfa5308a0e32262683355bce5b7d1f2f9c"
     },
     {
+      "bytes": 16202,
+      "path": "results/figures/open_leakage_cap_refinement.pdf",
+      "sha256": "7d8ac745b6df7f3d59be020a5d5bfde8e9ef1c371d02e77573c531ef9f57b65d"
+    },
+    {
+      "bytes": 63714,
+      "path": "results/figures/open_leakage_cap_refinement.png",
+      "sha256": "62146bd2f4390ee428eb26bec9ac478ab2a73f4e3970851600fa57e15ce293e8"
+    },
+    {
       "bytes": 20139,
       "path": "results/figures/open_leakage_continuation_sweep.pdf",
       "sha256": "6b2930c3d01265d0a2baae3764c11da09c180317c6de26195ff6d68c31c12eb9"
@@ -639,14 +654,14 @@
       "sha256": "bd816c891d8260a02760fbcd28e4f92dcad630be30f7413709031edd9f3b2857"
     },
     {
-      "bytes": 21005,
+      "bytes": 21241,
       "path": "results/figures/open_leakage_pareto_audit.pdf",
-      "sha256": "6e08876944d9b4760c561738ef56eac09e2458d3ae21fc36313706383b26684a"
+      "sha256": "ae082e223d3a7864d236f05f0f879089afc1a3395fabc21f12e5e0dd7f144b6a"
     },
     {
-      "bytes": 133396,
+      "bytes": 138931,
       "path": "results/figures/open_leakage_pareto_audit.png",
-      "sha256": "654cd90ea769a10f45f1c1ec293b11c6702405c0d4740bfb3c7d6c9f61513583"
+      "sha256": "2ebc52c4241538a39c1ebe79cd9c3b9480564ac226fe4a6b96c862ee2288d394"
     },
     {
       "bytes": 17997,
@@ -989,6 +1004,43 @@
       "sha256": "06281a11785871552266b0d1e35ca0c13b2f12a2bbfda03864ebdf8fbf48b55f"
     },
     {
+      "bytes": 478283,
+      "columns": [
+        "system",
+        "controller",
+        "eval_strength",
+        "noise_case",
+        "gamma_phi",
+        "gamma_relax",
+        "seed",
+        "final_fidelity",
+        "final_leakage",
+        "max_leakage",
+        "tail_infidelity_mean",
+        "final_purity",
+        "pulse_energy",
+        "segments",
+        "training_seconds",
+        "training_objective",
+        "optimizer_iterations",
+        "optimizer_success",
+        "cap_label",
+        "reference_stages",
+        "leakage_cap",
+        "cap_weight",
+        "mean_leakage_weight",
+        "trust_radius"
+      ],
+      "path": "results/open_leakage_cap_refinement_results.csv",
+      "row_count": 1400,
+      "sha256": "5d29dc4a4fe7d2e9e661fc102e7f27c36a0183f27d56ecf1b45c889006624511"
+    },
+    {
+      "bytes": 7345,
+      "path": "results/open_leakage_cap_refinement_summary.md",
+      "sha256": "48a5af2e27919f63ee3144c633d832484bad8be4d6f4518e8db70d63d967839c"
+    },
+    {
       "bytes": 823554,
       "columns": [
         "system",
@@ -1126,7 +1178,7 @@
       "sha256": "30ac03ac82fbb7405d66d9bb19ffd40a434778f0ec8b80db9e7849cbfea4d753"
     },
     {
-      "bytes": 3355,
+      "bytes": 3630,
       "columns": [
         "controller",
         "label",
@@ -1143,13 +1195,13 @@
         "pareto_status"
       ],
       "path": "results/open_leakage_pareto_audit_results.csv",
-      "row_count": 17,
-      "sha256": "30f9305301d57930524831155261c87350d9d2672bf2d92c92543c21967a7141"
+      "row_count": 18,
+      "sha256": "5d87e6ba128547084f2a589eab8e7479a1b58fae32e9b4fc9359821bbb9b294d"
     },
     {
-      "bytes": 2197,
+      "bytes": 2408,
       "path": "results/open_leakage_pareto_audit_summary.md",
-      "sha256": "373b6ab77cad137d205770ca7c8470c82f445c4f484aa65f2c1ea423a468bcff"
+      "sha256": "aaf1b6edfc9b673d682f91121829507daf97bcb554374ba28c774d52b184f6af"
     },
     {
       "bytes": 299856,
@@ -1541,7 +1593,7 @@
       "sha256": "a13059867ebeaf43f8c254a5e6acab25082fdc9ca254fb275a0b97b5a96e40fb"
     },
     {
-      "bytes": 7134,
+      "bytes": 7408,
       "columns": [
         "regime",
         "method",
@@ -1555,13 +1607,13 @@
         "role"
       ],
       "path": "results/resource_audit_results.csv",
-      "row_count": 28,
-      "sha256": "15ad7c9a7959cf5c5f6ed9d8160c5870efeec1d1d8b0891ce9958aa3115ba51f"
+      "row_count": 29,
+      "sha256": "39d6f8172679426cad609d86dfa03faaf2fee9fd08093e6178553164182c184c"
     },
     {
-      "bytes": 8051,
+      "bytes": 8347,
       "path": "results/resource_audit_summary.md",
-      "sha256": "5f8b5f53e6e5389c81dd992b7e1bed951ee8a361ee185d1c06382a340bdc3eaa"
+      "sha256": "2e34938d45dba79f0552faa619d6e3ecb646596a29795ad4876ecc5505877217"
     },
     {
       "bytes": 93156,
@@ -1734,7 +1786,7 @@
       "sha256": "102aa11a917b6c44e13ef09e7a377b1d77e00f5ae79750855e449782c47444ff"
     },
     {
-      "bytes": 15319,
+      "bytes": 16116,
       "columns": [
         "kind",
         "task",
@@ -1748,13 +1800,13 @@
         "paired_effect_dz"
       ],
       "path": "results/statistical_audit_results.csv",
-      "row_count": 151,
-      "sha256": "1fa7cd3168619c6194d3e9d8829adc411b9d5d0b4bb0759066908866410dcc3a"
+      "row_count": 158,
+      "sha256": "3cf9d2658a22997342d53761882d5cc30ec9ece78b665498845074997846aa90"
     },
     {
-      "bytes": 18893,
+      "bytes": 19844,
       "path": "results/statistical_audit_summary.md",
-      "sha256": "fd79f4845f0366d96adee211c704b79f27f608c29b30ab1524a066ed4094c14a"
+      "sha256": "d80ee4c6acfac4e7ad1986e0e68d49ef55cd01fc0bf721828b93e93445497f10"
     },
     {
       "bytes": 102644,

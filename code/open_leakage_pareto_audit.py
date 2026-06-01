@@ -127,6 +127,13 @@ SPECS = (
         "high-fidelity target-push point",
     ),
     ControllerSpec(
+        "open_leakage_cap_refinement_results.csv",
+        "cap050_w120",
+        "Leakage-cap target-push",
+        "GRAPE-free horizon",
+        "cap-refined target-push point",
+    ),
+    ControllerSpec(
         "open_leakage_high_fidelity_sweep_results.csv",
         "hf_leak04",
         "HF continuation leak0.4",

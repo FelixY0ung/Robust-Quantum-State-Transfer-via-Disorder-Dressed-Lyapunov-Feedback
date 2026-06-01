@@ -141,6 +141,7 @@ def rows() -> list[dict[str, str]]:
     integrated_open_leakage = load("open_leakage_integrated_sweep_results.csv")
     continuation_open_leakage = load("open_leakage_continuation_sweep_results.csv")
     high_fidelity_open_leakage = load("open_leakage_high_fidelity_sweep_results.csv")
+    cap_open_leakage = load("open_leakage_cap_refinement_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -492,6 +493,17 @@ def rows() -> list[dict[str, str]]:
         ),
         "120 seg; 4 train seeds; q=5; low-leakage seed then leak-0.5 target-push continuation",
         "highest-fidelity GRAPE-free row that exceeds the reference-assisted mean, with higher leakage",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "leakage-cap target-push adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            cap_open_leakage,
+            "cap050_w120",
+        ),
+        "120 seg; 4 train seeds; q=5; target-push seed then cap-0.05 leakage polish",
+        "GRAPE-free cap-refined target-push tradeoff",
     )
     add(
         "five-level leakage + Lindblad",

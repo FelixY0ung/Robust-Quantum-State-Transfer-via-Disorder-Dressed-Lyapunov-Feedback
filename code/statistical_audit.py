@@ -216,6 +216,19 @@ def high_fidelity_open_leakage_series(
     ].copy()
 
 
+def cap_open_leakage_series(
+    controller: str = "cap050_w120",
+    noise_case: str = "combined",
+    strength: float = 0.03,
+) -> pd.DataFrame:
+    df = pd.read_csv(result_path("open_leakage_cap_refinement_results.csv"))
+    return df[
+        (df["controller"] == controller)
+        & (df["noise_case"] == noise_case)
+        & (df["eval_strength"] == strength)
+    ].copy()
+
+
 def slew_series(task: str, weight: float) -> pd.DataFrame:
     df = pd.read_csv(result_path("slew_constrained_horizon_results.csv"))
     return df[
@@ -285,6 +298,7 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "continuation open leakage adjoint combined fidelity", continuation_open_leakage_series("continuation_target08_leak12"), "final_fidelity"),
         ("OL", "fidelity-favoring continuation combined fidelity", continuation_open_leakage_series("continuation_target08_leak08"), "final_fidelity"),
         ("OL", "target-push high-fidelity continuation combined fidelity", high_fidelity_open_leakage_series("hf_leak05"), "final_fidelity"),
+        ("OL", "leakage-cap target-push combined fidelity", cap_open_leakage_series("cap050_w120"), "final_fidelity"),
         ("OL", "open leakage adjoint combined fidelity", open_leakage_series("adjoint_horizon"), "final_fidelity"),
         ("OL", "open leakage-GRAPE combined fidelity", open_leakage_series("leakage_penalized_grape"), "final_fidelity"),
         ("OL", "open leakage path combined max leakage", open_leakage_series("path_horizon"), "max_leakage"),
@@ -295,6 +309,7 @@ def summary_rows() -> list[dict[str, str]]:
         ("OL", "continuation open leakage adjoint combined max leakage", continuation_open_leakage_series("continuation_target08_leak12"), "max_leakage"),
         ("OL", "fidelity-favoring continuation combined max leakage", continuation_open_leakage_series("continuation_target08_leak08"), "max_leakage"),
         ("OL", "target-push high-fidelity continuation combined max leakage", high_fidelity_open_leakage_series("hf_leak05"), "max_leakage"),
+        ("OL", "leakage-cap target-push combined max leakage", cap_open_leakage_series("cap050_w120"), "max_leakage"),
         ("OL", "open leakage adjoint combined max leakage", open_leakage_series("adjoint_horizon"), "max_leakage"),
         ("OL", "open leakage-GRAPE combined max leakage", open_leakage_series("leakage_penalized_grape"), "max_leakage"),
         ("Z", "compact beam no-slew transfer", slew_series("Z", 0.0), "final_fidelity"),
@@ -706,6 +721,20 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "OL",
+            "leakage-cap target-push minus target-push high-fidelity continuation",
+            cap_open_leakage_series("cap050_w120"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "leakage-cap target-push minus reference-assisted open leakage adjoint",
+            cap_open_leakage_series("cap050_w120"),
+            open_leakage_series("adjoint_horizon"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
             "open leakage-GRAPE minus adjoint horizon",
             open_leakage_series("leakage_penalized_grape"),
             open_leakage_series("adjoint_horizon"),
@@ -744,6 +773,13 @@ def summary_rows() -> list[dict[str, str]]:
             "open leakage-GRAPE minus target-push high-fidelity continuation",
             open_leakage_series("leakage_penalized_grape"),
             high_fidelity_open_leakage_series("hf_leak05"),
+            "final_fidelity",
+        ),
+        (
+            "OL",
+            "open leakage-GRAPE minus leakage-cap target-push",
+            open_leakage_series("leakage_penalized_grape"),
+            cap_open_leakage_series("cap050_w120"),
             "final_fidelity",
         ),
         (
@@ -820,6 +856,20 @@ def summary_rows() -> list[dict[str, str]]:
             "OL",
             "target-push high-fidelity continuation max leakage minus open leakage-GRAPE",
             high_fidelity_open_leakage_series("hf_leak05"),
+            open_leakage_series("leakage_penalized_grape"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "leakage-cap target-push max leakage minus target-push high-fidelity continuation",
+            cap_open_leakage_series("cap050_w120"),
+            high_fidelity_open_leakage_series("hf_leak05"),
+            "max_leakage",
+        ),
+        (
+            "OL",
+            "leakage-cap target-push max leakage minus open leakage-GRAPE",
+            cap_open_leakage_series("cap050_w120"),
             open_leakage_series("leakage_penalized_grape"),
             "max_leakage",
         ),

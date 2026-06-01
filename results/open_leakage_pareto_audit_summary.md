@@ -15,9 +15,10 @@ Combined five-level leakage-plus-Lindblad evaluation at $\delta=0.03$, $\gamma_\
 | Two-stage direct | GRAPE-free horizon | 0.919179 | 0.784895 | 0.065347 | dominated by Continuation controlled; Continuation balanced; Reference-assisted horizon; Leakage-GRAPE |
 | Continuation controlled | GRAPE-free horizon | 0.920133 | 0.766810 | 0.053478 | Pareto |
 | Continuation balanced | GRAPE-free horizon | 0.924778 | 0.795870 | 0.060700 | dominated by Reference-assisted horizon; Leakage-GRAPE |
-| Continuation high-fidelity | GRAPE-free horizon | 0.929533 | 0.812158 | 0.071371 | dominated by Reference-assisted horizon; Leakage-GRAPE |
-| HF continuation leak0.6 | GRAPE-free horizon | 0.933503 | 0.810714 | 0.076874 | dominated by Leakage-GRAPE |
-| HF continuation leak0.5 | GRAPE-free horizon | 0.935047 | 0.800444 | 0.079428 | dominated by Leakage-GRAPE |
-| HF continuation leak0.4 | GRAPE-free horizon | 0.935466 | 0.784925 | 0.084094 | dominated by Leakage-GRAPE |
+| Continuation high-fidelity | GRAPE-free horizon | 0.929533 | 0.812158 | 0.071371 | dominated by Leakage-cap target-push; Reference-assisted horizon; Leakage-GRAPE |
+| HF continuation leak0.6 | GRAPE-free horizon | 0.933503 | 0.810714 | 0.076874 | dominated by Leakage-cap target-push; Leakage-GRAPE |
+| HF continuation leak0.5 | GRAPE-free horizon | 0.935047 | 0.800444 | 0.079428 | dominated by Leakage-cap target-push; Leakage-GRAPE |
+| Leakage-cap target-push | GRAPE-free horizon | 0.938530 | 0.766622 | 0.069783 | dominated by Leakage-GRAPE |
+| HF continuation leak0.4 | GRAPE-free horizon | 0.935466 | 0.784925 | 0.084094 | dominated by Leakage-cap target-push; Leakage-GRAPE |
 | Reference-assisted horizon | reference-assisted horizon | 0.932452 | 0.787640 | 0.053824 | Pareto |
 | Leakage-GRAPE | terminal optimizer | 0.952952 | 0.830203 | 0.054893 | Pareto |
