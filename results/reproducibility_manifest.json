@@ -196,6 +196,11 @@
       "sha256": "ed30878f98c95cbfb829edb6d220c6d6b7211c01fa5c6f944d2db0423387e1d1"
     },
     {
+      "bytes": 15177,
+      "path": "code/process_dcrab_baseline.py",
+      "sha256": "de47aa27260c04538b1d812bf47c9ac583affdd8df136514ff689ad51300a2d9"
+    },
+    {
       "bytes": 13782,
       "path": "code/process_horizon.py",
       "sha256": "8c9c10e978125cfa3e4cc07313eb36d4a56a24c1f63bb757eff6d4449f5d23d3"
@@ -221,9 +226,9 @@
       "sha256": "508bddfa69bd5d62b52e7dc3f88a7e53b95706300843bf76b4ed7940197ad0e0"
     },
     {
-      "bytes": 22547,
+      "bytes": 23085,
       "path": "code/resource_audit.py",
-      "sha256": "dc394237bd274afee46710844477a6f3147528aa80b8f05a6f8ec87b38ee10cf"
+      "sha256": "c8e1f0bd7ef6584f45938cdd55cc1d154351770425aa4b8ca36927b4599225ee"
     },
     {
       "bytes": 9160,
@@ -256,9 +261,9 @@
       "sha256": "4c4919490cb3b1b02d8d2649b39ade1d022bd6195ea65e58231bcac318850628"
     },
     {
-      "bytes": 51171,
+      "bytes": 52397,
       "path": "code/statistical_audit.py",
-      "sha256": "140badcd8f3356ce4cbf05ce1589ad7170745c9f5e8ced7bcc380d77de0bac50"
+      "sha256": "46342ed859ce93b9da0f1c019b55a2cecc33bbee0173f3e863827a82517bd3d4"
     },
     {
       "bytes": 12088,
@@ -871,6 +876,16 @@
       "bytes": 59981,
       "path": "results/figures/process_adjoint_horizon.png",
       "sha256": "6e3fd42aa3c2d98ad4822fdf6dd96b476886f5602973a580b2555ec4ebc82021"
+    },
+    {
+      "bytes": 14090,
+      "path": "results/figures/process_dcrab_baseline.pdf",
+      "sha256": "128ff9895bfc8ba07dc6163d93c7a5ae7adbd92c10b0a452d2f9132f47ee0e3a"
+    },
+    {
+      "bytes": 37855,
+      "path": "results/figures/process_dcrab_baseline.png",
+      "sha256": "bd35f9db3fddab43a459f5f61723ac05945b79e0acb53c1675247de29d659797"
     },
     {
       "bytes": 14095,
@@ -1820,6 +1835,35 @@
       "sha256": "1c315b57288c10037645c8109cf024b0dc6e2696c1fcd6467b6d292c6b0e1a24"
     },
     {
+      "bytes": 16878,
+      "columns": [
+        "task",
+        "baseline",
+        "eval_strength",
+        "seed",
+        "state_transfer_fidelity",
+        "average_gate_fidelity",
+        "average_gate_infidelity",
+        "pulse_energy",
+        "basis_count",
+        "segments",
+        "refreshes",
+        "n_training_seeds",
+        "frequency_seed_path",
+        "training_objective",
+        "optimizer_success_all",
+        "optimization_seconds"
+      ],
+      "path": "results/process_dcrab_baseline_results.csv",
+      "row_count": 100,
+      "sha256": "cf1833e164e67d2a1d7cf070d0b5ee6c2648758416282f97a5ff20a0925e432e"
+    },
+    {
+      "bytes": 1599,
+      "path": "results/process_dcrab_baseline_summary.md",
+      "sha256": "024e2cd5c8f372c9e16be7da82b4ce2c80746eb741f181c00ef4d15b55b60292"
+    },
+    {
       "bytes": 9175,
       "columns": [
         "task",
@@ -1900,7 +1944,7 @@
       "sha256": "a13059867ebeaf43f8c254a5e6acab25082fdc9ca254fb275a0b97b5a96e40fb"
     },
     {
-      "bytes": 8694,
+      "bytes": 8924,
       "columns": [
         "regime",
         "method",
@@ -1914,13 +1958,13 @@
         "role"
       ],
       "path": "results/resource_audit_results.csv",
-      "row_count": 33,
-      "sha256": "daf5d4d6aa1e1ea94f2e8ea5b09ab8c7a9e4485979d82cec3e798b8c2cdc2d4d"
+      "row_count": 34,
+      "sha256": "3ece44572fe8a0f9c1fa4da7afe6f9d4f556b27444c6d79479d9707a15fb3bb8"
     },
     {
-      "bytes": 9719,
+      "bytes": 9971,
       "path": "results/resource_audit_summary.md",
-      "sha256": "5606d8d427ccd392a73289c731827046ad4053f17d1d7f61c730604cc06bebdd"
+      "sha256": "94b1ba6a77606e3e196329f2c609f19dad5040cdaa51b6ee5f5533dca5d4e3bc"
     },
     {
       "bytes": 93156,
@@ -2097,7 +2141,7 @@
       "sha256": "b9b6df6d70835f6f45f014f8234734ef214cab080defcd27b04b231ae389e9f1"
     },
     {
-      "bytes": 20303,
+      "bytes": 20861,
       "columns": [
         "kind",
         "task",
@@ -2111,13 +2155,13 @@
         "paired_effect_dz"
       ],
       "path": "results/statistical_audit_results.csv",
-      "row_count": 192,
-      "sha256": "97a5f68effcd4cc828cf094e96e8f42d28ad81ed4d878f93fe253cba7b363dff"
+      "row_count": 198,
+      "sha256": "b84cf62bf735d4c04bed3fc7078165c65f6240f67a1078a9e2c3f34359de35cf"
     },
     {
-      "bytes": 24779,
+      "bytes": 25469,
       "path": "results/statistical_audit_summary.md",
-      "sha256": "5c548cd62d0be18955b7ddea1cc4b8aa4386f8e55de8c202ce0134f3f700328f"
+      "sha256": "45ee7e595d5789dcd4616f3297db294f335cb1bd8356453f96db8d3e92e21558"
     },
     {
       "bytes": 102644,

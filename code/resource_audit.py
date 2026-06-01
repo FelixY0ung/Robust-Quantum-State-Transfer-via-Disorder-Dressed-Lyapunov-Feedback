@@ -130,6 +130,7 @@ def rows() -> list[dict[str, str]]:
     dcrab_train8 = load("dcrab_train8_baseline_results.csv")
     grape = load("ensemble_grape_baseline_results.csv")
     process = load("process_horizon_results.csv")
+    process_dcrab = load("process_dcrab_baseline_results.csv")
     process_adj = load("process_adjoint_horizon_results.csv")
     open_noise = load("open_system_noise_results.csv")
     standalone_open = load("open_system_standalone_adjoint_results.csv")
@@ -286,6 +287,19 @@ def rows() -> list[dict[str, str]]:
         ),
         "100 seg; 8 train seeds; q=6; B=8; finite grid",
         "direct process-horizon diagnostic",
+    )
+    add(
+        "process fidelity",
+        "process dCRAB",
+        "average gate fidelity at delta=0.08",
+        pair_summary(
+            process_dcrab,
+            lambda df, task: df[(df["task"] == task) & (df["eval_strength"] == 0.08)],
+            "average_gate_fidelity",
+            seconds_columns=("optimization_seconds",),
+        ),
+        "40 seg; 8 train seeds; 3 Fourier modes; 3 basis refreshes",
+        "derivative-free terminal process ceiling",
     )
     add(
         "process fidelity",

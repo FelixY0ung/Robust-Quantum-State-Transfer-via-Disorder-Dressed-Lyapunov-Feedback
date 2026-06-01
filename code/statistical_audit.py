@@ -97,6 +97,12 @@ def process_seeded_series(task: str) -> pd.DataFrame:
     return df[(df["task"] == task) & (df["controller"] == "seeded_process_horizon")].copy()
 
 
+def process_dcrab_series(task: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_dcrab_baseline_results.csv"))
+    subset = df[(df["task"] == task) & (df["eval_strength"] == 0.08)].copy()
+    return subset
+
+
 def process_adjoint_series(task: str) -> pd.DataFrame:
     df = pd.read_csv(result_path("process_adjoint_horizon_results.csv"))
     return df[(df["task"] == task) & (df["controller"] == "adjoint_process_horizon")].copy()
@@ -301,6 +307,8 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "polished transfer ceiling", polished_series("H"), "final_fidelity"),
         ("Z", "process horizon gate", process_horizon_series("Z"), "average_gate_fidelity"),
         ("H", "process horizon gate", process_horizon_series("H"), "average_gate_fidelity"),
+        ("Z", "process dCRAB gate", process_dcrab_series("Z"), "average_gate_fidelity"),
+        ("H", "process dCRAB gate", process_dcrab_series("H"), "average_gate_fidelity"),
         ("Z", "seeded process horizon gate", process_seeded_series("Z"), "average_gate_fidelity"),
         ("H", "seeded process horizon gate", process_seeded_series("H"), "average_gate_fidelity"),
         ("Z", "adjoint process horizon gate", process_adjoint_series("Z"), "average_gate_fidelity"),
@@ -572,6 +580,20 @@ def summary_rows() -> list[dict[str, str]]:
         ),
         (
             "Z",
+            "process dCRAB minus process horizon",
+            process_dcrab_series("Z"),
+            process_horizon_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "process dCRAB minus process horizon",
+            process_dcrab_series("H"),
+            process_horizon_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
             "adjoint process horizon minus process horizon",
             process_adjoint_series("Z"),
             process_horizon_series("Z"),
@@ -596,6 +618,20 @@ def summary_rows() -> list[dict[str, str]]:
             "GRAPE process gate minus adjoint process horizon",
             grape_process_series("H"),
             process_adjoint_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "GRAPE process gate minus process dCRAB",
+            grape_process_series("Z"),
+            process_dcrab_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "GRAPE process gate minus process dCRAB",
+            grape_process_series("H"),
+            process_dcrab_series("H"),
             "average_gate_fidelity",
         ),
         (

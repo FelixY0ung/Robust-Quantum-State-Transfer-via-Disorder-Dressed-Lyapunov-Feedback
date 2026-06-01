@@ -16,6 +16,8 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | summary | H | polished transfer ceiling | final_fidelity | 50 | 0.99998439 | 5.92e-06 |  |  |  |
 | summary | Z | process horizon gate | average_gate_fidelity | 50 | 0.926604095 | 0.0169 |  |  |  |
 | summary | H | process horizon gate | average_gate_fidelity | 50 | 0.925944246 | 0.0173 |  |  |  |
+| summary | Z | process dCRAB gate | average_gate_fidelity | 50 | 0.996984817 | 0.000835 |  |  |  |
+| summary | H | process dCRAB gate | average_gate_fidelity | 50 | 0.997256329 | 0.000735 |  |  |  |
 | summary | Z | seeded process horizon gate | average_gate_fidelity | 50 | 0.994732095 | 0.00113 |  |  |  |
 | summary | H | seeded process horizon gate | average_gate_fidelity | 50 | 0.999572854 | 4.53e-05 |  |  |  |
 | summary | Z | adjoint process horizon gate | average_gate_fidelity | 50 | 0.9946405 | 0.00112 |  |  |  |
@@ -108,10 +110,14 @@ Confidence intervals use 1.96 standard errors over held-out seeds. Paired deltas
 | paired | H | open-system GRAPE minus adjoint Lindblad horizon | final_fidelity | 50 |  |  | 0.00115030017 | 0.000251 | 1.27 |
 | paired | Z | seeded process horizon minus process horizon | average_gate_fidelity | 50 |  |  | 0.0681279998 | 0.0163 | 1.16 |
 | paired | H | seeded process horizon minus process horizon | average_gate_fidelity | 50 |  |  | 0.0736286086 | 0.0173 | 1.18 |
+| paired | Z | process dCRAB minus process horizon | average_gate_fidelity | 50 |  |  | 0.0703807217 | 0.0171 | 1.14 |
+| paired | H | process dCRAB minus process horizon | average_gate_fidelity | 50 |  |  | 0.071312083 | 0.0175 | 1.13 |
 | paired | Z | adjoint process horizon minus process horizon | average_gate_fidelity | 50 |  |  | 0.0680364053 | 0.0163 | 1.16 |
 | paired | H | adjoint process horizon minus process horizon | average_gate_fidelity | 50 |  |  | 0.0737723637 | 0.0173 | 1.18 |
 | paired | Z | GRAPE process gate minus adjoint process horizon | average_gate_fidelity | 50 |  |  | 9.18595941e-05 | 9.7e-05 | 0.262 |
 | paired | H | GRAPE process gate minus adjoint process horizon | average_gate_fidelity | 50 |  |  | 2.55174015e-05 | 2.27e-05 | 0.311 |
+| paired | Z | GRAPE process gate minus process dCRAB | average_gate_fidelity | 50 |  |  | -0.00225245686 | 0.00168 | -0.373 |
+| paired | H | GRAPE process gate minus process dCRAB | average_gate_fidelity | 50 |  |  | 0.00248579804 | 0.000699 | 0.986 |
 | paired | Z | standalone process adjoint minus finite process seed | average_gate_fidelity | 50 |  |  | -0.00344355219 | 0.00409 | -0.233 |
 | paired | H | standalone process adjoint minus finite process seed | average_gate_fidelity | 50 |  |  | -0.000705797142 | 0.000969 | -0.202 |
 | paired | Z | GRAPE process gate minus process horizon | average_gate_fidelity | 50 |  |  | 0.0681282649 | 0.0163 | 1.16 |
