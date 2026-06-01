@@ -261,6 +261,11 @@
       "sha256": "fb5c70100e21da88bcb16337a713b124e131696ffb2eb1b022f57d157dafa80a"
     },
     {
+      "bytes": 5008,
+      "path": "code/terminal_value_extension_audit.py",
+      "sha256": "4050bd9a00134a8ef445e38f2218025b4f63af4e6e1df35d784c46028ac77126"
+    },
+    {
       "bytes": 9453,
       "path": "code/tracking_simulation.py",
       "sha256": "6be46b3c8eb97d5067633fd03582650f4978c1b771c58b3bdb9e788fb19166f8"
@@ -2095,6 +2100,28 @@
       "bytes": 1340,
       "path": "results/terminal_fallback_alphabet_sweep_summary.md",
       "sha256": "a11c20f457c50336729815ee711d126c190622503a8d8d0ca0f9b0f6ef036258"
+    },
+    {
+      "bytes": 24992,
+      "columns": [
+        "task",
+        "step",
+        "comparison",
+        "shorter_steps",
+        "longer_steps",
+        "shorter_phi",
+        "longer_phi",
+        "extension_margin",
+        "extension_improves_value"
+      ],
+      "path": "results/terminal_value_extension_audit_results.csv",
+      "row_count": 294,
+      "sha256": "39d6d73bfe886708022d21fd18c234174ddf648b67812b3984c7787cb5dbd96d"
+    },
+    {
+      "bytes": 1320,
+      "path": "results/terminal_value_extension_audit_summary.md",
+      "sha256": "0eb8e9dc8ce58ab6623d3fe03dee85a7807b2ff04e22fd5cafedd180fbd5e6e3"
     },
     {
       "bytes": 2028,
