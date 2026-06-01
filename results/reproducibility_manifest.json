@@ -266,6 +266,11 @@
       "sha256": "fb5c70100e21da88bcb16337a713b124e131696ffb2eb1b022f57d157dafa80a"
     },
     {
+      "bytes": 13282,
+      "path": "code/terminal_score_candidate_audit.py",
+      "sha256": "efe50dee9f62181bd81f7ee750843ae5c36f0407b426860237e4223f0bd4c219"
+    },
+    {
       "bytes": 5008,
       "path": "code/terminal_value_extension_audit.py",
       "sha256": "4050bd9a00134a8ef445e38f2218025b4f63af4e6e1df35d784c46028ac77126"
@@ -2131,6 +2136,36 @@
       "bytes": 1340,
       "path": "results/terminal_fallback_alphabet_sweep_summary.md",
       "sha256": "a11c20f457c50336729815ee711d126c190622503a8d8d0ca0f9b0f6ef036258"
+    },
+    {
+      "bytes": 46687,
+      "columns": [
+        "task",
+        "step",
+        "beta",
+        "previous_terminal_phi",
+        "tail_phi",
+        "tail_phi_abs_error",
+        "g_terminal",
+        "terminal_availability",
+        "best_successor_g",
+        "best_g_margin",
+        "best_successor_phi",
+        "best_successor_best_next_phi",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "terminal_outside_residual",
+        "residual_threshold",
+        "g_nonnegative"
+      ],
+      "path": "results/terminal_score_candidate_audit_results.csv",
+      "row_count": 240,
+      "sha256": "006b6cbc8caaab17eab93bdd5e570d164fd5bd6f61ae5716943d281787beef46"
+    },
+    {
+      "bytes": 2382,
+      "path": "results/terminal_score_candidate_audit_summary.md",
+      "sha256": "de70221bee07c035ba73bd546ba8fc0709466a54aa34c8604bab7f06e471c0fb"
     },
     {
       "bytes": 24992,
