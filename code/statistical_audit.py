@@ -92,6 +92,11 @@ def process_horizon_series(task: str) -> pd.DataFrame:
     return df[df["task"] == task].copy()
 
 
+def process_state_ensemble_series(task: str) -> pd.DataFrame:
+    df = pd.read_csv(result_path("process_state_ensemble_horizon_results.csv"))
+    return df[(df["task"] == task) & (df["controller"] == "state_ensemble_horizon")].copy()
+
+
 def process_seeded_series(task: str) -> pd.DataFrame:
     df = pd.read_csv(result_path("process_seeded_horizon_results.csv"))
     return df[(df["task"] == task) & (df["controller"] == "seeded_process_horizon")].copy()
@@ -312,6 +317,8 @@ def summary_rows() -> list[dict[str, str]]:
         ("H", "polished transfer ceiling", polished_series("H"), "final_fidelity"),
         ("Z", "process horizon gate", process_horizon_series("Z"), "average_gate_fidelity"),
         ("H", "process horizon gate", process_horizon_series("H"), "average_gate_fidelity"),
+        ("Z", "state-ensemble horizon gate", process_state_ensemble_series("Z"), "average_gate_fidelity"),
+        ("H", "state-ensemble horizon gate", process_state_ensemble_series("H"), "average_gate_fidelity"),
         ("Z", "process dCRAB gate", process_dcrab_series("Z"), "average_gate_fidelity"),
         ("H", "process dCRAB gate", process_dcrab_series("H"), "average_gate_fidelity"),
         ("Z", "dCRAB-seeded process horizon gate", process_dcrab_seeded_series("Z", "dcrab_seeded_process_horizon"), "average_gate_fidelity"),
@@ -597,6 +604,34 @@ def summary_rows() -> list[dict[str, str]]:
             "process dCRAB minus process horizon",
             process_dcrab_series("H"),
             process_horizon_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "process horizon minus state-ensemble horizon",
+            process_horizon_series("Z"),
+            process_state_ensemble_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "process horizon minus state-ensemble horizon",
+            process_horizon_series("H"),
+            process_state_ensemble_series("H"),
+            "average_gate_fidelity",
+        ),
+        (
+            "Z",
+            "state-ensemble horizon minus transfer horizon gate",
+            process_state_ensemble_series("Z"),
+            gate_probe_series("Z"),
+            "average_gate_fidelity",
+        ),
+        (
+            "H",
+            "state-ensemble horizon minus transfer horizon gate",
+            process_state_ensemble_series("H"),
+            gate_probe_series("H"),
             "average_gate_fidelity",
         ),
         (

@@ -11,6 +11,8 @@ summary,Z,polished transfer ceiling,final_fidelity,50,0.99996295,1.44e-05,,,
 summary,H,polished transfer ceiling,final_fidelity,50,0.99998439,5.92e-06,,,
 summary,Z,process horizon gate,average_gate_fidelity,50,0.926604095,0.0169,,,
 summary,H,process horizon gate,average_gate_fidelity,50,0.925944246,0.0173,,,
+summary,Z,state-ensemble horizon gate,average_gate_fidelity,50,0.416097284,0.0191,,,
+summary,H,state-ensemble horizon gate,average_gate_fidelity,50,0.926533244,0.0167,,,
 summary,Z,process dCRAB gate,average_gate_fidelity,50,0.996984817,0.000835,,,
 summary,H,process dCRAB gate,average_gate_fidelity,50,0.997256329,0.000735,,,
 summary,Z,dCRAB-seeded process horizon gate,average_gate_fidelity,50,0.996912527,0.000889,,,
@@ -109,6 +111,10 @@ paired,Z,seeded process horizon minus process horizon,average_gate_fidelity,50,,
 paired,H,seeded process horizon minus process horizon,average_gate_fidelity,50,,,0.0736286086,0.0173,1.18
 paired,Z,process dCRAB minus process horizon,average_gate_fidelity,50,,,0.0703807217,0.0171,1.14
 paired,H,process dCRAB minus process horizon,average_gate_fidelity,50,,,0.071312083,0.0175,1.13
+paired,Z,process horizon minus state-ensemble horizon,average_gate_fidelity,50,,,0.510506811,0.0355,3.98
+paired,H,process horizon minus state-ensemble horizon,average_gate_fidelity,50,,,-0.000588997785,0.00192,-0.0849
+paired,Z,state-ensemble horizon minus transfer horizon gate,average_gate_fidelity,50,,,0.0383860065,0.0195,0.545
+paired,H,state-ensemble horizon minus transfer horizon gate,average_gate_fidelity,50,,,0.0198244594,0.0179,0.306
 paired,Z,dCRAB-seeded process horizon minus process dCRAB reference,average_gate_fidelity,50,,,-7.22899146e-05,9.01e-05,-0.222
 paired,H,dCRAB-seeded process horizon minus process dCRAB reference,average_gate_fidelity,50,,,-0.000459818469,0.000238,-0.535
 paired,Z,dCRAB-seeded process horizon minus process horizon,average_gate_fidelity,50,,,0.0703084318,0.0171,1.14
