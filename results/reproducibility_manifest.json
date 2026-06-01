@@ -1,6 +1,11 @@
 {
   "code_files": [
     {
+      "bytes": 14395,
+      "path": "code/adaptive_terminal_fallback_audit.py",
+      "sha256": "21ded75fe8e67576833c6ca7b10940b1453109eccbdbc20f723c380f2694bc10"
+    },
+    {
       "bytes": 7949,
       "path": "code/bandwidth_filter_audit.py",
       "sha256": "ba66ba18292574793bb523f3edad27c316ae46842d445d4f961265731789a960"
@@ -278,6 +283,32 @@
   ],
   "repository_root": ".",
   "result_files": [
+    {
+      "bytes": 58400,
+      "columns": [
+        "task",
+        "step",
+        "method",
+        "previous_terminal_phi",
+        "shift_tail_phi",
+        "tail_phi_abs_error",
+        "best_margin",
+        "best_fallback_phi",
+        "best_fallback_norm",
+        "terminal_outside_residual",
+        "residual_threshold",
+        "gradient_norm",
+        "line_radius"
+      ],
+      "path": "results/adaptive_terminal_fallback_audit_results.csv",
+      "row_count": 396,
+      "sha256": "5d61cb8cc9ba4e990e012dd0fbb56e0674dc7522e6780c1c8e2eff96172e776d"
+    },
+    {
+      "bytes": 1178,
+      "path": "results/adaptive_terminal_fallback_audit_summary.md",
+      "sha256": "47658dbb62f8b710336bf28fc4501c5463c3f0f84af893c5624adb769399d360"
+    },
     {
       "bytes": 195619,
       "columns": [

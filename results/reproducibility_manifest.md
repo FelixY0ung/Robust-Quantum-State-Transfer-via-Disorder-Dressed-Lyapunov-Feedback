@@ -2,14 +2,15 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 55
+Code files hashed: 56
 
-Result artifacts hashed: 183
+Result artifacts hashed: 185
 
 ## CSV Row Counts
 
 | path | rows | sha256 |
 | --- | ---: | --- |
+| `results/adaptive_terminal_fallback_audit_results.csv` | 396 | `5d61cb8cc9ba4e990e012dd0fbb56e0674dc7522e6780c1c8e2eff96172e776d` |
 | `results/bandwidth_filter_audit_results.csv` | 800 | `42137e6794d579f160adb05e2c1cb5b88f0187f871e48197b553a8fb23f98689` |
 | `results/crab_baseline_results.csv` | 200 | `5c2a0d2736698832ef3d697297131ab4d9188d7ababf1b28db6eeda37df8df3f` |
 | `results/dcrab_baseline_results.csv` | 200 | `1cc00cdade7eaa07a8d2b801190cc8279075efdbfd223dab04e7020044711487` |
