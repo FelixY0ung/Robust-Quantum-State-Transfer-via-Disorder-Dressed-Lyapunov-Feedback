@@ -36,6 +36,11 @@
       "sha256": "275fcd2308710c6f09766c822bbd6d3bd871324c94a09fd1f698a7c040c9f724"
     },
     {
+      "bytes": 5423,
+      "path": "code/extended_heldout_audit.py",
+      "sha256": "cbde65cc1ab4070eed228db90e87670720717bd31a448a74cd98c82944d15bf6"
+    },
+    {
       "bytes": 2842,
       "path": "code/fine_adaptive_terminal_fallback_audit.py",
       "sha256": "d0b4f00aa9c68145595755405e6216f4abd60d0118dad9dc04ed440f1cf3bf25"
@@ -538,6 +543,29 @@
       "bytes": 303,
       "path": "results/ensemble_summary.md",
       "sha256": "cba6587cf585c3cdb60de75d9ad5383ada8ced0aa845d995e72850fce862f564"
+    },
+    {
+      "bytes": 276449,
+      "columns": [
+        "task",
+        "method",
+        "eval_strength",
+        "seed",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "design_seconds",
+        "resource_profile",
+        "training_strengths"
+      ],
+      "path": "results/extended_heldout_audit_results.csv",
+      "row_count": 1600,
+      "sha256": "1e2e8875a6249c1373e87a331ca9d4bb65664e0ef4c162ac604f03393797924f"
+    },
+    {
+      "bytes": 2908,
+      "path": "results/extended_heldout_audit_summary.md",
+      "sha256": "d9c77444009c249ae5219f296cafb4e0eb34ca98caea0459a613e8600e80011b"
     },
     {
       "bytes": 1243,
