@@ -76,6 +76,11 @@
       "sha256": "bc5c9182d58bd1dfc06d68c48c54e6e31dfdd8ca0fb642d67740bc9cda7eb377"
     },
     {
+      "bytes": 12649,
+      "path": "code/multistep_terminal_fallback_audit.py",
+      "sha256": "9f4ce67515f1357ca02e082d39ede14468d50ed13f25270d559717d4adbb88c0"
+    },
+    {
       "bytes": 27153,
       "path": "code/open_leakage_cap_refinement.py",
       "sha256": "7f700404b648edcb4a86193a4b0dbac303e94208422e74311f43183dc7244580"
@@ -1083,6 +1088,36 @@
       "bytes": 583,
       "path": "results/multilevel_horizon_summary.md",
       "sha256": "06281a11785871552266b0d1e35ca0c13b2f12a2bbfda03864ebdf8fbf48b55f"
+    },
+    {
+      "bytes": 52063,
+      "columns": [
+        "task",
+        "step",
+        "fallback_spec",
+        "block_steps",
+        "beam_width",
+        "candidate_count",
+        "expanded_count",
+        "previous_terminal_phi",
+        "shift_tail_phi",
+        "tail_phi_abs_error",
+        "best_block_phi",
+        "raw_terminal_margin",
+        "energy_adjusted_margin",
+        "best_block_energy_mean",
+        "best_block_first_norm",
+        "terminal_outside_residual",
+        "residual_threshold"
+      ],
+      "path": "results/multistep_terminal_fallback_audit_results.csv",
+      "row_count": 294,
+      "sha256": "d2ba9c8f48d48c4584bbe72062df8a0fae43e5c90723207dfb8194ddce4e1770"
+    },
+    {
+      "bytes": 1688,
+      "path": "results/multistep_terminal_fallback_audit_summary.md",
+      "sha256": "e7f37f145e99b28a8b1c797d92d95005ea50412d6dbb1a9c3beebd1378ef042e"
     },
     {
       "bytes": 638112,
