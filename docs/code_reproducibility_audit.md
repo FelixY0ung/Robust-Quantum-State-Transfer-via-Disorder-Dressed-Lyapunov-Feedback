@@ -501,10 +501,17 @@ These limitations are scientifically acceptable only because the manuscript now 
   representative combined-noise row reaches mean/worst/max-leak
   `0.935210/0.808055/0.070228` and reduces RMS slew from `0.025262` for
   target-push to `0.018457`.
+- Added `code/open_leakage_full_pulse_refinement.py`, generated the full-pulse
+  capped target-push rows and figures, and recorded the result as a terminal
+  adjoint diagnostic initialized from the no-reference target-push pulse. The
+  representative combined-noise row reaches mean/worst/max-leak
+  `0.938883/0.788422/0.071328`, improves mean fidelity by
+  `0.00384 +/- 0.00604` versus target-push, and lowers maximum leakage by
+  `0.00810 +/- 0.00144`, while remaining below leakage-GRAPE.
 - Regenerated `code/resource_audit.py`, `code/open_leakage_pareto_audit.py`,
   and `code/statistical_audit.py` outputs so the resource, Pareto, and paired
-  statistical audits include the robust-cap, worst-seed cap, and slew-aware
-  cap refinements.
+  statistical audits include the robust-cap, worst-seed cap, slew-aware cap,
+  and full-pulse cap refinements.
 - Added `code/reproducibility_manifest.py` and generated JSON/Markdown
   manifests so reviewers can audit artifact hashes, CSV schemas, and row counts
   without rerunning the full benchmark suite.

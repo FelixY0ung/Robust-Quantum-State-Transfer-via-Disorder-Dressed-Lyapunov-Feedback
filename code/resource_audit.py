@@ -144,6 +144,7 @@ def rows() -> list[dict[str, str]]:
     cap_open_leakage = load("open_leakage_cap_refinement_results.csv")
     worst_cap_open_leakage = load("open_leakage_worst_cap_refinement_results.csv")
     smooth_cap_open_leakage = load("open_leakage_smooth_cap_refinement_results.csv")
+    full_pulse_open_leakage = load("open_leakage_full_pulse_refinement_results.csv")
 
     audit_rows: list[dict[str, str]] = []
 
@@ -539,6 +540,17 @@ def rows() -> list[dict[str, str]]:
         ),
         "120 seg; 4 train seeds; q=5; cap-0.05 polish with worst weight 0.5, mean-leakage term, and slew weight 10",
         "GRAPE-free physical-regularity cap-refined target-push tradeoff",
+    )
+    add(
+        "five-level leakage + Lindblad",
+        "full-pulse capped target-push adjoint",
+        "combined-noise final fidelity at delta=0.03",
+        open_leakage_summary(
+            full_pulse_open_leakage,
+            "fullpulse050_w120_tail02_worst05_slew10",
+        ),
+        "120 seg; 4 train seeds; full-pulse Frechet adjoint; cap-0.05; tail target weight 0.2; slew weight 10",
+        "GRAPE-free full-pulse diagnostic initialized by target-push horizon",
     )
     add(
         "five-level leakage + Lindblad",

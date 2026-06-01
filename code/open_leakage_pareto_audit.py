@@ -155,6 +155,13 @@ SPECS = (
         "physical-regularity cap-refined target-push point",
     ),
     ControllerSpec(
+        "open_leakage_full_pulse_refinement_results.csv",
+        "fullpulse050_w120_tail02_worst05_slew10",
+        "Full-pulse capped target-push",
+        "GRAPE-free horizon",
+        "full-pulse adjoint cap diagnostic",
+    ),
+    ControllerSpec(
         "open_leakage_high_fidelity_sweep_results.csv",
         "hf_leak04",
         "HF continuation leak0.4",

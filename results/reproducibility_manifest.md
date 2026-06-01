@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 53
+Code files hashed: 54
 
-Result artifacts hashed: 177
+Result artifacts hashed: 181
 
 ## CSV Row Counts
 
@@ -29,10 +29,11 @@ Result artifacts hashed: 177
 | `results/multilevel_horizon_results.csv` | 200 | `e8d4c5c0dd9a9d7d01cef211192a81a8b4b6ad8e43055d35255cb5bd6491691c` |
 | `results/open_leakage_cap_refinement_results.csv` | 1800 | `55258dec3334de341266a4f2abfcd1f9c00f64502104906e4973779b0f28411c` |
 | `results/open_leakage_continuation_sweep_results.csv` | 2200 | `89efbaf8d8a62439b6e67e20f9eb5de20ce46240015e97e738591c846f4203b7` |
+| `results/open_leakage_full_pulse_refinement_results.csv` | 600 | `6b6e70c64a024c98d4fc402ffb1c6aa336d1f0e003bad44f137d4707fd887185` |
 | `results/open_leakage_high_fidelity_sweep_results.csv` | 1600 | `c4b79b394af78ffd520821234dba9d6522d5512b1ec189cf8a99acb8b4038f44` |
 | `results/open_leakage_integrated_sweep_results.csv` | 1800 | `496f6201ae9a119b17b4343a0ab571c51e7635a3fbe565c283e1f84391221e4c` |
 | `results/open_leakage_long_horizon_sweep_results.csv` | 1000 | `63e30b2436270da14d687cc87853f17a83b0eb30686c11fc60bf43c89a4bed1f` |
-| `results/open_leakage_pareto_audit_results.csv` | 21 | `0e3c63b2447db9b2560105bb4a0d140d79282bce655e39e98bf83256e67956cf` |
+| `results/open_leakage_pareto_audit_results.csv` | 22 | `c8ce26335a70f7309d6a7d7b7a7a45aa4a90566f4c4f512f5ecc19d987d4b149` |
 | `results/open_leakage_pareto_refinement_results.csv` | 1000 | `b4a34e7dd21776ab6d61f8fec9dec545670fdbf873fbfa0d9c419949b3854ebb` |
 | `results/open_leakage_seed_continuation_sweep_results.csv` | 1000 | `4777ae29959154dfa6f2c8bd5b21fff729f2deef9ea9bb289f7c81783843e2da` |
 | `results/open_leakage_smooth_cap_refinement_results.csv` | 600 | `554fea4a17709c7f140fb2e177c4644c3f08c0f9296b76913d905b0a41c5cd6c` |
@@ -48,7 +49,7 @@ Result artifacts hashed: 177
 | `results/process_horizon_results.csv` | 100 | `b990d30aad4958a26f8ed86306d07de26f822cb5dde13b38764386dd71d83821` |
 | `results/process_seeded_horizon_results.csv` | 200 | `955d2cc499542bc8df7711b87ee47b06821977eafec3b20d19a996cccde6a226` |
 | `results/process_standalone_adjoint_results.csv` | 200 | `24221a064d55a3a240b95a2b30355c20d6036bb161a69e433e040c1e4343b57e` |
-| `results/resource_audit_results.csv` | 32 | `ab3367a756b69f32689d17176536d6cc913855cedc38c7be63baa2f93cef9538` |
+| `results/resource_audit_results.csv` | 33 | `daf5d4d6aa1e1ea94f2e8ea5b09ab8c7a9e4485979d82cec3e798b8c2cdc2d4d` |
 | `results/robustness_scan_results.csv` | 800 | `b87a332356df691d4f2a345ef776944ae95bf2d8c2e9de2180c6a275dd8db6c4` |
 | `results/shifted_fallback_horizon_results.csv` | 400 | `39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13` |
 | `results/shifted_fallback_margin_audit_results.csv` | 200 | `5246a47293881337a43f89cad9e0ecaf519b7f7d516d32271ef3a7cf21143c76` |
@@ -56,7 +57,7 @@ Result artifacts hashed: 177
 | `results/slew_constrained_horizon_results.csv` | 300 | `057214e4ef93fd91d43b7df292f64f20506350820acfc6e3c737489426701538` |
 | `results/state_adjoint_horizon_results.csv` | 400 | `4455959c09121c94dcf9460a6cbe83f5bdb705475a9c9bffe328fe0051052dfd` |
 | `results/stationarity_results.csv` | 3 | `b468df001aa3d73d849a9402180b8b0ffcd439b5d9d7c42799f620b91ebe9cb0` |
-| `results/statistical_audit_results.csv` | 182 | `ad576a4902f7f79c64e7236dd99afcd09df9ec2ed28a9ba75d07b559e544ca16` |
+| `results/statistical_audit_results.csv` | 192 | `97a5f68effcd4cc828cf094e96e8f42d28ad81ed4d878f93fe253cba7b363dff` |
 | `results/strong_disorder_audit_results.csv` | 600 | `3a34d98a314a3a2d94f51e8a0c6cf259b90e9da643bd9d7e869ab7a965a07261` |
 | `results/tracking_results.csv` | 18 | `bb8bd785b45a9137091612f3ec779955e2bc363257ae80a8618d708ddffc6e7b` |
 | `results/transmon_leakage_results.csv` | 1000 | `a8d654d94ba6ee94fbbb08fa0a8af281f9452bff94ddcde35afd6f3052e3c394` |
