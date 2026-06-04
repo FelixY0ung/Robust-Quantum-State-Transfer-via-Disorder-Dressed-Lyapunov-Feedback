@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 75
+Code files hashed: 76
 
-Result artifacts hashed: 266
+Result artifacts hashed: 276
 
 ## CSV Row Counts
 
@@ -29,7 +29,9 @@ Result artifacts hashed: 266
 | `results/fine_adaptive_terminal_fallback_audit_results.csv` | 396 | `42e6dffbe295c1ec21026f9c1eeff30ec90604d83d2a31b2d675bdafeb5e17d1` |
 | `results/finite_net_operator_audit_results.csv` | 4290 | `8d8fe94fa40a13e5276c1d92362e059234c8fb3bcb69a4f6d94aca1f5f954c01` |
 | `results/finite_net_scalar_audit_results.csv` | 250 | `c33de9516284767629bcabc9922b74474655ef5bf4e2911ad23363d61e9d0118` |
+| `results/fixed_depth_terminal_region_threshold_sweep_results.csv` | 162 | `957b531b7be9519025b9f65e6dabcd3a8c9999d39b8c3698d79d1fedccdf4afc` |
 | `results/fixed_depth_terminal_value_deep_margin_results.csv` | 36 | `49476ed31c6998d0d0e9e4ea68458af9363df601c9f3a226a8ad81f633784503` |
+| `results/fixed_depth_terminal_value_dense_margin_results.csv` | 198 | `45c386ff1cf681aef24f501ceac9255982b42e8caaf79713d7032307ae025c09` |
 | `results/fixed_depth_terminal_value_discount_sweep_results.csv` | 216 | `e58d2764fac99ba3fdc641a186e0146f4be6e8e43225dd0cf6f27ff09aaab9f0` |
 | `results/fixed_depth_terminal_value_margin_results.csv` | 36 | `e365413c5a018c629447c29aeec49dcf676acb0d4e74b3adb1731db33b1a5894` |
 | `results/fixed_depth_terminal_value_stage_weight_sweep_results.csv` | 180 | `10e47a048cd6a56ae8c709245d077faa0ec40e68c9c06dc9975dfb6b92fd296c` |
@@ -93,6 +95,10 @@ Result artifacts hashed: 266
 | `results/selected_operator_net_strategy_gradient_certificate_p25_net_results.csv` | 30762 | `537c4c467c356165b0af8764411ba8f4f4500d28ca492f022c19883f5044b535` |
 | `results/selected_operator_net_strategy_gradient_certificate_p25_results.csv` | 2 | `65b90875839994a580fb8db675c68ab736b05dfd64fb73b722e8f2eed70ae621` |
 | `results/selected_operator_net_strategy_gradient_certificate_results.csv` | 2 | `7d6ebb69f2574c4fd69faa9382479bb0375b2e067f68a45624abd22380c1b8e2` |
+| `results/selected_operator_net_strategy_hessian_certificate_p25_net_results.csv` | 30762 | `6227b22e0526fab3160044b4ef540d9fa7cd56fac81578d250fe0669713f9315` |
+| `results/selected_operator_net_strategy_hessian_certificate_p25_results.csv` | 2 | `3944f0732606b072ca5b56f28c305d27ab8073a288914cbf4f180bc716535e3a` |
+| `results/selected_operator_net_strategy_hessian_certificate_p31_net_results.csv` | 59006 | `db498dc19ae055e3977086ec7d741eb2429e2c9f1d57699ba5974c361849098f` |
+| `results/selected_operator_net_strategy_hessian_certificate_p31_results.csv` | 2 | `96219eb95fc0830f607eb0b5edf2df7efecdf4e532be9641670a3a5195b570ae` |
 | `results/shifted_fallback_horizon_results.csv` | 400 | `39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13` |
 | `results/shifted_fallback_margin_audit_results.csv` | 200 | `72f407dcc74d80a882c8fd9025b027cdc63d01d8068f98ba7e41e74499b7b91d` |
 | `results/simulation_results.csv` | 144 | `07dbe69496ccb60ac3732415235ec24f203419cd75b941ec00f936da0e264ea8` |
