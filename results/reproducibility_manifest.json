@@ -181,6 +181,11 @@
       "sha256": "517e8e104858d3a9a98dddb455e3ad80bcfaf0730e68109748a01eed3f2b9f37"
     },
     {
+      "bytes": 10679,
+      "path": "code/operator_net_local_sensitivity_audit.py",
+      "sha256": "bc37461f2941588521aab0859ea379d0098d0b91d9af622a6393a87681d63b4a"
+    },
+    {
       "bytes": 15075,
       "path": "code/operator_net_terminal_value_margin_audit.py",
       "sha256": "bd6fce051cc348d37e20b6845fff438508e0f9a06d7602404857768eb7601786"
@@ -1859,6 +1864,50 @@
       "bytes": 2286,
       "path": "results/open_system_training_summary.md",
       "sha256": "4f52741536c0ca3147028803f88409b6c08cc11ea22b439909b4c3ce80fc222f"
+    },
+    {
+      "bytes": 1638,
+      "columns": [
+        "task",
+        "method",
+        "net_points",
+        "edge_radius_multiplier",
+        "grid_spacing",
+        "covering_radius_h",
+        "axis_radius",
+        "cell_radius",
+        "neighbor_edges",
+        "axis_edges",
+        "cell_only_edges",
+        "nearest_distance_min",
+        "nearest_distance_median",
+        "nearest_slope_p95",
+        "nearest_slope_max",
+        "axis_slope_p95",
+        "axis_slope_p99",
+        "axis_slope_max",
+        "cell_slope_p95",
+        "cell_slope_p99",
+        "cell_slope_max",
+        "analytic_lipschitz_2T",
+        "cell_max_over_2T",
+        "axis_max_over_2T",
+        "worst_net_fidelity",
+        "worst_net_infidelity",
+        "analytic_h_penalty",
+        "analytic_continuous_fidelity_lower_bound",
+        "empirical_axis_h_penalty_if_global",
+        "empirical_cell_h_penalty_if_global",
+        "empirical_cell_lower_bound_if_global"
+      ],
+      "path": "results/operator_net_local_sensitivity_results.csv",
+      "row_count": 2,
+      "sha256": "7eb0ba690e7c2557d69d28d5149cc1b2a83219249e8d4f6e96323213ee25fc7f"
+    },
+    {
+      "bytes": 1913,
+      "path": "results/operator_net_local_sensitivity_summary.md",
+      "sha256": "fd215aaea39f51a74ab9b5bac8f7e9deb413671096406350878158c3d3e6907d"
     },
     {
       "bytes": 700,
