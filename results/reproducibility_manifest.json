@@ -56,9 +56,9 @@
       "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
     },
     {
-      "bytes": 15832,
+      "bytes": 22691,
       "path": "code/fixed_depth_terminal_value_margin_audit.py",
-      "sha256": "83759848b94ee8f44df7d9380168906d2f7d07b14df6ffed81fa129ca6fae274"
+      "sha256": "38d263adf555152036627f61bac7b83412e2b8901cc6bbcd1be529db932b0a5e"
     },
     {
       "bytes": 6405,
@@ -1088,6 +1088,37 @@
       "bytes": 1844,
       "path": "results/finite_net_scalar_audit_summary.md",
       "sha256": "277fc2bf21257ddfe553cafbf389034766bb8cfa4c8aeb46b1e6ceb91417161c"
+    },
+    {
+      "bytes": 7422,
+      "columns": [
+        "task",
+        "controller",
+        "step",
+        "value_depth",
+        "audit_stride",
+        "candidate_count",
+        "beam_width",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "tail_phi",
+        "phi",
+        "current_value",
+        "best_fixed_successor_value",
+        "best_fixed_depth_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "scheduled_stage_margin"
+      ],
+      "path": "results/fixed_depth_terminal_value_deep_margin_results.csv",
+      "row_count": 36,
+      "sha256": "49476ed31c6998d0d0e9e4ea68458af9363df601c9f3a226a8ad81f633784503"
+    },
+    {
+      "bytes": 1485,
+      "path": "results/fixed_depth_terminal_value_deep_margin_summary.md",
+      "sha256": "a5e05c63161ff89d51b60935fefa648941c168f260bcacc81c380978718bfca9"
     },
     {
       "bytes": 7101,

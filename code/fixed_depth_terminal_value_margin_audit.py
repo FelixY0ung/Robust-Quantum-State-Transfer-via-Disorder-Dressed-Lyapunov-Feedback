@@ -38,7 +38,6 @@ from shifted_fallback_margin_audit import (
     select_with_margin_record,
     terminal_phi,
 )
-from terminal_value_certificate_audit import terminal_value
 from terminal_value_shifted_horizon import (
     TerminalValueHorizonConfig,
     select_terminal_value_sequence,
@@ -51,6 +50,192 @@ class FixedDepthAuditConfig:
     audit_stride: int = 10
     terminal_weight: float = 1.0
     control_stage_weight: float = 0.0
+    batch_size: int = 24
+
+
+def batch_hermitize_trace_one(rhos: np.ndarray) -> np.ndarray:
+    rhos = 0.5 * (rhos + np.swapaxes(np.conjugate(rhos), -1, -2))
+    traces = np.trace(rhos, axis1=-2, axis2=-1)
+    return rhos / traces[..., None, None]
+
+
+def batch_derivative(rhos: np.ndarray, hamiltonians: np.ndarray) -> np.ndarray:
+    if rhos.ndim == 4:
+        rho_view = rhos[:, None, :, :, :]
+    else:
+        rho_view = rhos
+    h_view = hamiltonians[None, :, :, :, :]
+    return -1.0j * (h_view @ rho_view - rho_view @ h_view)
+
+
+def batch_step_candidates(
+    states: np.ndarray,
+    strengths: np.ndarray,
+    controls_i: tuple[np.ndarray, ...],
+    disorders_i: tuple[np.ndarray, ...],
+    dt: float,
+    candidates: tuple[np.ndarray, ...],
+) -> np.ndarray:
+    if states.shape[-1] == 3:
+        control_array = np.asarray(candidates, dtype=float)
+        control_coeffs = np.asarray([pauli_coefficients(control) for control in controls_i])
+        disorder_coeffs = np.asarray([pauli_coefficients(disorder) for disorder in disorders_i])
+        control_hamiltonians = np.einsum("mc,cj->mj", control_array, control_coeffs)
+        hamiltonians = (
+            control_hamiltonians[:, None, :]
+            + strengths[None, :, None] * disorder_coeffs[None, :, :]
+        )
+        return batch_step_bloch(states, hamiltonians, dt).reshape(
+            states.shape[0] * len(candidates),
+            states.shape[1],
+            3,
+        )
+
+    control_array = np.asarray(candidates, dtype=float)
+    control_hamiltonians = np.einsum(
+        "mc,cij->mij",
+        control_array,
+        np.asarray(controls_i),
+    )
+    disorder_hamiltonians = strengths[:, None, None] * np.asarray(disorders_i)
+    hamiltonians = control_hamiltonians[:, None, :, :] + disorder_hamiltonians[None, :, :, :]
+
+    k1 = batch_derivative(states, hamiltonians)
+    k2 = batch_derivative(states[:, None, :, :, :] + 0.5 * dt * k1, hamiltonians)
+    k3 = batch_derivative(states[:, None, :, :, :] + 0.5 * dt * k2, hamiltonians)
+    k4 = batch_derivative(states[:, None, :, :, :] + dt * k3, hamiltonians)
+    next_states = states[:, None, :, :, :] + (dt / 6.0) * (
+        k1 + 2.0 * k2 + 2.0 * k3 + k4
+    )
+    next_states = batch_hermitize_trace_one(next_states)
+    state_count = states.shape[0]
+    candidate_count = len(candidates)
+    return next_states.reshape(
+        state_count * candidate_count,
+        states.shape[1],
+        states.shape[2],
+        states.shape[3],
+    )
+
+
+def pauli_coefficients(operator: np.ndarray) -> np.ndarray:
+    sx = np.array([[0.0, 1.0], [1.0, 0.0]], dtype=complex)
+    sy = np.array([[0.0, -1.0j], [1.0j, 0.0]], dtype=complex)
+    sz = np.array([[1.0, 0.0], [0.0, -1.0]], dtype=complex)
+    return 0.5 * np.real(
+        np.array(
+            [
+                np.trace(sx @ operator),
+                np.trace(sy @ operator),
+                np.trace(sz @ operator),
+            ]
+        )
+    )
+
+
+def density_states_to_bloch(states: tuple[np.ndarray, ...]) -> np.ndarray:
+    sx = np.array([[0.0, 1.0], [1.0, 0.0]], dtype=complex)
+    sy = np.array([[0.0, -1.0j], [1.0j, 0.0]], dtype=complex)
+    sz = np.array([[1.0, 0.0], [0.0, -1.0]], dtype=complex)
+    state_array = np.asarray(states, dtype=complex)
+    return np.real(
+        np.stack(
+            [
+                np.einsum("ij,sji->s", sx, state_array),
+                np.einsum("ij,sji->s", sy, state_array),
+                np.einsum("ij,sji->s", sz, state_array),
+            ],
+            axis=1,
+        )
+    )
+
+
+def batch_derivative_bloch(states: np.ndarray, hamiltonians: np.ndarray) -> np.ndarray:
+    if states.ndim == 3:
+        state_view = states[:, None, :, :]
+    else:
+        state_view = states
+    h_view = hamiltonians[None, :, :, :]
+    return 2.0 * np.cross(h_view, state_view, axis=-1)
+
+
+def batch_step_bloch(states: np.ndarray, hamiltonians: np.ndarray, dt: float) -> np.ndarray:
+    k1 = batch_derivative_bloch(states, hamiltonians)
+    k2 = batch_derivative_bloch(states[:, None, :, :] + 0.5 * dt * k1, hamiltonians)
+    k3 = batch_derivative_bloch(states[:, None, :, :] + 0.5 * dt * k2, hamiltonians)
+    k4 = batch_derivative_bloch(states[:, None, :, :] + dt * k3, hamiltonians)
+    return states[:, None, :, :] + (dt / 6.0) * (
+        k1 + 2.0 * k2 + 2.0 * k3 + k4
+    )
+
+
+def batch_terminal_phi(p, states: np.ndarray, worst_weight: float) -> np.ndarray:
+    if states.shape[-1] == 3:
+        target_bloch = density_states_to_bloch((p.target,))[0]
+        fidelities = 0.5 * (1.0 + np.einsum("nsj,j->ns", states, target_bloch))
+        infidelities = 1.0 - fidelities
+        return np.mean(infidelities, axis=1) + worst_weight * np.max(infidelities, axis=1)
+
+    fidelities = np.real(np.einsum("ij,nsji->ns", p.target, states))
+    infidelities = 1.0 - fidelities
+    return np.mean(infidelities, axis=1) + worst_weight * np.max(infidelities, axis=1)
+
+
+def batched_terminal_values(
+    p,
+    states: np.ndarray,
+    strengths: np.ndarray,
+    controls_cache: tuple[tuple[np.ndarray, ...], ...],
+    disorder_cache: tuple[tuple[np.ndarray, ...], ...],
+    start_index: int,
+    dt: float,
+    candidates: tuple[np.ndarray, ...],
+    depth: int,
+    worst_weight: float,
+    residual_threshold: float,
+    terminal_weight: float,
+    control_stage_weight: float,
+    batch_size: int,
+) -> np.ndarray:
+    phis = batch_terminal_phi(p, states, worst_weight)
+    if depth == 0:
+        return terminal_weight * phis
+
+    candidate_costs = control_stage_weight * np.array(
+        [float(np.dot(candidate, candidate)) for candidate in candidates]
+    )
+    values = np.empty(states.shape[0], dtype=float)
+    cache_index = min(start_index, len(controls_cache) - 1)
+    for start in range(0, states.shape[0], batch_size):
+        stop = min(start + batch_size, states.shape[0])
+        children = batch_step_candidates(
+            states[start:stop],
+            strengths,
+            controls_cache[cache_index],
+            disorder_cache[cache_index],
+            dt,
+            candidates,
+        )
+        child_values = batched_terminal_values(
+            p,
+            children,
+            strengths,
+            controls_cache,
+            disorder_cache,
+            start_index + 1,
+            dt,
+            candidates,
+            depth - 1,
+            worst_weight,
+            residual_threshold,
+            terminal_weight,
+            control_stage_weight,
+            batch_size,
+        ).reshape(stop - start, len(candidates))
+        values[start:stop] = np.min(child_values + candidate_costs[None, :], axis=1)
+
+    state_stage = np.maximum(0.0, phis - residual_threshold)
+    return state_stage + values
 
 
 def fixed_depth_margin(
@@ -67,12 +252,15 @@ def fixed_depth_margin(
     residual_threshold: float,
     terminal_weight: float,
     control_stage_weight: float,
+    batch_size: int,
 ) -> dict[str, float | int]:
     phi_now = terminal_phi(p, terminal_states, worst_weight)
-    current_value = terminal_value(
+    strengths_array = np.asarray(strengths, dtype=float)
+    state_array = density_states_to_bloch(terminal_states)[None, :, :]
+    current_value = float(batched_terminal_values(
         p,
-        terminal_states,
-        strengths,
+        state_array,
+        strengths_array,
         controls_cache,
         disorder_cache,
         start_index,
@@ -83,47 +271,38 @@ def fixed_depth_margin(
         residual_threshold,
         terminal_weight,
         control_stage_weight,
-    )
+        batch_size,
+    )[0])
     cache_index = min(start_index, len(controls_cache) - 1)
-    records = []
-    for candidate_index, candidate in enumerate(candidates):
-        next_states = step_precomputed(
-            terminal_states,
-            strengths,
-            controls_cache[cache_index],
-            disorder_cache[cache_index],
-            dt,
-            candidate,
-        )
-        successor_value = terminal_value(
-            p,
-            next_states,
-            strengths,
-            controls_cache,
-            disorder_cache,
-            start_index + 1,
-            dt,
-            candidates,
-            depth,
-            worst_weight,
-            residual_threshold,
-            terminal_weight,
-            control_stage_weight,
-        )
-        records.append(
-            (
-                current_value - successor_value,
-                successor_value,
-                float(np.dot(candidate, candidate)),
-                float(np.linalg.norm(candidate)),
-                candidate_index,
-            )
-        )
-
-    margin, successor_value, norm_sq, amp, candidate_index = max(
-        records,
-        key=lambda item: item[0],
+    successor_states = batch_step_candidates(
+        state_array,
+        strengths_array,
+        controls_cache[cache_index],
+        disorder_cache[cache_index],
+        dt,
+        candidates,
     )
+    successor_values = batched_terminal_values(
+        p,
+        successor_states,
+        strengths_array,
+        controls_cache,
+        disorder_cache,
+        start_index + 1,
+        dt,
+        candidates,
+        depth,
+        worst_weight,
+        residual_threshold,
+        terminal_weight,
+        control_stage_weight,
+        batch_size,
+    )
+    candidate_index = int(np.argmin(successor_values))
+    successor_value = float(successor_values[candidate_index])
+    margin = current_value - successor_value
+    norm_sq = float(np.dot(candidates[candidate_index], candidates[candidate_index]))
+    amp = float(np.linalg.norm(candidates[candidate_index]))
     return {
         "phi": phi_now,
         "current_value": current_value,
@@ -260,6 +439,7 @@ def audit_task_controller(
                     residual_threshold,
                     audit_config.terminal_weight,
                     audit_config.control_stage_weight,
+                    audit_config.batch_size,
                 )
                 rows.append(
                     {
@@ -398,8 +578,11 @@ def write_markdown_table(f, rows: list[dict[str, str]]) -> None:
         f.write("| " + " | ".join(row[h] for h in headers) + " |\n")
 
 
-def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
-    with result_path("fixed_depth_terminal_value_margin_results.csv").open(
+def write_outputs(
+    rows: list[dict[str, float | int | str]],
+    output_prefix: str = "fixed_depth_terminal_value_margin",
+) -> None:
+    with result_path(f"{output_prefix}_results.csv").open(
         "w",
         newline="",
         encoding="utf-8",
@@ -409,7 +592,7 @@ def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
         writer.writerows(rows)
 
     summary = summarize(rows)
-    with result_path("fixed_depth_terminal_value_margin_summary.md").open(
+    with result_path(f"{output_prefix}_summary.md").open(
         "w",
         encoding="utf-8",
     ) as f:
@@ -437,6 +620,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--stride", type=int, default=10)
     parser.add_argument("--depths", default="1")
+    parser.add_argument("--batch-size", type=int, default=24)
+    parser.add_argument("--output-prefix", default="fixed_depth_terminal_value_margin")
     return parser.parse_args()
 
 
@@ -445,6 +630,7 @@ def main() -> None:
     audit_config = FixedDepthAuditConfig(
         value_depths=tuple(int(item) for item in args.depths.split(",") if item.strip()),
         audit_stride=args.stride,
+        batch_size=args.batch_size,
     )
     margin_config = MarginConfig()
     tv_config = TerminalValueHorizonConfig()
@@ -465,7 +651,7 @@ def main() -> None:
                     audit_config,
                 )
             )
-    write_outputs(rows)
+    write_outputs(rows, args.output_prefix)
     for row in summarize(rows):
         print(row)
 
