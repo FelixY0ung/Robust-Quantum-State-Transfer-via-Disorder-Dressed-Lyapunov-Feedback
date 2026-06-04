@@ -50,6 +50,8 @@ python3 code/finite_net_scalar_audit.py
 python3 code/finite_net_operator_audit.py
 python3 code/operator_net_gradient_certificate_audit.py
 python3 code/operator_net_terminal_value_margin_audit.py
+python3 code/operator_net_trained_terminal_value_horizon.py --tasks Z,H --train-points-per-axis 7 --eval-points-per-axis 13 --segments 100 --horizon-steps 6 --score-mode max_net
+python3 code/operator_net_trained_terminal_value_horizon.py --tasks Z,H --train-points-per-axis 7 --eval-points-per-axis 13 --segments 100 --horizon-steps 6 --score-mode mean_worst --output-prefix operator_net_trained_terminal_value_horizon_mean_worst
 python3 code/operator_net_local_sensitivity_audit.py
 python3 code/slew_constrained_horizon.py
 python3 code/bandwidth_filter_audit.py
@@ -151,6 +153,8 @@ The operator-net gradient certificate audit propagates first-order terminal-infi
 
 The operator-net terminal-value margin audit propagates the same 2145 Pauli-ball net states in parallel with the online terminal-value shifted-horizon decisions and reports the scheduled Bellman margin on the shifted-tail terminal states. For the controller-style mean-plus-worst terminal score, all outside-residual net audits have positive margins, with certified minima `4.72507e-04/8.70005e-05` for Z/H over `99/93` outside-residual steps. For the max-net score matching the worst-net residual-set logic, the minima are `7.80183e-04/2.92932e-04` over `99/95` outside-residual steps. This is a scheduled finite-set/net certificate audit, not a fixed-depth all-time value-function proof.
 
+The operator-net trained terminal-value horizon diagnostic trains the shifted terminal-value horizon directly on a 335-point Pauli coefficient net using exact two-level Bloch propagation, then evaluates on the 2145-point net. Max-net scoring improves Z worst-net fidelity to `0.993921` but weakens H to `0.987202`; mean-plus-worst scoring gives `0.984793/0.991961` for Z/H. The scheduled margin is positive outside the residual set, but the fidelity tradeoff means this is a boundary diagnostic rather than a replacement for the sampled terminal-value controller.
+
 The operator-net local sensitivity audit postprocesses the same 2145-point Pauli-ball net and computes neighboring finite-difference infidelity slopes. Across 41,912 local neighbor edges per task, the maximum slopes are `0.159081` for Z and `0.0624027` for H, far below the analytic `2T = 16` constant. If those empirical slopes were valid globally, the corresponding `h`-penalty lower bounds would be `0.989266/0.995397`; this is only a conservatism diagnostic, not a replacement for the deterministic continuous-ball certificate.
 
 The process dCRAB terminal baseline applies the same derivative-free basis-refresh idea to average gate fidelity, using 40 segments, three randomized Fourier modes, three basis refreshes, and eight training disorder seeds. At `delta = 0.08`, it reaches held-out average gate fidelity `0.996985` for Z and `0.997256` for H, with worst held-out gate fidelities `0.988854/0.990112`. Paired against the direct finite process horizon, the improvement is `0.0704 ± 0.0171` for Z and `0.0713 ± 0.0175` for H. This is a terminal process comparator, not a Lyapunov horizon controller. The generated files are `results/process_dcrab_baseline_results.csv`, `results/process_dcrab_baseline_summary.md`, and `results/figures/process_dcrab_baseline.*`.
@@ -208,6 +212,8 @@ The reproducibility manifest records SHA-256 hashes, file sizes, CSV row counts,
 - `results/finite_net_operator_audit_summary.md`
 - `results/operator_net_gradient_certificate_summary.md`
 - `results/operator_net_terminal_value_margin_summary.md`
+- `results/operator_net_trained_terminal_value_horizon_summary.md`
+- `results/operator_net_trained_terminal_value_horizon_mean_worst_summary.md`
 - `results/operator_net_local_sensitivity_summary.md`
 - `results/shifted_fallback_horizon_summary.md`
 - `results/shifted_fallback_margin_audit_summary.md`

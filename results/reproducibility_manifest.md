@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 71
+Code files hashed: 72
 
-Result artifacts hashed: 225
+Result artifacts hashed: 233
 
 ## CSV Row Counts
 
@@ -55,6 +55,12 @@ Result artifacts hashed: 225
 | `results/operator_net_local_sensitivity_results.csv` | 2 | `7eb0ba690e7c2557d69d28d5149cc1b2a83219249e8d4f6e96323213ee25fc7f` |
 | `results/operator_net_terminal_value_margin_final_results.csv` | 2 | `f46c5be97d5ae77647a7c71bdbeb5dd77bcdea0eae1611901bb0c7fc370233ea` |
 | `results/operator_net_terminal_value_margin_results.csv` | 396 | `f42e5519ca03f1ffe1c4a22453d7f38886e5f5401cecd40564beadb8877e57ec` |
+| `results/operator_net_trained_terminal_value_horizon_margin_results.csv` | 198 | `cd53d85d0175119cf1e206a5cb789d5f9a149ef45347360331ed2c2dde733be2` |
+| `results/operator_net_trained_terminal_value_horizon_mean_worst_margin_results.csv` | 198 | `f565f325aa29c7eaffce40bf37bfdf4fe5af412f0220213a54bbd76c3295ca86` |
+| `results/operator_net_trained_terminal_value_horizon_mean_worst_net_results.csv` | 4960 | `c0c3244278a43e35cc8d329efee5afc4120602216e2fd14a258df1a4a2c0afa0` |
+| `results/operator_net_trained_terminal_value_horizon_mean_worst_results.csv` | 400 | `565d9e8691f30e90b6c4c4c386df3528bf6c1489f0bd7774d67aa2c7703ca8a2` |
+| `results/operator_net_trained_terminal_value_horizon_net_results.csv` | 4960 | `7e519d56891c79417cc12d5a22c3d722f1a630e2c5e274226732a6430db1e9d6` |
+| `results/operator_net_trained_terminal_value_horizon_results.csv` | 400 | `a4a6cd73a64ba9b42f2bb56f4aafef30ac0af721590a0258385e73228738d776` |
 | `results/polished_openloop_results.csv` | 200 | `4fb7f31cb2689ca50784d9f36b87eff3cea115871bd972bacafc0e059b53bdb1` |
 | `results/process_adjoint_horizon_results.csv` | 200 | `c1c9da3fc79c7650b7975f265e4d0032b2efdf9362a09b655fc66e279a90806f` |
 | `results/process_dcrab_baseline_results.csv` | 100 | `cf1833e164e67d2a1d7cf070d0b5ee6c2648758416282f97a5ff20a0925e432e` |
