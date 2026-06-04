@@ -2,14 +2,20 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 72
+Code files hashed: 74
 
-Result artifacts hashed: 233
+Result artifacts hashed: 251
 
 ## CSV Row Counts
 
 | path | rows | sha256 |
 | --- | ---: | --- |
+| `results/adaptive_operator_net_terminal_value_horizon_margin_results.csv` | 792 | `69387e5f2b716374088f1367925a7f6b60fec1149a221b75b48abef8fedb38be` |
+| `results/adaptive_operator_net_terminal_value_horizon_net_results.csv` | 20688 | `9073c02d5de6b7a41b443e170b993d847a0d9e6df004f45d839095196f9da399` |
+| `results/adaptive_operator_net_terminal_value_horizon_results.csv` | 1600 | `1b68dd39e1942d92022541494332cd8f35fc7afba4599f50b539ffedd1b96bd9` |
+| `results/adaptive_operator_net_terminal_value_horizon_w05_margin_results.csv` | 396 | `ce594832162622056b248f654b7a3916384826de3d8a34dd404cf3839a3b63cc` |
+| `results/adaptive_operator_net_terminal_value_horizon_w05_net_results.csv` | 10347 | `23cd8259771e3b821e57bf9a9c9ec27092e1557a7ac2349b059a4ec5c5056e4c` |
+| `results/adaptive_operator_net_terminal_value_horizon_w05_results.csv` | 800 | `1d9cd4768b6f403ba67a6efc84acdbc643c3c41f61f70fa76d1618827b6a2ee7` |
 | `results/adaptive_terminal_fallback_audit_results.csv` | 396 | `5d61cb8cc9ba4e990e012dd0fbb56e0674dc7522e6780c1c8e2eff96172e776d` |
 | `results/bandwidth_filter_audit_results.csv` | 800 | `42137e6794d579f160adb05e2c1cb5b88f0187f871e48197b553a8fb23f98689` |
 | `results/crab_baseline_results.csv` | 200 | `5c2a0d2736698832ef3d697297131ab4d9188d7ababf1b28db6eeda37df8df3f` |
@@ -51,6 +57,12 @@ Result artifacts hashed: 233
 | `results/open_system_noise_results.csv` | 600 | `8825fb4b7f787bcb2567e1fc405a3855420b8bea3a6f888bc4a5d6132225baef` |
 | `results/open_system_standalone_adjoint_results.csv` | 800 | `f1b84aad82953ba36cc93fb978ef70dda2ff3203a76865a699556be7d6d71991` |
 | `results/open_system_training_results.csv` | 800 | `709f5ae0205a6af198361325767da553fcf2c5bddbd8ca90a8851a24df47439f` |
+| `results/operator_net_full_trained_terminal_value_horizon_margin_results.csv` | 198 | `0c5622450b22f37dcc78362607d0def60cfbe6ff22e687db47eddf1ea9582d51` |
+| `results/operator_net_full_trained_terminal_value_horizon_mean_worst_margin_results.csv` | 198 | `209a750033e9a9201ac44da6d691a5bd3a8aa604aaf9f8ac464de7a0b5fb39b1` |
+| `results/operator_net_full_trained_terminal_value_horizon_mean_worst_net_results.csv` | 8580 | `43f98ef90966329675f310fb159b3895789b229ab09c7be9e301886db7c45fae` |
+| `results/operator_net_full_trained_terminal_value_horizon_mean_worst_results.csv` | 400 | `fc331c08aaf770b790d6a2e94bbb419cacc41bb8b31467c56bfbd1e573c8f596` |
+| `results/operator_net_full_trained_terminal_value_horizon_net_results.csv` | 8580 | `3cb243ec38d3b4d264911bfcaf699714284853cfa9d3fce0a967007bdc680283` |
+| `results/operator_net_full_trained_terminal_value_horizon_results.csv` | 400 | `ca5b87558a82c1c91855ab5a7011f75ab1b6f651b8285f7c87634bace73be123` |
 | `results/operator_net_gradient_certificate_results.csv` | 2 | `d4fc7a01d7e3835fa05388b601210fcfc03261f5ef2855c0d5b74692c4a940d7` |
 | `results/operator_net_local_sensitivity_results.csv` | 2 | `7eb0ba690e7c2557d69d28d5149cc1b2a83219249e8d4f6e96323213ee25fc7f` |
 | `results/operator_net_terminal_value_margin_final_results.csv` | 2 | `f46c5be97d5ae77647a7c71bdbeb5dd77bcdea0eae1611901bb0c7fc370233ea` |
@@ -61,6 +73,7 @@ Result artifacts hashed: 233
 | `results/operator_net_trained_terminal_value_horizon_mean_worst_results.csv` | 400 | `565d9e8691f30e90b6c4c4c386df3528bf6c1489f0bd7774d67aa2c7703ca8a2` |
 | `results/operator_net_trained_terminal_value_horizon_net_results.csv` | 4960 | `7e519d56891c79417cc12d5a22c3d722f1a630e2c5e274226732a6430db1e9d6` |
 | `results/operator_net_trained_terminal_value_horizon_results.csv` | 400 | `a4a6cd73a64ba9b42f2bb56f4aafef30ac0af721590a0258385e73228738d776` |
+| `results/operator_net_training_strategy_comparison_results.csv` | 16 | `b2b4b23480d1dfd9a3ca9792421abab63d3ee83f6a6e445ad46a32231ad25a38` |
 | `results/polished_openloop_results.csv` | 200 | `4fb7f31cb2689ca50784d9f36b87eff3cea115871bd972bacafc0e059b53bdb1` |
 | `results/process_adjoint_horizon_results.csv` | 200 | `c1c9da3fc79c7650b7975f265e4d0032b2efdf9362a09b655fc66e279a90806f` |
 | `results/process_dcrab_baseline_results.csv` | 100 | `cf1833e164e67d2a1d7cf070d0b5ee6c2648758416282f97a5ff20a0925e432e` |

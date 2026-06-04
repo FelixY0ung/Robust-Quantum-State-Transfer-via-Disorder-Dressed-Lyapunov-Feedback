@@ -1,6 +1,11 @@
 {
   "code_files": [
     {
+      "bytes": 24811,
+      "path": "code/adaptive_operator_net_terminal_value_horizon.py",
+      "sha256": "ea7afaf6fdf9b989f0a8cb7faaffe6d40aefcdf06069838128920c99e7a9f5a4"
+    },
+    {
       "bytes": 14395,
       "path": "code/adaptive_terminal_fallback_audit.py",
       "sha256": "21ded75fe8e67576833c6ca7b10940b1453109eccbdbc20f723c380f2694bc10"
@@ -206,6 +211,11 @@
       "sha256": "498dc91389793c65b37b3cfb537ad9deb9d7fed2f9bb022fa236348d3cb0c2a6"
     },
     {
+      "bytes": 11177,
+      "path": "code/operator_net_training_strategy_comparison.py",
+      "sha256": "1a001fefd2cc0866f173e7f48a5d5a490c7fb919d3bb1aeb9c52723dba393a29"
+    },
+    {
       "bytes": 572,
       "path": "code/paths.py",
       "sha256": "5afe2793e353146a7f24d59d779cd0ea113a93c1d643e618b933a1c339747b46"
@@ -363,6 +373,190 @@
   ],
   "repository_root": ".",
   "result_files": [
+    {
+      "bytes": 165919,
+      "columns": [
+        "task",
+        "design_label",
+        "step",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "eval_net_points",
+        "train_points_per_axis",
+        "eval_points_per_axis",
+        "train_covering_radius",
+        "eval_covering_radius",
+        "beam_width",
+        "residual_threshold",
+        "train_phi",
+        "eval_phi",
+        "train_outside_residual",
+        "eval_outside_residual",
+        "train_scheduled_margin",
+        "eval_scheduled_margin",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_margin_results.csv",
+      "row_count": 792,
+      "sha256": "69387e5f2b716374088f1367925a7f6b60fec1149a221b75b48abef8fedb38be"
+    },
+    {
+      "bytes": 5313842,
+      "columns": [
+        "task",
+        "design_label",
+        "net_label",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_net_results.csv",
+      "row_count": 20688,
+      "sha256": "9073c02d5de6b7a41b443e170b993d847a0d9e6df004f45d839095196f9da399"
+    },
+    {
+      "bytes": 197819,
+      "columns": [
+        "task",
+        "design_label",
+        "disorder_strength",
+        "seed",
+        "score_mode",
+        "worst_weight",
+        "train_points_per_axis",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "eval_points_per_axis",
+        "eval_net_points",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_results.csv",
+      "row_count": 1600,
+      "sha256": "1b68dd39e1942d92022541494332cd8f35fc7afba4599f50b539ffedd1b96bd9"
+    },
+    {
+      "bytes": 8843,
+      "path": "results/adaptive_operator_net_terminal_value_horizon_summary.md",
+      "sha256": "d1bb6951076f4a06416c1f7ff7fcdf3e110cb6c2e9000a87890fe8a64706a67b"
+    },
+    {
+      "bytes": 84152,
+      "columns": [
+        "task",
+        "design_label",
+        "step",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "eval_net_points",
+        "train_points_per_axis",
+        "eval_points_per_axis",
+        "train_covering_radius",
+        "eval_covering_radius",
+        "beam_width",
+        "residual_threshold",
+        "train_phi",
+        "eval_phi",
+        "train_outside_residual",
+        "eval_outside_residual",
+        "train_scheduled_margin",
+        "eval_scheduled_margin",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_w05_margin_results.csv",
+      "row_count": 396,
+      "sha256": "ce594832162622056b248f654b7a3916384826de3d8a34dd404cf3839a3b63cc"
+    },
+    {
+      "bytes": 2658947,
+      "columns": [
+        "task",
+        "design_label",
+        "net_label",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_w05_net_results.csv",
+      "row_count": 10347,
+      "sha256": "23cd8259771e3b821e57bf9a9c9ec27092e1557a7ac2349b059a4ec5c5056e4c"
+    },
+    {
+      "bytes": 99099,
+      "columns": [
+        "task",
+        "design_label",
+        "disorder_strength",
+        "seed",
+        "score_mode",
+        "worst_weight",
+        "train_points_per_axis",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "eval_points_per_axis",
+        "eval_net_points",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/adaptive_operator_net_terminal_value_horizon_w05_results.csv",
+      "row_count": 800,
+      "sha256": "1d9cd4768b6f403ba67a6efc84acdbc643c3c41f61f70fa76d1618827b6a2ee7"
+    },
+    {
+      "bytes": 5224,
+      "path": "results/adaptive_operator_net_terminal_value_horizon_w05_summary.md",
+      "sha256": "ccc419ebd897b3a3a0cbd7bc785f53ced03443a5a5bb31308911cbbd56e8300a"
+    },
     {
       "bytes": 58400,
       "columns": [
@@ -1943,6 +2137,158 @@
       "sha256": "4f52741536c0ca3147028803f88409b6c08cc11ea22b439909b4c3ce80fc222f"
     },
     {
+      "bytes": 36575,
+      "columns": [
+        "task",
+        "step",
+        "score_mode",
+        "train_net_points",
+        "eval_net_points",
+        "train_points_per_axis",
+        "eval_points_per_axis",
+        "train_covering_radius",
+        "eval_covering_radius",
+        "beam_width",
+        "residual_threshold",
+        "train_phi",
+        "eval_phi",
+        "train_outside_residual",
+        "eval_outside_residual",
+        "train_scheduled_margin",
+        "eval_scheduled_margin",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_margin_results.csv",
+      "row_count": 198,
+      "sha256": "0c5622450b22f37dcc78362607d0def60cfbe6ff22e687db47eddf1ea9582d51"
+    },
+    {
+      "bytes": 37125,
+      "columns": [
+        "task",
+        "step",
+        "score_mode",
+        "train_net_points",
+        "eval_net_points",
+        "train_points_per_axis",
+        "eval_points_per_axis",
+        "train_covering_radius",
+        "eval_covering_radius",
+        "beam_width",
+        "residual_threshold",
+        "train_phi",
+        "eval_phi",
+        "train_outside_residual",
+        "eval_outside_residual",
+        "train_scheduled_margin",
+        "eval_scheduled_margin",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_mean_worst_margin_results.csv",
+      "row_count": 198,
+      "sha256": "209a750033e9a9201ac44da6d691a5bd3a8aa604aaf9f8ac464de7a0b5fb39b1"
+    },
+    {
+      "bytes": 1954632,
+      "columns": [
+        "task",
+        "net_label",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "score_mode",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_mean_worst_net_results.csv",
+      "row_count": 8580,
+      "sha256": "43f98ef90966329675f310fb159b3895789b229ab09c7be9e301886db7c45fae"
+    },
+    {
+      "bytes": 40261,
+      "columns": [
+        "task",
+        "disorder_strength",
+        "seed",
+        "score_mode",
+        "train_points_per_axis",
+        "train_net_points",
+        "eval_points_per_axis",
+        "eval_net_points",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_mean_worst_results.csv",
+      "row_count": 400,
+      "sha256": "fc331c08aaf770b790d6a2e94bbb419cacc41bb8b31467c56bfbd1e573c8f596"
+    },
+    {
+      "bytes": 2833,
+      "path": "results/operator_net_full_trained_terminal_value_horizon_mean_worst_summary.md",
+      "sha256": "d39751a0576fd749ed465efd550d0114c7ac0144d4c9dc365e145001406d2e11"
+    },
+    {
+      "bytes": 1933996,
+      "columns": [
+        "task",
+        "net_label",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "score_mode",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_net_results.csv",
+      "row_count": 8580,
+      "sha256": "3cb243ec38d3b4d264911bfcaf699714284853cfa9d3fce0a967007bdc680283"
+    },
+    {
+      "bytes": 39250,
+      "columns": [
+        "task",
+        "disorder_strength",
+        "seed",
+        "score_mode",
+        "train_points_per_axis",
+        "train_net_points",
+        "eval_points_per_axis",
+        "eval_net_points",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds"
+      ],
+      "path": "results/operator_net_full_trained_terminal_value_horizon_results.csv",
+      "row_count": 400,
+      "sha256": "ca5b87558a82c1c91855ab5a7011f75ab1b6f651b8285f7c87634bace73be123"
+    },
+    {
+      "bytes": 2792,
+      "path": "results/operator_net_full_trained_terminal_value_horizon_summary.md",
+      "sha256": "c774020a2c0d5fcd215b1a2cb1ae1ee20a199bca02dda6fa770c61e98c40bbed"
+    },
+    {
       "bytes": 838,
       "columns": [
         "task",
@@ -2233,6 +2579,41 @@
       "bytes": 2782,
       "path": "results/operator_net_trained_terminal_value_horizon_summary.md",
       "sha256": "44da6c9b5336e6f3eca7768faa811bb3f5e7e2c20d4741e70cf8a6dffce73f9a"
+    },
+    {
+      "bytes": 4824,
+      "columns": [
+        "task",
+        "method",
+        "family",
+        "design_label",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "hard_points_used",
+        "eval_net_points",
+        "covering_radius_h",
+        "worst_net_fidelity",
+        "mean_net_fidelity",
+        "heldout_delta_0_08_mean",
+        "heldout_delta_0_08_min",
+        "heldout_delta_0_08_std",
+        "pulse_energy",
+        "shifted_selected_fraction",
+        "design_seconds",
+        "eval_outside_steps",
+        "eval_positive_outside_fraction",
+        "eval_min_outside_margin",
+        "best_worst_net_for_task"
+      ],
+      "path": "results/operator_net_training_strategy_comparison_results.csv",
+      "row_count": 16,
+      "sha256": "b2b4b23480d1dfd9a3ca9792421abab63d3ee83f6a6e445ad46a32231ad25a38"
+    },
+    {
+      "bytes": 3022,
+      "path": "results/operator_net_training_strategy_comparison_summary.md",
+      "sha256": "5bceda34a217d79ffac703d6c9b91eacd9c774715c0b5136f6a9a37b89609a14"
     },
     {
       "bytes": 23845,
