@@ -46,6 +46,11 @@
       "sha256": "d0b4f00aa9c68145595755405e6216f4abd60d0118dad9dc04ed440f1cf3bf25"
     },
     {
+      "bytes": 9649,
+      "path": "code/finite_net_operator_audit.py",
+      "sha256": "d42a3e0d59aeccef8eb3773721e776824920de59541dc4eca9017d0cc3e1693e"
+    },
+    {
       "bytes": 10351,
       "path": "code/finite_net_scalar_audit.py",
       "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
@@ -1012,6 +1017,35 @@
       "bytes": 1168,
       "path": "results/fine_adaptive_terminal_fallback_audit_summary.md",
       "sha256": "c071cab56323b2d6ab5866d6975d917e170f35c446547fd27ba4b740fd016314"
+    },
+    {
+      "bytes": 920246,
+      "columns": [
+        "task",
+        "method",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "final_fidelity",
+        "final_infidelity",
+        "pulse_energy",
+        "design_seconds",
+        "time_horizon"
+      ],
+      "path": "results/finite_net_operator_audit_results.csv",
+      "row_count": 4290,
+      "sha256": "8d8fe94fa40a13e5276c1d92362e059234c8fb3bcb69a4f6d94aca1f5f954c01"
+    },
+    {
+      "bytes": 1052,
+      "path": "results/finite_net_operator_audit_summary.md",
+      "sha256": "1bc18f4440787ef96d511b42e5a8e53c306450ac7fad0aa24ef2c26a13b3a10d"
     },
     {
       "bytes": 38720,
