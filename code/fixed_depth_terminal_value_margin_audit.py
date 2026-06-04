@@ -48,8 +48,8 @@ from terminal_value_shifted_horizon import (
 class FixedDepthAuditConfig:
     value_depths: tuple[int, ...] = (1,)
     audit_stride: int = 10
-    terminal_weight: float = 1.0
-    control_stage_weight: float = 0.0
+    terminal_weights: tuple[float, ...] = (1.0,)
+    control_stage_weights: tuple[float, ...] = (0.0,)
     batch_size: int = 24
 
 
@@ -425,37 +425,41 @@ def audit_task_controller(
                 flush=True,
             )
             for depth in audit_config.value_depths:
-                record = fixed_depth_margin(
-                    p,
-                    terminal_states,
-                    strengths,
-                    controls_cache,
-                    disorder_cache,
-                    terminal_start,
-                    dt,
-                    candidates,
-                    depth,
-                    worst_weight,
-                    residual_threshold,
-                    audit_config.terminal_weight,
-                    audit_config.control_stage_weight,
-                    audit_config.batch_size,
-                )
-                rows.append(
-                    {
-                        "task": task,
-                        "controller": controller,
-                        "step": j,
-                        "value_depth": depth,
-                        "audit_stride": audit_config.audit_stride,
-                        "candidate_count": len(candidates),
-                        "beam_width": beam_width,
-                        "residual_threshold": residual_threshold,
-                        "terminal_outside_residual": int(tail_phi > residual_threshold),
-                        "tail_phi": tail_phi,
-                        **record,
-                    }
-                )
+                for terminal_weight in audit_config.terminal_weights:
+                    for control_stage_weight in audit_config.control_stage_weights:
+                        record = fixed_depth_margin(
+                            p,
+                            terminal_states,
+                            strengths,
+                            controls_cache,
+                            disorder_cache,
+                            terminal_start,
+                            dt,
+                            candidates,
+                            depth,
+                            worst_weight,
+                            residual_threshold,
+                            terminal_weight,
+                            control_stage_weight,
+                            audit_config.batch_size,
+                        )
+                        rows.append(
+                            {
+                                "task": task,
+                                "controller": controller,
+                                "step": j,
+                                "value_depth": depth,
+                                "terminal_weight": terminal_weight,
+                                "control_stage_weight": control_stage_weight,
+                                "audit_stride": audit_config.audit_stride,
+                                "candidate_count": len(candidates),
+                                "beam_width": beam_width,
+                                "residual_threshold": residual_threshold,
+                                "terminal_outside_residual": int(tail_phi > residual_threshold),
+                                "tail_phi": tail_phi,
+                                **record,
+                            }
+                        )
 
         if controller == "terminal_value_shifted":
             sequence, _, selected_phi, _ = select_terminal_value_sequence(
@@ -511,17 +515,25 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
     summary: list[dict[str, str]] = []
     keys = sorted(
         {
-            (str(row["task"]), str(row["controller"]), int(row["value_depth"]))
+            (
+                str(row["task"]),
+                str(row["controller"]),
+                int(row["value_depth"]),
+                float(row["terminal_weight"]),
+                float(row["control_stage_weight"]),
+            )
             for row in rows
         }
     )
-    for task, controller, depth in keys:
+    for task, controller, depth, terminal_weight, control_stage_weight in keys:
         group = [
             row
             for row in rows
             if str(row["task"]) == task
             and str(row["controller"]) == controller
             and int(row["value_depth"]) == depth
+            and float(row["terminal_weight"]) == terminal_weight
+            and float(row["control_stage_weight"]) == control_stage_weight
         ]
         margins = np.array([float(row["best_fixed_depth_margin"]) for row in group])
         scheduled = np.array([float(row["scheduled_stage_margin"]) for row in group])
@@ -537,6 +549,8 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
                 "task": task,
                 "controller": controller,
                 "value_depth": str(depth),
+                "terminal_weight": f"{terminal_weight:.6g}",
+                "control_stage_weight": f"{control_stage_weight:.6g}",
                 "audit_stride": str(int(group[0]["audit_stride"])),
                 "audited_steps": str(len(group)),
                 "terminal_outside_steps": str(int(np.sum(outside))),
@@ -620,6 +634,16 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--stride", type=int, default=10)
     parser.add_argument("--depths", default="1")
+    parser.add_argument(
+        "--terminal-weights",
+        default="1.0",
+        help="Comma-separated terminal Phi weights in the fixed-depth value.",
+    )
+    parser.add_argument(
+        "--control-stage-weights",
+        default="0.0",
+        help="Comma-separated quadratic fallback-control stage weights.",
+    )
     parser.add_argument("--batch-size", type=int, default=24)
     parser.add_argument("--output-prefix", default="fixed_depth_terminal_value_margin")
     return parser.parse_args()
@@ -630,6 +654,12 @@ def main() -> None:
     audit_config = FixedDepthAuditConfig(
         value_depths=tuple(int(item) for item in args.depths.split(",") if item.strip()),
         audit_stride=args.stride,
+        terminal_weights=tuple(
+            float(item) for item in args.terminal_weights.split(",") if item.strip()
+        ),
+        control_stage_weights=tuple(
+            float(item) for item in args.control_stage_weights.split(",") if item.strip()
+        ),
         batch_size=args.batch_size,
     )
     margin_config = MarginConfig()

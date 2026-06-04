@@ -61,9 +61,9 @@
       "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
     },
     {
-      "bytes": 22691,
+      "bytes": 24310,
       "path": "code/fixed_depth_terminal_value_margin_audit.py",
-      "sha256": "38d263adf555152036627f61bac7b83412e2b8901cc6bbcd1be529db932b0a5e"
+      "sha256": "0d0f2915cbbb92eb8b5ce1ad5b7d7626781e96f2abe038d19b78aa4251c745c1"
     },
     {
       "bytes": 6405,
@@ -286,9 +286,9 @@
       "sha256": "f21f8d1455bd2a08fdc5f28fadaa3d6cadad8012b07563694e3cd67d20a4db33"
     },
     {
-      "bytes": 9052,
+      "bytes": 10952,
       "path": "code/selected_operator_net_strategy_gradient_certificate.py",
-      "sha256": "4463eac12c1afc635c96e4a6ad99d4c44bdaf95c4bbc29232a15327b51136ffa"
+      "sha256": "5659080c6eb06ddb1afc57dc94f21ef58976892459a303a7bee1011826636911"
     },
     {
       "bytes": 12565,
@@ -1354,6 +1354,39 @@
       "bytes": 1473,
       "path": "results/fixed_depth_terminal_value_margin_summary.md",
       "sha256": "63b25210f124d0fdf47a4930efec240f9281f5fac20d79c7262e308fa0bd55c2"
+    },
+    {
+      "bytes": 18724,
+      "columns": [
+        "task",
+        "controller",
+        "step",
+        "value_depth",
+        "terminal_weight",
+        "control_stage_weight",
+        "audit_stride",
+        "candidate_count",
+        "beam_width",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "tail_phi",
+        "phi",
+        "current_value",
+        "best_fixed_successor_value",
+        "best_fixed_depth_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "scheduled_stage_margin"
+      ],
+      "path": "results/fixed_depth_terminal_value_weight_sweep_results.csv",
+      "row_count": 90,
+      "sha256": "8b72502db5005d0574aa41c93116e67295e0408fcb36a2824e7a2167ccd4972e"
+    },
+    {
+      "bytes": 2541,
+      "path": "results/fixed_depth_terminal_value_weight_sweep_summary.md",
+      "sha256": "3f8e2cdef99bf40372ddf2e5ba51c9d410ad05d0c9f1074594034106c8e3f96d"
     },
     {
       "bytes": 5682,
@@ -2917,6 +2950,84 @@
       "path": "results/selected_operator_net_strategy_gradient_certificate_net_results.csv",
       "row_count": 4290,
       "sha256": "7cd3265b44d69f1c114742f636951d90f6d41632cf6ac3ecfc6934d394903a23"
+    },
+    {
+      "bytes": 6103463,
+      "columns": [
+        "task",
+        "method",
+        "net_index",
+        "coeff_x",
+        "coeff_y",
+        "coeff_z",
+        "coeff_norm",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "final_fidelity",
+        "final_infidelity",
+        "grad_x",
+        "grad_y",
+        "grad_z",
+        "gradient_norm",
+        "pulse_energy",
+        "design_seconds",
+        "time_horizon",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "base_train_points",
+        "hard_points_requested",
+        "hard_points_used",
+        "design_points_per_axis",
+        "certificate_points_per_axis"
+      ],
+      "path": "results/selected_operator_net_strategy_gradient_certificate_p21_net_results.csv",
+      "row_count": 18362,
+      "sha256": "c9e14d51cc99c678f7572c17c1fa25676e0127551680669694c330075e5ab0c3"
+    },
+    {
+      "bytes": 1026,
+      "columns": [
+        "task",
+        "method",
+        "net_points",
+        "ball_radius",
+        "points_per_axis",
+        "covering_radius_h",
+        "worst_net_fidelity",
+        "mean_net_fidelity",
+        "worst_net_infidelity",
+        "gradient_norm_mean",
+        "gradient_norm_p95",
+        "gradient_norm_p99",
+        "gradient_norm_max",
+        "hessian_bound_4T2",
+        "gradient_net_lipschitz_bound",
+        "gradient_net_h_penalty",
+        "gradient_net_continuous_infidelity_bound",
+        "gradient_net_continuous_fidelity_lower_bound",
+        "analytic_lipschitz_2T",
+        "analytic_h_penalty",
+        "analytic_continuous_fidelity_lower_bound",
+        "pulse_energy",
+        "design_seconds",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "hard_points_used",
+        "design_points_per_axis",
+        "certificate_points_per_axis"
+      ],
+      "path": "results/selected_operator_net_strategy_gradient_certificate_p21_results.csv",
+      "row_count": 2,
+      "sha256": "c07995012e220dfc313e888b5a4a470c037bd6638103d8087a07650688469eef"
+    },
+    {
+      "bytes": 1833,
+      "path": "results/selected_operator_net_strategy_gradient_certificate_p21_summary.md",
+      "sha256": "571c10f2d5f50e97b5b89a687108736ed9249818fe0c7f1f29b8486f2b3f5390"
     },
     {
       "bytes": 962,
