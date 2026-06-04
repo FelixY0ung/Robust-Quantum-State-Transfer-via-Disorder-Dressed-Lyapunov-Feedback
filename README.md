@@ -65,6 +65,7 @@ python3 code/terminal_value_certificate_audit.py
 python3 code/terminal_value_shifted_horizon.py
 python3 code/fixed_depth_terminal_value_margin_audit.py --controllers terminal_value_shifted --depths 1,2 --stride 10 --batch-size 512 --output-prefix fixed_depth_terminal_value_deep_margin
 python3 code/fixed_depth_terminal_value_margin_audit.py --controllers terminal_value_shifted --depths 1 --stride 10 --batch-size 512 --terminal-weights 0,0.25,0.5,1,2 --control-stage-weights 0 --output-prefix fixed_depth_terminal_value_weight_sweep
+python3 code/fixed_depth_terminal_value_margin_audit.py --controllers terminal_value_shifted --depths 1 --stride 10 --batch-size 512 --terminal-weights 0,1 --control-stage-weights 0,0.0001,0.0005,0.001,0.002 --output-prefix fixed_depth_terminal_value_stage_weight_sweep
 python3 code/state_adjoint_horizon.py
 python3 code/horizon_ablation.py
 python3 code/open_system_noise.py
@@ -184,6 +185,8 @@ The deeper fixed-depth terminal-value audit uses the same terminal-value shifted
 
 The fixed-depth terminal-value weight sweep uses the same strided terminal-value shifted-horizon trajectory and tests terminal Phi weights `0,0.25,0.5,1,2` at depth 1. Scalar terminal-weight retuning does not repair the unsupported fixed-depth condition: the least negative rows use terminal weight `0`, with outside-residual positive fractions `0.333333/0.0` for Z/H and minimum outside margins `-0.000712933/-0.000566451`. The scheduled stage margin remains positive in the same rows, so the implemented theorem is kept as a scheduled finite-run certificate.
 
+The fixed-depth terminal-value stage-weight sweep tests whether small quadratic fallback-control costs repair the same unsupported condition. With terminal weights `0` and `1` and control-stage weights through `0.002`, H remains zero-positive outside residual; the least negative H row is unchanged at minimum outside margin `-0.000566451`. This keeps the boundary conclusion unchanged: light stage-cost shaping is not the missing fixed-depth design.
+
 The standalone state-adjoint horizon diagnostic uses the finite-candidate horizon only as a local initializer, then optimizes the same short state-transfer Lyapunov score by exact Frechet derivatives without a terminal GRAPE reference. At `delta = 0.08`, it reaches held-out mean fidelity `0.997445` for Z and `0.996096` for H; the corresponding 60-segment finite-candidate seed reaches `0.997407/0.989428`. This is evidence for adjoint-assisted horizon scoring, not a global optimality claim.
 
 The standalone process-adjoint horizon diagnostic applies the same idea to average gate fidelity without a terminal process-GRAPE reference. At `delta = 0.08`, it reaches held-out average gate fidelity `0.924093` for Z and `0.927613` for H, close to the finite process seed's `0.927537/0.928319`. This negative result is included to document that exact short-horizon process gradients alone do not solve the global process-search difficulty.
@@ -233,6 +236,7 @@ The reproducibility manifest records SHA-256 hashes, file sizes, CSV row counts,
 - `results/terminal_value_shifted_horizon_summary.md`
 - `results/fixed_depth_terminal_value_deep_margin_summary.md`
 - `results/fixed_depth_terminal_value_weight_sweep_summary.md`
+- `results/fixed_depth_terminal_value_stage_weight_sweep_summary.md`
 - `results/terminal_score_candidate_audit_summary.md`
 - `results/state_adjoint_horizon_summary.md`
 - `results/horizon_ablation_summary.md`

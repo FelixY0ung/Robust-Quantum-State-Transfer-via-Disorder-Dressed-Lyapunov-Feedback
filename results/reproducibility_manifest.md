@@ -4,7 +4,7 @@ Schema: `disorder-dressed-reproducibility-manifest-v1`
 
 Code files hashed: 75
 
-Result artifacts hashed: 259
+Result artifacts hashed: 261
 
 ## CSV Row Counts
 
@@ -31,6 +31,7 @@ Result artifacts hashed: 259
 | `results/finite_net_scalar_audit_results.csv` | 250 | `c33de9516284767629bcabc9922b74474655ef5bf4e2911ad23363d61e9d0118` |
 | `results/fixed_depth_terminal_value_deep_margin_results.csv` | 36 | `49476ed31c6998d0d0e9e4ea68458af9363df601c9f3a226a8ad81f633784503` |
 | `results/fixed_depth_terminal_value_margin_results.csv` | 36 | `e365413c5a018c629447c29aeec49dcf676acb0d4e74b3adb1731db33b1a5894` |
+| `results/fixed_depth_terminal_value_stage_weight_sweep_results.csv` | 180 | `10e47a048cd6a56ae8c709245d077faa0ec40e68c9c06dc9975dfb6b92fd296c` |
 | `results/fixed_depth_terminal_value_weight_sweep_results.csv` | 90 | `8b72502db5005d0574aa41c93116e67295e0408fcb36a2824e7a2167ccd4972e` |
 | `results/gate_fidelity_probe_results.csv` | 100 | `9dc78f3e4285a4322de1b6da14eeee667d910b9f9e2c879ebbee4e8cdcf8eaf4` |
 | `results/gate_process_baseline_results.csv` | 100 | `ebdb8eb647182acc1e3d257f1d7248503899bd49dfbeee812a465861462555ec` |

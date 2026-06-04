@@ -1356,6 +1356,39 @@
       "sha256": "63b25210f124d0fdf47a4930efec240f9281f5fac20d79c7262e308fa0bd55c2"
     },
     {
+      "bytes": 37230,
+      "columns": [
+        "task",
+        "controller",
+        "step",
+        "value_depth",
+        "terminal_weight",
+        "control_stage_weight",
+        "audit_stride",
+        "candidate_count",
+        "beam_width",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "tail_phi",
+        "phi",
+        "current_value",
+        "best_fixed_successor_value",
+        "best_fixed_depth_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "scheduled_stage_margin"
+      ],
+      "path": "results/fixed_depth_terminal_value_stage_weight_sweep_results.csv",
+      "row_count": 180,
+      "sha256": "10e47a048cd6a56ae8c709245d077faa0ec40e68c9c06dc9975dfb6b92fd296c"
+    },
+    {
+      "bytes": 4198,
+      "path": "results/fixed_depth_terminal_value_stage_weight_sweep_summary.md",
+      "sha256": "7d50bdd64234bbfcda749ff46c8414a885f4629b0699ec4347c4344a871c7af4"
+    },
+    {
       "bytes": 18724,
       "columns": [
         "task",
