@@ -301,6 +301,11 @@
       "sha256": "4050bd9a00134a8ef445e38f2218025b4f63af4e6e1df35d784c46028ac77126"
     },
     {
+      "bytes": 18849,
+      "path": "code/terminal_value_shifted_horizon.py",
+      "sha256": "cf4e3149d0c5e0eb3d4dce52da89ac042c0b6b21bee5e6df40f32c86a3fbd330"
+    },
+    {
       "bytes": 9453,
       "path": "code/tracking_simulation.py",
       "sha256": "6be46b3c8eb97d5067633fd03582650f4978c1b771c58b3bdb9e788fb19166f8"
@@ -2384,6 +2389,54 @@
       "bytes": 1320,
       "path": "results/terminal_value_extension_audit_summary.md",
       "sha256": "0eb8e9dc8ce58ab6623d3fe03dee85a7807b2ff04e22fd5cafedd180fbd5e6e3"
+    },
+    {
+      "bytes": 33865,
+      "columns": [
+        "task",
+        "step",
+        "value_depth",
+        "beam_width",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "phi",
+        "current_value",
+        "best_successor_value",
+        "best_value_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "state_stage_cost",
+        "expected_stage_cost",
+        "bellman_gap"
+      ],
+      "path": "results/terminal_value_shifted_horizon_margin_results.csv",
+      "row_count": 198,
+      "sha256": "a62b699e1ff66078630e659d19891d6ed838b5cea6a9f3c8cc252404461d2dbd"
+    },
+    {
+      "bytes": 52313,
+      "columns": [
+        "system",
+        "task",
+        "disorder_strength",
+        "seed",
+        "tail_infidelity_mean",
+        "tail_stability_range",
+        "final_fidelity",
+        "pulse_energy",
+        "shifted_available_steps",
+        "shifted_selected_steps",
+        "shifted_selected_fraction"
+      ],
+      "path": "results/terminal_value_shifted_horizon_results.csv",
+      "row_count": 400,
+      "sha256": "7896f8b3e0eca9dc3a911f016971dec0759460e94ff1775c935f792d525ce143"
+    },
+    {
+      "bytes": 1933,
+      "path": "results/terminal_value_shifted_horizon_summary.md",
+      "sha256": "571b4812aa16ca0f93f1f8fc10438f94893e9234bbded4f5064df4b90182128d"
     },
     {
       "bytes": 2028,

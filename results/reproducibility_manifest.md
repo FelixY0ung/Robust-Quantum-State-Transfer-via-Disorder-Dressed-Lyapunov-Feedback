@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 65
+Code files hashed: 66
 
-Result artifacts hashed: 209
+Result artifacts hashed: 212
 
 ## CSV Row Counts
 
@@ -70,6 +70,8 @@ Result artifacts hashed: 209
 | `results/terminal_score_candidate_audit_results.csv` | 240 | `006b6cbc8caaab17eab93bdd5e570d164fd5bd6f61ae5716943d281787beef46` |
 | `results/terminal_value_certificate_audit_results.csv` | 396 | `ff944995b2d0dcad8f196877784a6d9283912baa07d065befdde2e09285881eb` |
 | `results/terminal_value_extension_audit_results.csv` | 294 | `39d6d73bfe886708022d21fd18c234174ddf648b67812b3984c7787cb5dbd96d` |
+| `results/terminal_value_shifted_horizon_margin_results.csv` | 198 | `a62b699e1ff66078630e659d19891d6ed838b5cea6a9f3c8cc252404461d2dbd` |
+| `results/terminal_value_shifted_horizon_results.csv` | 400 | `7896f8b3e0eca9dc3a911f016971dec0759460e94ff1775c935f792d525ce143` |
 | `results/tracking_results.csv` | 18 | `bb8bd785b45a9137091612f3ec779955e2bc363257ae80a8618d708ddffc6e7b` |
 | `results/transmon_leakage_results.csv` | 1000 | `a8d654d94ba6ee94fbbb08fa0a8af281f9452bff94ddcde35afd6f3052e3c394` |
 | `results/transmon_open_leakage_adjoint_results.csv` | 800 | `78bb1e4ce52a739a478309c2c2035f7f5d0bd8db5dc459453df3a96efeaa040d` |
