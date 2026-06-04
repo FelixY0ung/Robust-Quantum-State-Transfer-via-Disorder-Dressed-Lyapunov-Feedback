@@ -291,6 +291,11 @@
       "sha256": "efe50dee9f62181bd81f7ee750843ae5c36f0407b426860237e4223f0bd4c219"
     },
     {
+      "bytes": 14187,
+      "path": "code/terminal_value_certificate_audit.py",
+      "sha256": "8cfec7748ec92922766d909217136b3d6331e9c4b08d617864777ccd7d0ea845"
+    },
+    {
       "bytes": 5008,
       "path": "code/terminal_value_extension_audit.py",
       "sha256": "4050bd9a00134a8ef445e38f2218025b4f63af4e6e1df35d784c46028ac77126"
@@ -2325,6 +2330,38 @@
       "bytes": 2382,
       "path": "results/terminal_score_candidate_audit_summary.md",
       "sha256": "de70221bee07c035ba73bd546ba8fc0709466a54aa34c8604bab7f06e471c0fb"
+    },
+    {
+      "bytes": 86092,
+      "columns": [
+        "task",
+        "step",
+        "value_depth",
+        "candidate_count",
+        "previous_terminal_phi",
+        "tail_phi",
+        "tail_phi_abs_error",
+        "terminal_outside_residual",
+        "residual_threshold",
+        "phi",
+        "current_value",
+        "best_successor_value",
+        "best_value_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "state_stage_cost",
+        "expected_stage_cost",
+        "bellman_gap"
+      ],
+      "path": "results/terminal_value_certificate_audit_results.csv",
+      "row_count": 396,
+      "sha256": "ff944995b2d0dcad8f196877784a6d9283912baa07d065befdde2e09285881eb"
+    },
+    {
+      "bytes": 1409,
+      "path": "results/terminal_value_certificate_audit_summary.md",
+      "sha256": "0860b6f396bd0f7ffd1840629ac4fdb7bb184d5bcda464a7384c4b5d40f0c3da"
     },
     {
       "bytes": 24992,
