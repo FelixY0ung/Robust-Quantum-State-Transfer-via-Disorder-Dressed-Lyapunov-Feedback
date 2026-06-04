@@ -14,6 +14,7 @@ finite-run strategies, not a fixed-depth all-time value theorem.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import time
 
@@ -156,6 +157,8 @@ def annotate_rows(
         item["base_train_points"] = metadata["base_train_points"]
         item["hard_points_requested"] = metadata["hard_points_requested"]
         item["hard_points_used"] = metadata["hard_points_used"]
+        item["design_points_per_axis"] = metadata["design_points_per_axis"]
+        item["certificate_points_per_axis"] = metadata["certificate_points_per_axis"]
         annotated.append(item)
     return annotated
 
@@ -175,6 +178,10 @@ def summary_with_metadata(
         summary_row["worst_weight"] = f"{float(metadata['worst_weight']):.6g}"
         summary_row["train_net_points"] = str(int(metadata["train_net_points"]))
         summary_row["hard_points_used"] = str(int(metadata["hard_points_used"]))
+        summary_row["design_points_per_axis"] = str(int(metadata["design_points_per_axis"]))
+        summary_row["certificate_points_per_axis"] = str(
+            int(metadata["certificate_points_per_axis"])
+        )
     return summary_rows
 
 
@@ -186,29 +193,34 @@ def write_markdown_table(f, rows: list[dict[str, str]]) -> None:
         f.write("| " + " | ".join(row[h] for h in headers) + " |\n")
 
 
-def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
+def write_outputs(
+    rows: list[dict[str, float | int | str]],
+    output_prefix: str,
+) -> None:
     summary_rows = summary_with_metadata(rows)
-    result_file = result_path("selected_operator_net_strategy_gradient_certificate_results.csv")
+    result_file = result_path(f"{output_prefix}_results.csv")
     with result_file.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(summary_rows[0].keys()), lineterminator="\n")
         writer.writeheader()
         writer.writerows(summary_rows)
 
-    net_file = result_path("selected_operator_net_strategy_gradient_certificate_net_results.csv")
+    net_file = result_path(f"{output_prefix}_net_results.csv")
     with net_file.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
-    summary_file = result_path("selected_operator_net_strategy_gradient_certificate_summary.md")
+    summary_file = result_path(f"{output_prefix}_summary.md")
     with summary_file.open("w", encoding="utf-8") as f:
         f.write("# Selected Operator-Net Strategy Gradient Certificate\n\n")
         f.write(
             "Gradient-net sensitivity certificate for the two strategy rows "
             "selected by deterministic worst-net fidelity in the operator-net "
-            "training comparison. The continuous lower bound uses the same "
-            "`max ||grad ell|| + 4T^2 h` certificate as the default "
-            "operator-net gradient audit.\n\n"
+            "training comparison. The selected pulses are regenerated from the "
+            "same design net, then audited on the certificate net reported in "
+            "the table. The continuous lower bound uses the same `max ||grad "
+            "ell|| + 4T^2 h` certificate as the default operator-net gradient "
+            "audit.\n\n"
         )
         write_markdown_table(f, summary_rows)
 
@@ -219,20 +231,59 @@ def write_outputs(rows: list[dict[str, float | int | str]]) -> None:
         print(row)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--ball-radius", type=float, default=0.08)
+    parser.add_argument("--base-points", type=int, default=7)
+    parser.add_argument(
+        "--design-points",
+        type=int,
+        default=13,
+        help="Pauli-ball net used to reproduce the selected design decisions.",
+    )
+    parser.add_argument(
+        "--certificate-points",
+        type=int,
+        default=13,
+        help="Pauli-ball net used for the final gradient certificate.",
+    )
+    parser.add_argument(
+        "--output-prefix",
+        default="selected_operator_net_strategy_gradient_certificate",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    base_coeffs, base_spacing, base_h = coefficient_net(0.08, 7)
-    eval_coeffs, eval_spacing, eval_h = coefficient_net(0.08, 13)
+    args = parse_args()
+    base_coeffs, base_spacing, base_h = coefficient_net(args.ball_radius, args.base_points)
+    design_coeffs, design_spacing, design_h = coefficient_net(
+        args.ball_radius,
+        args.design_points,
+    )
+    certificate_coeffs, certificate_spacing, certificate_h = coefficient_net(
+        args.ball_radius,
+        args.certificate_points,
+    )
+    print(
+        "selected-strategy certificate nets: "
+        f"base={len(base_coeffs)} design={len(design_coeffs)} "
+        f"certificate={len(certificate_coeffs)} h={certificate_h:.6g}",
+        flush=True,
+    )
     all_rows: list[dict[str, float | int | str]] = []
     for design in selected_designs():
         pulse, metadata = regenerate_selected_pulse(
             design,
             base_coeffs,
-            eval_coeffs,
+            design_coeffs,
             base_spacing,
             base_h,
-            eval_spacing,
-            eval_h,
+            design_spacing,
+            design_h,
         )
+        metadata["design_points_per_axis"] = args.design_points
+        metadata["certificate_points_per_axis"] = args.certificate_points
         print(
             f"evaluating selected gradient certificate: {metadata['task']} "
             f"{metadata['method']}",
@@ -241,16 +292,16 @@ def main() -> None:
         rows = evaluate_gradient_net(
             str(metadata["task"]),
             pulse,
-            eval_coeffs,
+            certificate_coeffs,
             str(metadata["method"]),
             float(metadata["design_seconds"]),
-            0.08,
-            13,
-            eval_spacing,
-            eval_h,
+            args.ball_radius,
+            args.certificate_points,
+            certificate_spacing,
+            certificate_h,
         )
         all_rows.extend(annotate_rows(rows, metadata))
-    write_outputs(all_rows)
+    write_outputs(all_rows, args.output_prefix)
 
 
 if __name__ == "__main__":
