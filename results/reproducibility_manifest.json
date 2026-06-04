@@ -56,6 +56,11 @@
       "sha256": "f4e174594b67c7b6df06b4d8a49e6ebf45ab25731a9c9257b0e9d0c013b2a27b"
     },
     {
+      "bytes": 15832,
+      "path": "code/fixed_depth_terminal_value_margin_audit.py",
+      "sha256": "83759848b94ee8f44df7d9380168906d2f7d07b14df6ffed81fa129ca6fae274"
+    },
+    {
       "bytes": 6405,
       "path": "code/gate_fidelity_probe.py",
       "sha256": "cee608d5cac79e47c58f17888b2ce1a785faaaf8baac318986395fd9198ed420"
@@ -1083,6 +1088,37 @@
       "bytes": 1844,
       "path": "results/finite_net_scalar_audit_summary.md",
       "sha256": "277fc2bf21257ddfe553cafbf389034766bb8cfa4c8aeb46b1e6ceb91417161c"
+    },
+    {
+      "bytes": 7101,
+      "columns": [
+        "task",
+        "controller",
+        "step",
+        "value_depth",
+        "audit_stride",
+        "candidate_count",
+        "beam_width",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "tail_phi",
+        "phi",
+        "current_value",
+        "best_fixed_successor_value",
+        "best_fixed_depth_margin",
+        "best_fallback_norm",
+        "best_fallback_amp",
+        "best_fallback_index",
+        "scheduled_stage_margin"
+      ],
+      "path": "results/fixed_depth_terminal_value_margin_results.csv",
+      "row_count": 36,
+      "sha256": "e365413c5a018c629447c29aeec49dcf676acb0d4e74b3adb1731db33b1a5894"
+    },
+    {
+      "bytes": 1473,
+      "path": "results/fixed_depth_terminal_value_margin_summary.md",
+      "sha256": "63b25210f124d0fdf47a4930efec240f9281f5fac20d79c7262e308fa0bd55c2"
     },
     {
       "bytes": 5682,
