@@ -1,0 +1,7 @@
+source,source_file,task,value_depth,audited_steps,outside_steps,leading_outside_steps,first_entry_step,epsilon_min_outside,first_current_value,sufficient_initial_depth_from_first_value,max_current_value_outside,worst_case_depth_from_max_value,audited_steps_cover_sufficient_depth,entry_observed_before_or_at_sufficient_depth,max_bellman_gap
+online_terminal_value_shifted,terminal_value_shifted_horizon_margin_results.csv,H,1,99,93,35,36,3.2531256644750296e-05,0.002048612135414401,63,0.009505507412526967,293,1,1,8.673617379884035e-19
+online_terminal_value_shifted,terminal_value_shifted_horizon_margin_results.csv,Z,1,99,99,99,,0.00011600421550375748,0.00331299678507497,29,0.016293043589589565,141,1,0,8.673617379884035e-19
+offline_shifted_fallback,terminal_value_certificate_audit_results.csv,H,1,99,93,35,36,2.89491708403292e-05,0.0020514084680324793,71,0.010587764543877061,366,1,1,8.673617379884035e-19
+offline_shifted_fallback,terminal_value_certificate_audit_results.csv,H,2,99,93,35,36,2.89491708403292e-05,0.0031009508813789003,108,0.016339228315877037,565,0,1,8.673617379884035e-19
+offline_shifted_fallback,terminal_value_certificate_audit_results.csv,Z,1,99,99,99,,0.0002748431580721711,0.00331299678507497,13,0.016293043589589565,60,1,0,8.673617379884035e-19
+offline_shifted_fallback,terminal_value_certificate_audit_results.csv,Z,2,99,99,99,,0.0002748431580721711,0.004844606049789495,18,0.025060898273257276,92,1,0,8.673617379884035e-19

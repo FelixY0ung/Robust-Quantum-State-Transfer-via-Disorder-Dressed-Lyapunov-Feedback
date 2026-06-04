@@ -286,6 +286,11 @@
       "sha256": "f21f8d1455bd2a08fdc5f28fadaa3d6cadad8012b07563694e3cd67d20a4db33"
     },
     {
+      "bytes": 6459,
+      "path": "code/scheduled_depth_budget_audit.py",
+      "sha256": "a4c29057b24eb2748796de5f3d417e599c55ab5d5843b90e428fd2f0892ac7ea"
+    },
+    {
       "bytes": 16303,
       "path": "code/selected_operator_net_strategy_fixed_depth_audit.py",
       "sha256": "5cf4d0c1e02aff618ef76d3e7cc08ca646d8a545dacbf2a82ae22eec6c517663"
@@ -3061,6 +3066,35 @@
       "bytes": 1723,
       "path": "results/robustness_scan_summary.md",
       "sha256": "fbd68d91178c97956e608023cf1ab2145255135333bd057d78449978bf3070b2"
+    },
+    {
+      "bytes": 1459,
+      "columns": [
+        "source",
+        "source_file",
+        "task",
+        "value_depth",
+        "audited_steps",
+        "outside_steps",
+        "leading_outside_steps",
+        "first_entry_step",
+        "epsilon_min_outside",
+        "first_current_value",
+        "sufficient_initial_depth_from_first_value",
+        "max_current_value_outside",
+        "worst_case_depth_from_max_value",
+        "audited_steps_cover_sufficient_depth",
+        "entry_observed_before_or_at_sufficient_depth",
+        "max_bellman_gap"
+      ],
+      "path": "results/scheduled_depth_budget_audit_results.csv",
+      "row_count": 6,
+      "sha256": "df92e1e70cfc30b8f26d3ee8ceb723a2c73edd7b7b42ace2aca5fdd31338bf8a"
+    },
+    {
+      "bytes": 1469,
+      "path": "results/scheduled_depth_budget_audit_summary.md",
+      "sha256": "111901c2f76360bff48cc9793ea35894ba8235259ee6577c43efb19ee5c440a2"
     },
     {
       "bytes": 4942,
