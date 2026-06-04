@@ -4,7 +4,7 @@ Schema: `disorder-dressed-reproducibility-manifest-v1`
 
 Code files hashed: 75
 
-Result artifacts hashed: 263
+Result artifacts hashed: 266
 
 ## CSV Row Counts
 
@@ -90,6 +90,8 @@ Result artifacts hashed: 263
 | `results/selected_operator_net_strategy_gradient_certificate_net_results.csv` | 4290 | `7cd3265b44d69f1c114742f636951d90f6d41632cf6ac3ecfc6934d394903a23` |
 | `results/selected_operator_net_strategy_gradient_certificate_p21_net_results.csv` | 18362 | `c9e14d51cc99c678f7572c17c1fa25676e0127551680669694c330075e5ab0c3` |
 | `results/selected_operator_net_strategy_gradient_certificate_p21_results.csv` | 2 | `c07995012e220dfc313e888b5a4a470c037bd6638103d8087a07650688469eef` |
+| `results/selected_operator_net_strategy_gradient_certificate_p25_net_results.csv` | 30762 | `537c4c467c356165b0af8764411ba8f4f4500d28ca492f022c19883f5044b535` |
+| `results/selected_operator_net_strategy_gradient_certificate_p25_results.csv` | 2 | `65b90875839994a580fb8db675c68ab736b05dfd64fb73b722e8f2eed70ae621` |
 | `results/selected_operator_net_strategy_gradient_certificate_results.csv` | 2 | `7d6ebb69f2574c4fd69faa9382479bb0375b2e067f68a45624abd22380c1b8e2` |
 | `results/shifted_fallback_horizon_results.csv` | 400 | `39a1ed978cb7aeee1d0f8ee91b46ff812b3c54ddc58e6f0258f098152f7bed13` |
 | `results/shifted_fallback_margin_audit_results.csv` | 200 | `72f407dcc74d80a882c8fd9025b027cdc63d01d8068f98ba7e41e74499b7b91d` |
