@@ -1,0 +1,8 @@
+# Fixed-Depth Terminal-Value Margin Audit
+
+This audit tests the stronger, unsupported fixed-depth condition `G_{j,L}(z) > G_{j+1,L}(F_k z)` on shifted-tail terminal states. The scheduled certificate used in the manuscript instead checks `G_{j,L}(z) > G_{j+1,L-1}(F_k z)`, whose Bellman margin is `[Phi(z)-tau]_+`. Negative fixed-depth rows therefore do not contradict the scheduled certificate; they show why the current score/controller should not be claimed as a fixed-depth all-time value theorem. Residual-threshold sweeps test whether a looser terminal region can make this fixed-depth condition nonvacuously positive. Rows with `stage_discount < 1` test discounted future fallback values inside the same fixed-depth comparison; they are not scheduled depth-decrement certificates.
+
+| task | controller | value_depth | residual_threshold | stage_discount | terminal_weight | control_stage_weight | audit_stride | audited_steps | terminal_outside_steps | fixed_positive_fraction | fixed_positive_outside_fraction | fixed_min_outside | fixed_mean | fixed_min | scheduled_positive_outside_fraction | scheduled_min_outside | tail_phi_mean | tail_phi_min |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| H | terminal_value_shifted | 1 | 0.001 | 1 | 1 | 0 | 1 | 99 | 93 | 0.10101 | 0.107527 | -0.00121832 | -0.000458856 | -0.00121832 | 1 | 3.25313e-05 | 0.00252784 | 0.000448775 |
+| Z | terminal_value_shifted | 1 | 0.001 | 1 | 1 | 0 | 1 | 99 | 99 | 0.151515 | 0.151515 | -0.00184922 | -0.000544427 | -0.00184922 | 1 | 0.000116004 | 0.00432589 | 0.001116 |
