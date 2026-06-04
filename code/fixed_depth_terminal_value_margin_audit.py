@@ -48,6 +48,7 @@ from terminal_value_shifted_horizon import (
 class FixedDepthAuditConfig:
     value_depths: tuple[int, ...] = (1,)
     audit_stride: int = 10
+    residual_thresholds: tuple[float, ...] = ()
     stage_discounts: tuple[float, ...] = (1.0,)
     terminal_weights: tuple[float, ...] = (1.0,)
     control_stage_weights: tuple[float, ...] = (0.0,)
@@ -382,10 +383,15 @@ def audit_task_controller(
         if controller == "terminal_value_shifted"
         else margin_config.worst_weight
     )
-    residual_threshold = (
+    base_residual_threshold = (
         tv_config.residual_threshold
         if controller == "terminal_value_shifted"
         else margin_config.residual_threshold
+    )
+    residual_thresholds = (
+        audit_config.residual_thresholds
+        if audit_config.residual_thresholds
+        else (base_residual_threshold,)
     )
 
     scenarios = tuple(
@@ -433,45 +439,48 @@ def audit_task_controller(
                 f"phi={tail_phi:.6g}",
                 flush=True,
             )
-            for depth in audit_config.value_depths:
-                for stage_discount in audit_config.stage_discounts:
-                    for terminal_weight in audit_config.terminal_weights:
-                        for control_stage_weight in audit_config.control_stage_weights:
-                            record = fixed_depth_margin(
-                                p,
-                                terminal_states,
-                                strengths,
-                                controls_cache,
-                                disorder_cache,
-                                terminal_start,
-                                dt,
-                                candidates,
-                                depth,
-                                worst_weight,
-                                residual_threshold,
-                                stage_discount,
-                                terminal_weight,
-                                control_stage_weight,
-                                audit_config.batch_size,
-                            )
-                            rows.append(
-                                {
-                                    "task": task,
-                                    "controller": controller,
-                                    "step": j,
-                                    "value_depth": depth,
-                                    "stage_discount": stage_discount,
-                                    "terminal_weight": terminal_weight,
-                                    "control_stage_weight": control_stage_weight,
-                                    "audit_stride": audit_config.audit_stride,
-                                    "candidate_count": len(candidates),
-                                    "beam_width": beam_width,
-                                    "residual_threshold": residual_threshold,
-                                    "terminal_outside_residual": int(tail_phi > residual_threshold),
-                                    "tail_phi": tail_phi,
-                                    **record,
-                                }
-                            )
+            for residual_threshold in residual_thresholds:
+                for depth in audit_config.value_depths:
+                    for stage_discount in audit_config.stage_discounts:
+                        for terminal_weight in audit_config.terminal_weights:
+                            for control_stage_weight in audit_config.control_stage_weights:
+                                record = fixed_depth_margin(
+                                    p,
+                                    terminal_states,
+                                    strengths,
+                                    controls_cache,
+                                    disorder_cache,
+                                    terminal_start,
+                                    dt,
+                                    candidates,
+                                    depth,
+                                    worst_weight,
+                                    residual_threshold,
+                                    stage_discount,
+                                    terminal_weight,
+                                    control_stage_weight,
+                                    audit_config.batch_size,
+                                )
+                                rows.append(
+                                    {
+                                        "task": task,
+                                        "controller": controller,
+                                        "step": j,
+                                        "value_depth": depth,
+                                        "stage_discount": stage_discount,
+                                        "terminal_weight": terminal_weight,
+                                        "control_stage_weight": control_stage_weight,
+                                        "audit_stride": audit_config.audit_stride,
+                                        "candidate_count": len(candidates),
+                                        "beam_width": beam_width,
+                                        "residual_threshold": residual_threshold,
+                                        "terminal_outside_residual": int(
+                                            tail_phi > residual_threshold
+                                        ),
+                                        "tail_phi": tail_phi,
+                                        **record,
+                                    }
+                                )
 
         if controller == "terminal_value_shifted":
             sequence, _, selected_phi, _ = select_terminal_value_sequence(
@@ -531,6 +540,7 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
                 str(row["task"]),
                 str(row["controller"]),
                 int(row["value_depth"]),
+                float(row["residual_threshold"]),
                 float(row.get("stage_discount", 1.0)),
                 float(row["terminal_weight"]),
                 float(row["control_stage_weight"]),
@@ -538,13 +548,22 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
             for row in rows
         }
     )
-    for task, controller, depth, stage_discount, terminal_weight, control_stage_weight in keys:
+    for (
+        task,
+        controller,
+        depth,
+        residual_threshold,
+        stage_discount,
+        terminal_weight,
+        control_stage_weight,
+    ) in keys:
         group = [
             row
             for row in rows
             if str(row["task"]) == task
             and str(row["controller"]) == controller
             and int(row["value_depth"]) == depth
+            and float(row["residual_threshold"]) == residual_threshold
             and float(row.get("stage_discount", 1.0)) == stage_discount
             and float(row["terminal_weight"]) == terminal_weight
             and float(row["control_stage_weight"]) == control_stage_weight
@@ -563,6 +582,7 @@ def summarize(rows: list[dict[str, float | int | str]]) -> list[dict[str, str]]:
                 "task": task,
                 "controller": controller,
                 "value_depth": str(depth),
+                "residual_threshold": f"{residual_threshold:.6g}",
                 "stage_discount": f"{stage_discount:.6g}",
                 "terminal_weight": f"{terminal_weight:.6g}",
                 "control_stage_weight": f"{control_stage_weight:.6g}",
@@ -634,7 +654,9 @@ def write_outputs(
             "`[Phi(z)-tau]_+`. Negative fixed-depth rows therefore do not "
             "contradict the scheduled certificate; they show why the current "
             "score/controller should not be claimed as a fixed-depth all-time "
-            "value theorem. Rows with `stage_discount < 1` test discounted "
+            "value theorem. Residual-threshold sweeps test whether a looser "
+            "terminal region can make this fixed-depth condition nonvacuously "
+            "positive. Rows with `stage_discount < 1` test discounted "
             "future fallback values inside the same fixed-depth comparison; "
             "they are not scheduled depth-decrement certificates.\n\n"
         )
@@ -651,6 +673,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--stride", type=int, default=10)
     parser.add_argument("--depths", default="1")
+    parser.add_argument(
+        "--residual-thresholds",
+        default="",
+        help=(
+            "Optional comma-separated residual thresholds. "
+            "Defaults to each controller's configured threshold."
+        ),
+    )
     parser.add_argument(
         "--stage-discounts",
         default="1.0",
@@ -676,6 +706,9 @@ def main() -> None:
     audit_config = FixedDepthAuditConfig(
         value_depths=tuple(int(item) for item in args.depths.split(",") if item.strip()),
         audit_stride=args.stride,
+        residual_thresholds=tuple(
+            float(item) for item in args.residual_thresholds.split(",") if item.strip()
+        ),
         stage_discounts=tuple(
             float(item) for item in args.stage_discounts.split(",") if item.strip()
         ),
