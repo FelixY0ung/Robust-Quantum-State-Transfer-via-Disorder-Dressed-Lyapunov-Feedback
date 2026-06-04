@@ -286,6 +286,11 @@
       "sha256": "f21f8d1455bd2a08fdc5f28fadaa3d6cadad8012b07563694e3cd67d20a4db33"
     },
     {
+      "bytes": 16303,
+      "path": "code/selected_operator_net_strategy_fixed_depth_audit.py",
+      "sha256": "5cf4d0c1e02aff618ef76d3e7cc08ca646d8a545dacbf2a82ae22eec6c517663"
+    },
+    {
       "bytes": 10952,
       "path": "code/selected_operator_net_strategy_gradient_certificate.py",
       "sha256": "5659080c6eb06ddb1afc57dc94f21ef58976892459a303a7bee1011826636911"
@@ -3056,6 +3061,42 @@
       "bytes": 1723,
       "path": "results/robustness_scan_summary.md",
       "sha256": "fbd68d91178c97956e608023cf1ab2145255135333bd057d78449978bf3070b2"
+    },
+    {
+      "bytes": 4942,
+      "columns": [
+        "task",
+        "method",
+        "step",
+        "value_depth",
+        "audit_stride",
+        "score_mode",
+        "worst_weight",
+        "train_net_points",
+        "eval_net_points",
+        "eval_covering_radius_h",
+        "candidate_count",
+        "beam_width",
+        "residual_threshold",
+        "eval_outside_residual",
+        "shifted_selected_fraction",
+        "eval_phi",
+        "current_value",
+        "best_fixed_successor_value",
+        "best_fixed_depth_margin",
+        "best_fallback_index",
+        "best_fallback_norm",
+        "scheduled_stage_margin",
+        "audit_seconds"
+      ],
+      "path": "results/selected_operator_net_strategy_fixed_depth_audit_results.csv",
+      "row_count": 18,
+      "sha256": "42d0bf05853e51a69e764c80d285f6cd3c0d3dc9e7a3781b4e4cecfe38207a83"
+    },
+    {
+      "bytes": 1033,
+      "path": "results/selected_operator_net_strategy_fixed_depth_audit_summary.md",
+      "sha256": "a8d27147ad96caa11d239a0161065aa2601fad72b723a81de9cfd4e28f44b730"
     },
     {
       "bytes": 1441987,
