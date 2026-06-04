@@ -181,6 +181,11 @@
       "sha256": "517e8e104858d3a9a98dddb455e3ad80bcfaf0730e68109748a01eed3f2b9f37"
     },
     {
+      "bytes": 15075,
+      "path": "code/operator_net_terminal_value_margin_audit.py",
+      "sha256": "bd6fce051cc348d37e20b6845fff438508e0f9a06d7602404857768eb7601786"
+    },
+    {
       "bytes": 572,
       "path": "code/paths.py",
       "sha256": "5afe2793e353146a7f24d59d779cd0ea113a93c1d643e618b933a1c339747b46"
@@ -1854,6 +1859,66 @@
       "bytes": 2286,
       "path": "results/open_system_training_summary.md",
       "sha256": "4f52741536c0ca3147028803f88409b6c08cc11ea22b439909b4c3ce80fc222f"
+    },
+    {
+      "bytes": 700,
+      "columns": [
+        "task",
+        "net_points",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "shifted_available_steps",
+        "shifted_selected_steps",
+        "shifted_selected_fraction",
+        "audit_seconds",
+        "mean_infidelity",
+        "worst_infidelity",
+        "mean_worst_score",
+        "max_score",
+        "mean_fidelity",
+        "worst_fidelity"
+      ],
+      "path": "results/operator_net_terminal_value_margin_final_results.csv",
+      "row_count": 2,
+      "sha256": "f46c5be97d5ae77647a7c71bdbeb5dd77bcdea0eae1611901bb0c7fc370233ea"
+    },
+    {
+      "bytes": 104722,
+      "columns": [
+        "task",
+        "step",
+        "score_mode",
+        "value_depth",
+        "net_points",
+        "ball_radius",
+        "points_per_axis",
+        "grid_spacing",
+        "covering_radius",
+        "beam_width",
+        "shifted_tail_length",
+        "residual_threshold",
+        "terminal_outside_residual",
+        "phi",
+        "best_value_margin",
+        "state_stage_cost",
+        "bellman_gap",
+        "mean_infidelity",
+        "worst_infidelity",
+        "mean_fidelity",
+        "worst_fidelity",
+        "shifted_selected_fraction",
+        "margin_source"
+      ],
+      "path": "results/operator_net_terminal_value_margin_results.csv",
+      "row_count": 396,
+      "sha256": "f42e5519ca03f1ffe1c4a22453d7f38886e5f5401cecd40564beadb8877e57ec"
+    },
+    {
+      "bytes": 1676,
+      "path": "results/operator_net_terminal_value_margin_summary.md",
+      "sha256": "bf5554a4e44c786e76fcd33a6c0610afcf55de0512c65bfbd0c0c0927f5522ce"
     },
     {
       "bytes": 23845,

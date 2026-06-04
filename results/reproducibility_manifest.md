@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 67
+Code files hashed: 68
 
-Result artifacts hashed: 214
+Result artifacts hashed: 217
 
 ## CSV Row Counts
 
@@ -49,6 +49,8 @@ Result artifacts hashed: 214
 | `results/open_system_noise_results.csv` | 600 | `8825fb4b7f787bcb2567e1fc405a3855420b8bea3a6f888bc4a5d6132225baef` |
 | `results/open_system_standalone_adjoint_results.csv` | 800 | `f1b84aad82953ba36cc93fb978ef70dda2ff3203a76865a699556be7d6d71991` |
 | `results/open_system_training_results.csv` | 800 | `709f5ae0205a6af198361325767da553fcf2c5bddbd8ca90a8851a24df47439f` |
+| `results/operator_net_terminal_value_margin_final_results.csv` | 2 | `f46c5be97d5ae77647a7c71bdbeb5dd77bcdea0eae1611901bb0c7fc370233ea` |
+| `results/operator_net_terminal_value_margin_results.csv` | 396 | `f42e5519ca03f1ffe1c4a22453d7f38886e5f5401cecd40564beadb8877e57ec` |
 | `results/polished_openloop_results.csv` | 200 | `4fb7f31cb2689ca50784d9f36b87eff3cea115871bd972bacafc0e059b53bdb1` |
 | `results/process_adjoint_horizon_results.csv` | 200 | `c1c9da3fc79c7650b7975f265e4d0032b2efdf9362a09b655fc66e279a90806f` |
 | `results/process_dcrab_baseline_results.csv` | 100 | `cf1833e164e67d2a1d7cf070d0b5ee6c2648758416282f97a5ff20a0925e432e` |
