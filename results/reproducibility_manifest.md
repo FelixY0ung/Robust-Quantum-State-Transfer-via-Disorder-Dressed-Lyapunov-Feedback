@@ -2,9 +2,9 @@
 
 Schema: `disorder-dressed-reproducibility-manifest-v1`
 
-Code files hashed: 69
+Code files hashed: 70
 
-Result artifacts hashed: 219
+Result artifacts hashed: 221
 
 ## CSV Row Counts
 
@@ -49,6 +49,7 @@ Result artifacts hashed: 219
 | `results/open_system_noise_results.csv` | 600 | `8825fb4b7f787bcb2567e1fc405a3855420b8bea3a6f888bc4a5d6132225baef` |
 | `results/open_system_standalone_adjoint_results.csv` | 800 | `f1b84aad82953ba36cc93fb978ef70dda2ff3203a76865a699556be7d6d71991` |
 | `results/open_system_training_results.csv` | 800 | `709f5ae0205a6af198361325767da553fcf2c5bddbd8ca90a8851a24df47439f` |
+| `results/operator_net_gradient_certificate_results.csv` | 2 | `d4fc7a01d7e3835fa05388b601210fcfc03261f5ef2855c0d5b74692c4a940d7` |
 | `results/operator_net_local_sensitivity_results.csv` | 2 | `7eb0ba690e7c2557d69d28d5149cc1b2a83219249e8d4f6e96323213ee25fc7f` |
 | `results/operator_net_terminal_value_margin_final_results.csv` | 2 | `f46c5be97d5ae77647a7c71bdbeb5dd77bcdea0eae1611901bb0c7fc370233ea` |
 | `results/operator_net_terminal_value_margin_results.csv` | 396 | `f42e5519ca03f1ffe1c4a22453d7f38886e5f5401cecd40564beadb8877e57ec` |

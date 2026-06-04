@@ -181,6 +181,11 @@
       "sha256": "517e8e104858d3a9a98dddb455e3ad80bcfaf0730e68109748a01eed3f2b9f37"
     },
     {
+      "bytes": 12005,
+      "path": "code/operator_net_gradient_certificate_audit.py",
+      "sha256": "79786cae67d9b2fe1e680b5f6ef2f533795753c54b9058adab6e139e21c1ab82"
+    },
+    {
       "bytes": 10679,
       "path": "code/operator_net_local_sensitivity_audit.py",
       "sha256": "bc37461f2941588521aab0859ea379d0098d0b91d9af622a6393a87681d63b4a"
@@ -1864,6 +1869,42 @@
       "bytes": 2286,
       "path": "results/open_system_training_summary.md",
       "sha256": "4f52741536c0ca3147028803f88409b6c08cc11ea22b439909b4c3ce80fc222f"
+    },
+    {
+      "bytes": 838,
+      "columns": [
+        "task",
+        "method",
+        "net_points",
+        "ball_radius",
+        "points_per_axis",
+        "covering_radius_h",
+        "worst_net_fidelity",
+        "mean_net_fidelity",
+        "worst_net_infidelity",
+        "gradient_norm_mean",
+        "gradient_norm_p95",
+        "gradient_norm_p99",
+        "gradient_norm_max",
+        "hessian_bound_4T2",
+        "gradient_net_lipschitz_bound",
+        "gradient_net_h_penalty",
+        "gradient_net_continuous_infidelity_bound",
+        "gradient_net_continuous_fidelity_lower_bound",
+        "analytic_lipschitz_2T",
+        "analytic_h_penalty",
+        "analytic_continuous_fidelity_lower_bound",
+        "pulse_energy",
+        "design_seconds"
+      ],
+      "path": "results/operator_net_gradient_certificate_results.csv",
+      "row_count": 2,
+      "sha256": "d4fc7a01d7e3835fa05388b601210fcfc03261f5ef2855c0d5b74692c4a940d7"
+    },
+    {
+      "bytes": 1415,
+      "path": "results/operator_net_gradient_certificate_summary.md",
+      "sha256": "b968c32f358f01358198e92d24ead016aabf2e6d3f70ec75c70d11d40ad53ecb"
     },
     {
       "bytes": 1638,
